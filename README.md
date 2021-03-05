@@ -36,8 +36,8 @@ Aceasta aplicatie este destinata pentru orice iubitor de plante care vrea sa aib
 
 ## 4.Colectarea cerințelor
 
-   * Metode directe
-      https://forms.gle/8vfVHQBZgYVEoV9v5
+   * Metode directe:
+    - https://forms.gle/8vfVHQBZgYVEoV9v5
       
    * Metode indirecte
    
