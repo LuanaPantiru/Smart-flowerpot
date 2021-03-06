@@ -58,6 +58,12 @@ Aceasta aplicatie este destinata pentru orice iubitor de plante care vrea sa aib
   * Nutrientii din sol -> se va semnala cand este nevoie de ingrasamant 
   * Sistem audio care pune muzica pentru stimularea cresterii
   * Sistem de inregistrare a vocii proprietarului pentru a fi pornita atunci cand nu este nimeni acasa pentru a nu se simti singura planta
+  * Un ghid de ingrijire al plantei in functie de specificul acesteia si de mediul in care va creste.
+  * Camera inteligenta pentru detectarea diferitelor boli
+  * Un sistem care curata frunzele daca au praf
+  * Un sistem care ne notifica atunci cand ghiveciul trebuie schimbat
+  * Ghiveciul sa aiba diferite nuante de fundal pentru a se putea asorta cu planta si sa ii cante atunci cand este ofilită
+  * Sa ne dea informatii de tipul "Stiati ca?"
 
 ## 6.Prioritizarea cerințelor
 Pentru prioritizarea cerințelor se va folosi Analiza Pareto aplicată pe impact și efort => Lista prioritizată a cerințelor => Lista cerințelor care urmează să fie implementate în cadrul proiectului
