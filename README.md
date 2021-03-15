@@ -66,8 +66,16 @@ Aceasta aplicatie este destinata pentru orice iubitor de plante care vrea sa aib
   * Sa ne dea informatii de tipul "Stiati ca?"
 
 ## 6.Prioritizarea cerințelor
-Pentru prioritizarea cerințelor se va folosi Analiza Pareto aplicată pe impact și efort => Lista prioritizată a cerințelor => Lista cerințelor care urmează să fie implementate în cadrul proiectului
-Dintre cerințele de la pct. 5, va trebui să vă alegeți pe care dintre acestea le veți implementa. Pentru a face această decizie va trebui justificată cu o Analiză Pareto. Asta presupune că fiecărei cerințe îi veți asocia un scor pe scara dificultății de implementare și un scor pe scara de valoare pe care îndeplinirea cerinței îl va aduce produsului final. Aceste două axe pot fi puse pe o axă de coordonate, iar ordinea cerințelor voastre va fi dată de cele care au un raport cât mai bun în sensul ușurinței de dezvoltare, și valorii aduse aplicației. Mai e cunoscut și ca raportul 80/20, pentru că cele mai bune cerințe, aduc ~80/100 pe scara valorii aduse, și ~20/100 ]n privința costului de implementare.
+Toti membrii echipei au dat o nota de la 1 la 100 fiecarui feature, atat pentru efectul produs, cat si pentru usurinta de implementare.
+Datele au fost colectate intr-un tabel si, utilizand Analiza Pareto(80% efect, 20% efort), s-a dedus urmatoarea prioritizare a cerintelor:
+
+1. Determinarea umiditatii din sol
+2. Indicarea cantitatii necesare de apa, daca umiditatea solului scade sub pragul critic
+3. Monitorizarea cantitatii de lumina primita si implementarea unor alerte in conformitate cu nevoile plantei
+4. Implementarea unei alerte daca temperatura ambientala nu este potrivita
+5. Un sistem de analiza a nutrientior din sol
+6. Adaugarea unei rubrici de tipul "Stiati ca?" pentru pasionatii de gradinarit
+7. Determinarea Ph-ului solului si a valorilor corespunzatoare speciei
 
 ## 7.Specificații de analiză
 Se vor specifica cerințele din lista redusă sub formă de user stories.
