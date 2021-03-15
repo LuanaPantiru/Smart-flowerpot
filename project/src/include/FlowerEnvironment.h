@@ -3,6 +3,8 @@
 
 #include <utility>
 #include <string>
+#include <nlohmann/json.hpp>
+#include <thread>
 
 using namespace std;
 
@@ -30,6 +32,9 @@ class FlowerEnvironment {
         pair <float,float> humidity;
         pair <float,float> light;
 
+        //thread
+        std::thread monitorThread;
+
     public:
         static FlowerEnvironment *getInstance();
 
@@ -42,7 +47,10 @@ class FlowerEnvironment {
         *  Here app will monitor flower health and is for the following feature:
         *     "Monitoring certain living conditions of the plant and draw a conclusion (is withered / not withered)"
         * */
-        void startHealthMonitor() const;
+        void startMonitorLoop();
+        void checkHealth() const;
+        [[nodiscard]] nlohmann::json exportConfigurationToJson() const;
+
 
         // setters
         void setEnvironmentIsSet(bool isSet);
@@ -51,6 +59,8 @@ class FlowerEnvironment {
 
         // getters
         [[nodiscard]] const pair<float, float> &getHumidity() const;
+        [[nodiscard]] const string &getName() const;
+        [[nodiscard]] const pair<float, float> &getTemperature() const;
 };
 
 

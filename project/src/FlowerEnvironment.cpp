@@ -2,6 +2,9 @@
 #include "include/AppHardwareHandler.h"
 #include "include/NotificationCenter.h"
 #include <unistd.h>
+#include <thread>
+#include <iostream>
+#include <fstream>
 
 FlowerEnvironment *FlowerEnvironment::instance = nullptr;
 
@@ -40,21 +43,60 @@ const pair<float, float> &FlowerEnvironment::getHumidity() const {
     return humidity;
 }
 
-void FlowerEnvironment::startHealthMonitor() const {
-    while (environmentIsSet){
+const string &FlowerEnvironment::getName() const {
+    return name;
+}
 
-        float currentHumidity = AppHardwareHandler::getInstance()->getTemperatureSensor();
-        if(FlowerEnvironment::getInstance()->isGoodTemperature(currentHumidity)){
-            string message = "Value for humidity [" + to_string(currentHumidity) + "] in not in interval [" +
-                             to_string(FlowerEnvironment::getInstance()->getHumidity().first) + " , " +
-                             to_string(FlowerEnvironment::getInstance()->getHumidity().second) + "]";
+const pair<float, float> &FlowerEnvironment::getTemperature() const {
+    return temperature;
+}
 
-            NotificationCenter::getInstance()->addHealthMonitorNotification(
-                    make_tuple("Not good humidity", message, NotificationCenter::getCurrentTime()));
+nlohmann::json FlowerEnvironment::exportConfigurationToJson() const {
+    nlohmann::json export_json;
+    export_json["name"] = name;
+    export_json["temperature"]["min"] = temperature.first;
+    export_json["temperature"]["max"] = temperature.second;
+    export_json["environmentIsSet"] = environmentIsSet;
+
+    return export_json;
+}
+
+
+
+void FlowerEnvironment::startMonitorLoop() {
+
+    //TODO: Curata cod-ul
+
+    auto f = []() {
+        ofstream file("output/monitor_logs.txt");
+        file<<"INCEPUT!";
+        file.flush();
+
+        while (FlowerEnvironment::getInstance()->environmentIsSet){
+
+            if(file.is_open())
+            {
+                file<<"thread!\n";
+                file.flush();
+            }
+//            FlowerEnvironment::getInstance()->checkHealth();
+            // sleep for 5 sec
+            std::this_thread::sleep_for (std::chrono::seconds(5));
         }
+    };
 
-        // sleep for 5 sec
-        usleep(5000);
+    monitorThread = std::thread(f);
+}
+
+void FlowerEnvironment::checkHealth() const {
+    float currentHumidity = AppHardwareHandler::getInstance()->getTemperatureSensor();
+    if(FlowerEnvironment::getInstance()->isGoodTemperature(currentHumidity)) {
+        string message = "Value for humidity [" + to_string(currentHumidity) + "] in not in interval [" +
+                         to_string(FlowerEnvironment::getInstance()->getHumidity().first) + " , " +
+                         to_string(FlowerEnvironment::getInstance()->getHumidity().second) + "]";
+
+        NotificationCenter::getInstance()->addHealthMonitorNotification(
+                make_tuple("Not good humidity", message, NotificationCenter::getCurrentTime()));
     }
 }
 

@@ -1,5 +1,6 @@
 #include "include/AppHttpHandler.h"
 #include "include/FlowerEnvironment.h"
+#include <nlohmann/json.hpp>
 
 AppHttpHandler::AppHttpHandler(Address address): httpEndpoint(std::make_shared<Http::Endpoint>(address)){}
 
@@ -24,25 +25,19 @@ void AppHttpHandler::setupRoutes(){
 
 void AppHttpHandler::setFlowerEnvironment(const Rest::Request& request, Http::ResponseWriter response){
 
-    /*
-    const auto xx = request.body();
-    if (request.hasParam(":name")) {
-        FlowerEnvironment::getInstance()->setName(request.param(":name").as<std::string>());
-    }
+    using namespace nlohmann;
 
-    if (request.hasParam("name")) {
-        FlowerEnvironment::getInstance()->setName(request.param(":name").as<std::string>());
-    }
-
-    if (request.query().has("temperature")) {
-        const auto x = request.query().get("temperature");
-        int a = 2;
-    }
-
+    auto jsonReceived = json::parse(request.body());
+    FlowerEnvironment::getInstance()->setName(jsonReceived["name"]);
+    FlowerEnvironment::getInstance()->setTemperature(make_pair(
+            jsonReceived["temperature"]["min"], jsonReceived["temperature"]["max"]));
     FlowerEnvironment::getInstance()->setEnvironmentIsSet(true);
-    */
 
-    response.send(Http::Code::Ok, "Flower environment was set.\n");
+    //Pornim monitorizarea plantei
+    FlowerEnvironment::getInstance()->startMonitorLoop();
+
+    auto const json_response = FlowerEnvironment::getInstance()->exportConfigurationToJson();
+    response.send(Http::Code::Ok, to_string(json_response));
 }
 
 void AppHttpHandler::addVoiceRecord(const Rest::Request& request, Http::ResponseWriter response){
