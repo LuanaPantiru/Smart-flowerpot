@@ -78,8 +78,13 @@ Datele au fost colectate intr-un tabel si, utilizand Analiza Pareto(80% efect, 2
 7. Determinarea Ph-ului solului si a valorilor corespunzatoare speciei
 
 ## 7.Specificații de analiză
-Se vor specifica cerințele din lista redusă sub formă de user stories.
-User stories ar trebui să prezinte unul dintre feature-urile pe care voi îl veți construi, din perspectiva utilizatorului care are o cerință ce este îndeplinită de aplicația voastră. (cred că ați făcut și la MDS așa ceva). Prin acestea se va și descrie output-ul pe care utilizatorul îl va aștepta. 
+   * Ca utilizator, as dori sa pot afla umiditatea solului
+   * Ca utilizator, as dori sa stiu exact ce cantitate de apa are nevoie planta mea
+   * Ca utilizator, as dori sa cunosc cantitatea de lumina necesara plantei
+   * Ca utilizator, as dori sa fiu anuntat atunci cand temperatura ambientala poate dauna plantei
+   * Ca utilizator, as dori sa stiu daca solul este propice dezvoltarii florii mele
+   * Ca utilizator, as dori sa aflu informatii interesante din lumea plantelor
+   * Ca utilizator, as dori sa stiu daca Ph ul solului este potrivit
 
 ## 8.Contribuția echipei
 Contribuția fiecărui membru al echipei la realizarea analizei aplicației.
