@@ -77,6 +77,8 @@ Datele au fost colectate intr-un tabel si, utilizand Analiza Pareto(80% efect, 2
 6. Adaugarea unei rubrici de tipul "Stiati ca?" pentru pasionatii de gradinarit
 7. Determinarea Ph-ului solului si a valorilor corespunzatoare speciei
 
+![image](https://user-images.githubusercontent.com/24314568/111199840-c978f400-85c9-11eb-8174-71be01e82f23.png)
+
 ## 7.Specificații de analiză
    * Ca utilizator, as dori sa pot afla umiditatea solului
    * Ca utilizator, as dori sa stiu exact ce cantitate de apa are nevoie planta mea
