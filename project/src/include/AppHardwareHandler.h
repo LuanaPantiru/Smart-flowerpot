@@ -19,33 +19,33 @@ typedef tuple <unsigned short, unsigned short, unsigned short> Pixel;
  * */
 class AppHardwareHandler {
 
-private:
-    // specific for singleton class
-    AppHardwareHandler() = default;
-    static AppHardwareHandler *instance;
+    private:
+        // specific for singleton class
+        AppHardwareHandler() = default;
+        static AppHardwareHandler *instance;
 
-    float temperatureSensor{};
-    float humiditySensor{};
-    float lightSensor{};
-    float dirtSensor{};
-    Pixel lightMatrix[10][10];
+        float temperatureSensor{};
+        float humiditySensor{};
+        float lightSensor{};
+        float dirtSensor{};
+        Pixel lightMatrix[10][10];
 
-public:
-    static AppHardwareHandler *getInstance();
+    public:
+        static AppHardwareHandler *getInstance();
 
-    /** Here values for sensors must be shuffled in order to simulate new values. */
-    void loadSensorInfo();
+        /** Here values for sensors must be shuffled in order to simulate new values. */
+        void loadSensorInfo();
 
-    /** Simulate new colors for matrix light */
-    void changeLightMatrix();
+        /** Simulate new colors for matrix light */
+        void changeLightMatrix();
 
-    /** getters */
-    [[nodiscard]] float getTemperatureSensor() const {
-        return temperatureSensor;
-    }
-    [[nodiscard]] float getHumiditySensor() const {
-        return humiditySensor;
-    }
+        /** getters */
+        [[nodiscard]] float getTemperatureSensor() const {
+            return temperatureSensor;
+        }
+        [[nodiscard]] float getHumiditySensor() const {
+            return humiditySensor;
+        }
 
 };
 

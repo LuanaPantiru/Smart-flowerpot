@@ -3,7 +3,13 @@ project(smart_pot)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(smart_pot src/main.cpp src/AppHttpHandler.cpp src/include/AppHttpHandler.h src/include/app_config.h src/AppHardwareHandler.cpp src/include/AppHardwareHandler.h)
+add_executable(smart_pot
+        src/main.cpp
+        src/include/app_config.h
+        src/AppHttpHandler.cpp src/include/AppHttpHandler.h
+        src/AppHardwareHandler.cpp src/include/AppHardwareHandler.h
+        src/FlowerEnvironment.cpp src/include/FlowerEnvironment.h
+        src/NotificationCenter.cpp src/include/NotificationCenter.h)
 
 # https://stackoverflow.com/questions/52468551/include-pistache-in-c-project
 # https://stackoverflow.com/questions/28536435/how-to-link-a-static-library-to-an-executable-using-cmake/28537032#28537032
