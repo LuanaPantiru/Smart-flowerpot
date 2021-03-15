@@ -36,8 +36,19 @@ Aceasta aplicatie este destinata pentru orice iubitor de plante care vrea sa aib
 
 ## 4.Colectarea cerințelor
 
-   * Metode directe:
-    - https://forms.gle/8vfVHQBZgYVEoV9v5
+   * [Metode directe](https://forms.gle/8vfVHQBZgYVEoV9v5)
+
+Conform datelor colectate din formular, am observat urmatoarele aspecte: 
+   * 88% din respondenti au spus ca detin plante de interior
+   * 56% au afirmatat ca au timp sa le ingrijeasca
+   * 92% au declarat ca au intampinat probleme in ceea ce priveste intretinerea plantelor lor 
+   * 84% au sustinut ca plantele detinute de ei au avut de suferit din cauza unei ingrijiri necorespunzatoare
+   * 84% considera ca ar fi utila o aplicatie care sa ajute in procesul de ingrijire a unei plante 
+
+Totodata, am analizat preferintele user-ului tinta, acestia ordonandu-le in ordinea prioritatilor dupa cum urmeaza:
+![image](https://user-images.githubusercontent.com/48531779/111204525-e237d880-85ce-11eb-88bd-ee634e8114e0.png)
+
+
       
    * Metode indirecte
    
