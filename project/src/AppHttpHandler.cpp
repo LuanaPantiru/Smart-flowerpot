@@ -60,21 +60,47 @@ void AppHttpHandler::setFlowerEnvironment(const Rest::Request& request, Http::Re
 }
 
 void AppHttpHandler::getSongs(const Rest::Request &request, Http::ResponseWriter response) {
+    // if environment is not set no feature will be available
+    if(!SmartPot::getInstance()->isEnvironmentSet()){
+        response.send(Http::Code::Ok, "Pot is not configured!");
+        return;
+    }
+
     response.send(Http::Code::Ok, to_string(AppHardwareHandler::getInstance()->exportSongsToJson()));
 }
 
 void AppHttpHandler::playMusic(const Rest::Request& request, Http::ResponseWriter response){
+
+    // if environment is not set no feature will be available
+    if(!SmartPot::getInstance()->isEnvironmentSet()){
+        response.send(Http::Code::Ok, "Pot is not configured!");
+        return;
+    }
+
     auto songId = request.param(":songId").as<unsigned int>();
     SmartPot::getInstance()->playMusic(songId);
     response.send(Http::Code::Ok, "Song [" + to_string(songId) + "] started");
 }
 
 void AppHttpHandler::stopMusic(const Rest::Request &request, Http::ResponseWriter response) {
+
+    // if environment is not set no feature will be available
+    if(!SmartPot::getInstance()->isEnvironmentSet()){
+        response.send(Http::Code::Ok, "Pot is not configured!");
+        return;
+    }
+
     SmartPot::getInstance()->stopMusicPlayFeature();
     response.send(Http::Code::Ok, "Music stopped");
 }
 
 void AppHttpHandler::waterFlower(const Rest::Request& request, Http::ResponseWriter response) {
+
+    // if environment is not set no feature will be available
+    if(!SmartPot::getInstance()->isEnvironmentSet()){
+        response.send(Http::Code::Ok, "Pot is not configured!");
+        return;
+    }
 
     auto jsonReceived = nlohmann::json::parse(request.body());
     float waterQuantity = jsonReceived["quantity"];

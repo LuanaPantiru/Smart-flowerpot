@@ -392,8 +392,10 @@ void SmartPot::startMusicPlayFeature() {
     string lyrics;
 
     musicPlay.store(true);
+
     // simulate playing music by writing lyrics in a file at some time
-    while(musicPlay.load()){
+    // music will play if feature is on and if environment is set
+    while(musicPlay.load() && environmentIsSet.load()){
 
         // if a new song is played (previous song was not finished)
         if(currentSong.load() != previousSong){
@@ -462,7 +464,8 @@ bool SmartPot::isEnvironmentSet() const {
 void SmartPot::startDidYouKnowThatFeature() {
     // TODO: Must be implemented
     //  - at some regular time (one hour let say, we must output a did you know message)
-    while (runDidYouKnowThatThread.load()){
+    // runDidYouKnowThat will work if feature is on and if environment is set
+    while (runDidYouKnowThatThread.load() && environmentIsSet.load()){
 
         // make some calculations
 
