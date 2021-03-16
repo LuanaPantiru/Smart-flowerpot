@@ -1,8 +1,9 @@
 #include <iomanip>
 #include <iostream>
 #include "include/NotificationCenter.h"
+#include "include/app_config.h"
 
-NotificationCenter *NotificationCenter::instance = nullptr;
+NotificationCenter * NotificationCenter::instance = nullptr;
 
 NotificationCenter *NotificationCenter::getInstance() {
     if (!instance) {
@@ -11,8 +12,8 @@ NotificationCenter *NotificationCenter::getInstance() {
     return instance;
 }
 
-void NotificationCenter::addHealthMonitorNotification(const Notification& notification) {
-    healthMonitorNotifications.push_back(notification);
+void NotificationCenter::addNotification(const Notification& notification) {
+    notifications.push_back(notification);
 }
 
 string NotificationCenter::getCurrentTime() {
@@ -24,4 +25,27 @@ string NotificationCenter::getCurrentTime() {
     auto str = oss.str();
 
     return str;
+}
+
+void NotificationCenter::sendAlerts() {
+    //TODO: De gasit unde afisam? Eg: Display-ul ghiveciului
+
+    for(auto notification: notifications)
+    {
+        string code = get<0>(notification);
+        if(code == GENERAL_NOTIFICATION)
+        {
+            //TODO
+            continue;
+        }
+        if(code == WATER_NOTIFICATION)
+        {
+            //TODO
+            continue;
+        }
+        //TODO: ifs...
+    }
+
+    //Stergem bufferul de notificari
+    notifications.clear();
 }

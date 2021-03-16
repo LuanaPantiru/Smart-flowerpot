@@ -23,13 +23,15 @@ class NotificationCenter {
         NotificationCenter() = default;
         static NotificationCenter *instance;
 
-        vector<Notification> healthMonitorNotifications;
+        vector<Notification> notifications;
 
     public:
         static NotificationCenter *getInstance();
         static string getCurrentTime();
 
-        void addHealthMonitorNotification(const Notification& notification);
+        void addNotification(const Notification& notification);
+        void sendAlerts();
+
 };
 
 

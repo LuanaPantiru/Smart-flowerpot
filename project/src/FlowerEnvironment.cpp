@@ -38,7 +38,7 @@ void FlowerEnvironment::checkGeneralHealth() const {
 //                         to_string(FlowerEnvironment::getInstance()->getHumidity().first) + " , " +
 //                         to_string(FlowerEnvironment::getInstance()->getHumidity().second) + "]";
 //
-//        NotificationCenter::getInstance()->addHealthMonitorNotification(
+//        NotificationCenter::getInstance()->addNotification(
 //                make_tuple("Not good airHumidity", message, NotificationCenter::getCurrentTime()));
 //    }
     //TODO: De implementat
@@ -76,6 +76,10 @@ void FlowerEnvironment::startMonitorThreadFunction() const
         checkAirQuality();
         checkSoilHealth();
         checkSoilMoisture();
+
+        //Dupa toate verificarile anterioare unde s-a populat vectorul de notificari
+        //Trimitem alertele
+        NotificationCenter::getInstance()->sendAlerts();
 
         file<<"Am verificat starea la ora "<<NotificationCenter::getCurrentTime()<<endl;
 
