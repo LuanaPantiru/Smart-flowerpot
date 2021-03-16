@@ -14,6 +14,9 @@ typedef tuple <unsigned short, unsigned short, unsigned short> Pixel;
 // tuple(song name, song artist, song duration, song lyrics)
 typedef tuple<string, string, float, string> SongInfo;
 
+// (did you know name, what did you know? )
+typedef pair<string,string> DidYouKnowThat;
+
 /** how a sensor in one point look */
 typedef struct {
     float soilMoisture;
@@ -56,6 +59,9 @@ class AppHardwareHandler {
         // sd card (presume that music is on sd card)
         vector<SongInfo> sdCardMusic;
 
+        // presume that DidYouKnowThat features are taken from some server on the internet
+        vector<DidYouKnowThat> didYouKnowThatServerValues;
+
     public:
         static AppHardwareHandler *getInstance();
 
@@ -86,6 +92,9 @@ class AppHardwareHandler {
 
         [[nodiscard]] const vector<SongInfo> &getSdCardMusic() const;
         [[nodiscard]] nlohmann::json exportSongsToJson();
+
+        [[nodiscard]] const vector<DidYouKnowThat> &getDidYouKnowThatServerValues() const;
+
 };
 
 

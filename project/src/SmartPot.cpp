@@ -459,6 +459,32 @@ bool SmartPot::isEnvironmentSet() const {
     return environmentIsSet.load();
 }
 
+void SmartPot::startDidYouKnowThatFeature() {
+    // TODO: Must be implemented
+    //  - at some regular time (one hour let say, we must output a did you know message)
+    while (runDidYouKnowThatThread.load()){
+
+        // make some calculations
+
+
+        int threadSleepDuration = 5;
+        // sleep for threadSleepDuration sec
+        std::this_thread::sleep_for(std::chrono::seconds(threadSleepDuration));
+    }
+}
+
+void SmartPot::startDidYouKnowThat() {
+    // avoid to launch thread multiple times
+    if(runDidYouKnowThatThread.load()){
+        return;
+    }
+    musicThread = std::thread([]{SmartPot::getInstance()->startDidYouKnowThatFeature();});
+}
+
+void SmartPot::stopDidYouKnowThat() {
+    runDidYouKnowThatThread.store(false);
+}
+
 
 
 

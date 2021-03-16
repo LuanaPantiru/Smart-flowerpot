@@ -19,8 +19,12 @@ AppHardwareHandler::AppHardwareHandler() {
     }
 
     // populate music sd card
-    sdCardMusic.emplace_back("Song A","Artist song A",3.14,"la la la la la la la");
-    sdCardMusic.emplace_back("Song B","Artist song B",2.20,"la li lu la li la la");
+    sdCardMusic.emplace_back(make_tuple("Song A","Artist song A",3.14,"la la la la la la la"));
+    sdCardMusic.emplace_back(make_tuple("Song B","Artist song B",2.20,"la li lu la li la la"));
+
+    // populate DidYouKnowThat
+    didYouKnowThatServerValues.emplace_back(make_pair("Interesant", "Stiati ca floarea are frunze?"));
+    didYouKnowThatServerValues.emplace_back(make_pair("Si mai Interesant", "Stiati ca merele cresc in copaci?"));
 }
 
 AppHardwareHandler *AppHardwareHandler::getInstance() {
@@ -94,6 +98,10 @@ nlohmann::json AppHardwareHandler::exportSongsToJson() {
         exportJson[to_string(i)] = sdCardMusic[i];
     }
     return exportJson;
+}
+
+const vector<DidYouKnowThat> &AppHardwareHandler::getDidYouKnowThatServerValues() const {
+    return didYouKnowThatServerValues;
 }
 
 
