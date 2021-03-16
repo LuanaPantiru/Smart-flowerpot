@@ -5,6 +5,7 @@
 #include <string>
 #include <nlohmann/json.hpp>
 #include <thread>
+#include <atomic>
 
 using namespace std;
 
@@ -20,11 +21,13 @@ class SmartPot {
         SmartPot() = default;
         static SmartPot *instance;
 
-        //thread
+        // threads
+        bool environmentIsSet = false;
         std::thread monitorThread;
 
-        // this will be used to show a different display if no env is set
-        bool environmentIsSet = false;
+        bool musicPlay = false;
+        std::thread musicThread;
+        std::atomic<unsigned int> currentSong{};
 
         // flower environments values
         // tuples are for [isSet,min,max] interval
@@ -45,6 +48,8 @@ class SmartPot {
 
         /** This must be launched in a new thread and will monitor lifecycle of the flower. */
         void startMonitorThreadFunction() const;
+        /** This must be launched in a new thread and will play the music. */
+        void startMusicPlayFeature();
 
     public:
         static SmartPot *getInstance();
@@ -70,8 +75,13 @@ class SmartPot {
         * */
         [[nodiscard]] bool isGoodSoilValue(int sensorCode, vector<float>& currentSensorValues) const;
 
-        /** This will launch startMonitorThreadFunction in a new thread. */
+        /** This will launch startMonitorThreadFunction() in a new thread. */
         void startMonitorLoop();
+
+        /** This will launch startMusicPlayFeature() in a new thread. */
+        void playMusic(unsigned int songId);
+        void stopMusicPlayFeature();
+
 
         /**
          * Este pentru feature-ul de monitorizare al sanatatii plantei.
@@ -103,8 +113,11 @@ class SmartPot {
          */
         void waterFlower(float waterQuantity);
 
-        //getter
+        // getters
         [[nodiscard]] bool isEnvironmentIsSet() const;
+
+        // setter
+        void setCurrentSong(unsigned int song);
 
 };
 

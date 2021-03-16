@@ -17,6 +17,10 @@ AppHardwareHandler::AppHardwareHandler() {
         vector<Pixel> pixel(matrixDimension);
         lightMatrix.push_back(pixel);
     }
+
+    // populate music sd card
+    sdCardMusic.emplace_back("Song A","Artist song A",3.14,"la la la la la la la");
+    sdCardMusic.emplace_back("Song B","Artist song B",2.20,"la li lu la li la la");
 }
 
 AppHardwareHandler *AppHardwareHandler::getInstance() {
@@ -79,6 +83,19 @@ vector<float> AppHardwareHandler::getSoilSpecificSensorValues(int sensorCode) co
     }
     return soilMoistureSensorsValues;
 }
+
+const vector<SongInfo> &AppHardwareHandler::getSdCardMusic() const {
+    return sdCardMusic;
+}
+
+nlohmann::json AppHardwareHandler::exportSongsToJson() {
+    nlohmann::json exportJson;
+    for(int i = 0; i < sdCardMusic.size(); i++){
+        exportJson[to_string(i)] = sdCardMusic[i];
+    }
+    return exportJson;
+}
+
 
 
 

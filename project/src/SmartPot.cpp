@@ -377,6 +377,90 @@ void SmartPot::setFlowerEnvironment(nlohmann::json input) {
 }
 
 
+void SmartPot::startMusicPlayFeature() {
+
+    ofstream musicFile("output/music_play.txt");
+    if(!musicFile.is_open()){
+        // sd card problems
+        return;
+    }
+
+    musicFile << "======================\n";
+    musicFile << "Music feature started!\n";
+    musicFile << "======================\n";
+
+    unsigned int previousSong = -1;
+    string song;
+    string artist;
+    int seconds;
+    string lyrics;
+
+    musicPlay = true;
+    // simulate playing music by writing lyrics in a file at some time
+    while(musicPlay){
+
+        // if a new song is played (previous song was not finished)
+        if(currentSong.load() != previousSong){
+            if (currentSong.load() < 0 || currentSong.load() >= AppHardwareHandler::getInstance()->getSdCardMusic().size()) {
+                musicFile << "Song id [" << currentSong.load() << "] not found" << endl;
+                musicPlay = false;
+                break;
+            }
+
+            // get new current song info
+            auto songInfo = AppHardwareHandler::getInstance()->getSdCardMusic()[currentSong.load()];
+            previousSong = currentSong.load();
+            song = get<0>(songInfo);
+            artist = get<1>(songInfo);
+            seconds = (int)get<2>(songInfo) * 60;
+            lyrics = get<3>(songInfo);
+        }
+
+        musicFile << "=======================================" << endl;
+        musicFile << "Song [" << song << "] by [" << artist << "] will play for [" << seconds << "] seconds!\n";
+        musicFile << "---------------------------------------" << endl;
+        musicFile << lyrics << endl;
+
+        int threadSleepDuration = 5;
+        seconds -= threadSleepDuration;
+
+        // sleep for threadSleepDuration sec
+        std::this_thread::sleep_for(std::chrono::seconds(threadSleepDuration));
+
+        if(seconds <= 0){
+            musicPlay = false;
+            musicFile << "Song [" << song << "] finished!\n";
+            musicFile << "-------------------------" << endl;
+            break;
+        }
+    }
+
+    musicFile << "======================\n";
+    musicFile << "Music feature stopped!\n";
+    musicFile << "======================\n";
+
+    musicFile.close();
+}
+
+void SmartPot::setCurrentSong(unsigned int song) {
+    currentSong.store(song);
+}
+
+void SmartPot::stopMusicPlayFeature() {
+    musicPlay = false;
+}
+
+void SmartPot::playMusic(unsigned int songId) {
+    SmartPot::getInstance()->setCurrentSong(songId);
+    // if feature is already started return
+    if(musicPlay){
+        return;
+    }
+    musicThread = std::thread([]{SmartPot::getInstance()->startMusicPlayFeature();});
+}
+
+
+
 
 
 

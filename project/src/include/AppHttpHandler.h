@@ -24,8 +24,10 @@ class AppHttpHandler {
         void setupRoutes();
 
         void setFlowerEnvironment(const Rest::Request& request, Http::ResponseWriter response);
-        void addVoiceRecord(const Rest::Request& request, Http::ResponseWriter response);
         void waterFlower(const Rest::Request& request, Http::ResponseWriter response);
+        void getSongs(const Rest::Request& request, Http::ResponseWriter response);
+        void playMusic(const Rest::Request& request, Http::ResponseWriter response);
+        void stopMusic(const Rest::Request& request, Http::ResponseWriter response);
 };
 
 

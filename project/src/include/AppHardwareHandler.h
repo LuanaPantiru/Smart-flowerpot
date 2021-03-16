@@ -3,10 +3,16 @@
 
 #include <tuple>
 #include <vector>
+#include <string>
+#include <utility>
+#include <nlohmann/json.hpp>
 
 using namespace std;
 
 typedef tuple <unsigned short, unsigned short, unsigned short> Pixel;
+
+// tuple(song name, song artist, song duration, song lyrics)
+typedef tuple<string, string, float, string> SongInfo;
 
 /** how a sensor in one point look */
 typedef struct {
@@ -40,13 +46,15 @@ class AppHardwareHandler {
         float airTemperatureSensor{};
         float airHumiditySensor{};
         float lightIntensitySensor{};
-
         // presume that are some sensors around the pot which will check soil parameters in multiple points
         // will be a 5 x 5 matrix (populated in constructor)
         vector<vector<SoilSensor>> soilSensorsMatrix;
 
         // will be a 5 x 5 matrix (populated in constructor)
         vector<vector<Pixel>> lightMatrix;
+
+        // sd card (presume that music is on sd card)
+        vector<SongInfo> sdCardMusic;
 
     public:
         static AppHardwareHandler *getInstance();
@@ -76,6 +84,8 @@ class AppHardwareHandler {
          * */
         [[nodiscard]] vector<float> getSoilSpecificSensorValues(int sensorCode) const;
 
+        [[nodiscard]] const vector<SongInfo> &getSdCardMusic() const;
+        [[nodiscard]] nlohmann::json exportSongsToJson();
 };
 
 
