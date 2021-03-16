@@ -32,4 +32,10 @@ using namespace std;
 #define SOIL_Mg_SENSOR 6
 #define SOIL_Fe_SENSOR 7
 
+
+// file paths
+#define FILE_PATH_FOR_NOTIFICATION_CENTER_LOGS "output/notification_center_logs.txt"
+#define FILE_PATH_FOR_MONITOR_LOGS "output/monitor_logs.txt"
+#define FILE_PATH_FOR_MUSIC_PLAY "output/music_play.txt"
+
 #endif //SMART_POD_APP_CONFIG_H

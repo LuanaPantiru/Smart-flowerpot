@@ -2,6 +2,12 @@
 #include "include/app_config.h"
 #include "include/AppHttpHandler.h"
 
+// TODO: IMPORTANT .
+//    At final, when binary will be released check if program will output infos correctly in the output files,
+//     because in CLion a current directory must be set.
+
+
+
 // TODO: check input arguments like server address, port or thread number
 //  (first argument I think is always the program name)
 int main(int argc, char *argv[]) {

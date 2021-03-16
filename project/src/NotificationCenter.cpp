@@ -72,7 +72,7 @@ void NotificationCenter::sendAlerts() {
 }
 
 void NotificationCenter::printNotifications() {
-    ofstream logFile("output/notification_center_logs.txt");
+    ofstream logFile(FILE_PATH_FOR_NOTIFICATION_CENTER_LOGS);
     if(!logFile.is_open()){
         return;
     }

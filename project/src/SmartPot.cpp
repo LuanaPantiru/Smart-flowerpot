@@ -242,7 +242,7 @@ void SmartPot::waterFlower(float waterQuantity) {
 }
 
 void SmartPot::startMonitorThreadFunction() const {
-    ofstream file("output/monitor_logs.txt");
+    ofstream file(FILE_PATH_FOR_MONITOR_LOGS);
     if(!file.is_open()) return;
     file << "A inceput procesul de monitorizare!" << endl;
 
@@ -375,7 +375,7 @@ void SmartPot::setFlowerEnvironment(nlohmann::json input) {
 
 void SmartPot::startMusicPlayFeature() {
 
-    ofstream musicFile("output/music_play.txt");
+    ofstream musicFile(FILE_PATH_FOR_MUSIC_PLAY);
     if(!musicFile.is_open()){
         // sd card problems
         return;
