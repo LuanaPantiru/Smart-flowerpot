@@ -15,10 +15,6 @@ SmartPot *SmartPot::getInstance() {
     return instance;
 }
 
-bool SmartPot::isEnvironmentIsSet() const {
-    return environmentIsSet;
-}
-
 bool SmartPot::isGoodAirTemperature(float currentAirTemperature) const {
     //Daca nu e setat intervalul, nu monitorizam. Presupunem ca rezultatul este ok.
     if (!get<0>(airTemperature)) return true;
@@ -250,7 +246,7 @@ void SmartPot::startMonitorThreadFunction() const {
     if(!file.is_open()) return;
     file << "A inceput procesul de monitorizare!" << endl;
 
-    while (environmentIsSet){
+    while (environmentIsSet.load()){
 
         //Generare valori pentru senzori
         AppHardwareHandler::getInstance()->loadSensorInfo();
@@ -324,7 +320,7 @@ nlohmann::json SmartPot::exportConfigurationToJson() {
     export_json["flower_health"]["soil"]["Fe"]["min"] = get<1>(soilFe);
     export_json["flower_health"]["soil"]["Fe"]["max"] = get<2>(soilFe);
 
-    export_json["environmentIsSet"] = environmentIsSet;
+    export_json["environmentIsSet"] = environmentIsSet.load();
     return export_json;
 }
 
@@ -373,7 +369,7 @@ void SmartPot::setFlowerEnvironment(nlohmann::json input) {
     get<1>(soilFe) = input["flower_health"]["soil"]["Fe"]["min"];
     get<2>(soilFe) = input["flower_health"]["soil"]["Fe"]["max"];
 
-    environmentIsSet = true;
+    environmentIsSet.store(true);
 }
 
 
@@ -395,15 +391,15 @@ void SmartPot::startMusicPlayFeature() {
     int seconds;
     string lyrics;
 
-    musicPlay = true;
+    musicPlay.store(true);
     // simulate playing music by writing lyrics in a file at some time
-    while(musicPlay){
+    while(musicPlay.load()){
 
         // if a new song is played (previous song was not finished)
         if(currentSong.load() != previousSong){
             if (currentSong.load() < 0 || currentSong.load() >= AppHardwareHandler::getInstance()->getSdCardMusic().size()) {
                 musicFile << "Song id [" << currentSong.load() << "] not found" << endl;
-                musicPlay = false;
+                musicPlay.store(false);
                 break;
             }
 
@@ -428,7 +424,7 @@ void SmartPot::startMusicPlayFeature() {
         std::this_thread::sleep_for(std::chrono::seconds(threadSleepDuration));
 
         if(seconds <= 0){
-            musicPlay = false;
+            musicPlay.store(false);
             musicFile << "Song [" << song << "] finished!\n";
             musicFile << "-------------------------" << endl;
             break;
@@ -447,16 +443,20 @@ void SmartPot::setCurrentSong(unsigned int song) {
 }
 
 void SmartPot::stopMusicPlayFeature() {
-    musicPlay = false;
+    musicPlay.store(false);
 }
 
 void SmartPot::playMusic(unsigned int songId) {
     SmartPot::getInstance()->setCurrentSong(songId);
     // if feature is already started return
-    if(musicPlay){
+    if(musicPlay.load()){
         return;
     }
     musicThread = std::thread([]{SmartPot::getInstance()->startMusicPlayFeature();});
+}
+
+bool SmartPot::isEnvironmentSet() const {
+    return environmentIsSet.load();
 }
 
 

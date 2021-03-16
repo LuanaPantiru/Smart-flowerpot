@@ -41,8 +41,7 @@ void AppHttpHandler::setFlowerEnvironment(const Rest::Request& request, Http::Re
     using namespace nlohmann;
 
     //Evitam lansarea mai multor thread-uri de monitorizare
-    if(SmartPot::getInstance()->isEnvironmentIsSet())
-    {
+    if(SmartPot::getInstance()->isEnvironmentSet()){
         response.send(Http::Code::Ok, "Ghiveciul este deja configurat!");
         return;
     }

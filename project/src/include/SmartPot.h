@@ -22,10 +22,10 @@ class SmartPot {
         static SmartPot *instance;
 
         // threads
-        bool environmentIsSet = false;
+        std::atomic<bool> environmentIsSet = false;
         std::thread monitorThread;
 
-        bool musicPlay = false;
+        std::atomic<bool> musicPlay = false;
         std::thread musicThread;
         std::atomic<unsigned int> currentSong{};
 
@@ -114,7 +114,7 @@ class SmartPot {
         void waterFlower(float waterQuantity);
 
         // getters
-        [[nodiscard]] bool isEnvironmentIsSet() const;
+        [[nodiscard]] bool isEnvironmentSet() const;
 
         // setter
         void setCurrentSong(unsigned int song);
