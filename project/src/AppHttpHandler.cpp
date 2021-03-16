@@ -27,15 +27,22 @@ void AppHttpHandler::setFlowerEnvironment(const Rest::Request& request, Http::Re
 
     using namespace nlohmann;
 
+    //Evitam lansarea mai multor thread-uri de monitorizare
+    if(FlowerEnvironment::getInstance()->isEnvironmentIsSet())
+    {
+        response.send(Http::Code::Ok, "Ghiveciul este deja configurat!");
+        return;
+    }
+
     auto jsonReceived = json::parse(request.body());
-    FlowerEnvironment::getInstance()->setName(jsonReceived["name"]);
-    FlowerEnvironment::getInstance()->setTemperature(make_pair(
-            jsonReceived["temperature"]["min"], jsonReceived["temperature"]["max"]));
-    FlowerEnvironment::getInstance()->setEnvironmentIsSet(true);
+
+    //Citim inputul de configurare
+    FlowerEnvironment::getInstance()->parseEnvironmentInputSet(jsonReceived);
 
     //Pornim monitorizarea plantei
     FlowerEnvironment::getInstance()->startMonitorLoop();
 
+    //Intoarcem configuratia citita ca raspuns
     auto const json_response = FlowerEnvironment::getInstance()->exportConfigurationToJson();
     response.send(Http::Code::Ok, to_string(json_response));
 }

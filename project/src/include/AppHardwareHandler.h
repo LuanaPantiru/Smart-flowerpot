@@ -36,7 +36,7 @@ class AppHardwareHandler {
         /** Here values for sensors must be shuffled in order to simulate new values. */
         void loadSensorInfo();
 
-        /** Simulate new colors for matrix light */
+        /** Simulate new colors for matrix lightIntensity */
         void changeLightMatrix();
 
         /** getters */

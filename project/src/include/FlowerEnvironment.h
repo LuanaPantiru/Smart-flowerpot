@@ -21,24 +21,33 @@ class FlowerEnvironment {
         FlowerEnvironment() = default;
         static FlowerEnvironment *instance;
 
-        // this will be used to show a different display if no env is set
-        bool environmentIsSet = false;
-
-        string name;
-        string type;
-
-        // pairs for [min,max] interval
-        pair <float,float> temperature;
-        pair <float,float> humidity;
-        pair <float,float> light;
-
         //thread
         std::thread monitorThread;
 
-    public:
+        // this will be used to show a different display if no env is set
+        bool environmentIsSet = false;
+
+        // De aici in jos se pun valorile din json pt input
+        string name;
+        string species;
+
+        // tuple for [isSet,min,max] interval
+        tuple <bool,float,float> temperature;
+        tuple <bool,float,float> airHumidity;
+        tuple <bool,float,float> lightIntensity;
+        tuple <bool,float,float> soilMoisture;
+        tuple <bool,float,float> soilPh;
+        tuple <bool,float,float> soilN;
+        tuple <bool,float,float> soilK;
+        tuple <bool,float,float> soilS;
+        tuple <bool,float,float> soilMg;
+        tuple <bool,float,float> soilFe;
+
+        //
+public:
         static FlowerEnvironment *getInstance();
 
-        void showEnvironment();
+        void parseEnvironmentInputSet(nlohmann::json input);
         [[nodiscard]] bool isGoodTemperature(float currentTemperature) const;
         [[nodiscard]] bool isGoodHumidity(float currentHumidity) const;
 
@@ -51,16 +60,8 @@ class FlowerEnvironment {
         void checkHealth() const;
         [[nodiscard]] nlohmann::json exportConfigurationToJson() const;
 
-
-        // setters
-        void setEnvironmentIsSet(bool isSet);
-        void setName(const string &newName);
-        void setTemperature(const pair<float, float> &newTemperature);
-
-        // getters
-        [[nodiscard]] const pair<float, float> &getHumidity() const;
-        [[nodiscard]] const string &getName() const;
-        [[nodiscard]] const pair<float, float> &getTemperature() const;
+        //getter
+        [[nodiscard]] bool isEnvironmentIsSet() const;
 };
 
 
