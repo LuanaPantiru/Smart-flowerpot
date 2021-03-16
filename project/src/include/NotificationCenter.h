@@ -5,11 +5,12 @@
 #include <string>
 #include <chrono>
 #include <tuple>
+#include <iomanip>
 
 using namespace std;
 
 // (notification type, notification message, time when the notification was sent)
-typedef tuple<string,string,time_t> Notification;
+typedef tuple<string,string,string> Notification;
 
 /**
  * This class will be singleton.
@@ -26,7 +27,7 @@ class NotificationCenter {
 
     public:
         static NotificationCenter *getInstance();
-        static std::time_t getCurrentTime();
+        static string getCurrentTime();
 
         void addHealthMonitorNotification(const Notification& notification);
 };

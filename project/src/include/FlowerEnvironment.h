@@ -56,12 +56,45 @@ public:
         *  Here app will monitor flower health and is for the following feature:
         *     "Monitoring certain living conditions of the plant and draw a conclusion (is withered / not withered)"
         * */
+        void startMonitorThreadFunction() const;
         void startMonitorLoop();
-        void checkHealth() const;
+
+        /**
+         * Este pentru feature-ul de monitorizare al sanatatii plantei.
+         * Este ofilita/Nu este ofilita
+         */
+        void checkGeneralHealth() const;
+
+        /**
+         * Este pentru verificarea solului
+         * Are/Nu are nevoie de apa
+         */
+        void checkSoilMoisture() const;
+
+        /**
+         * Este pentru verificarea starii stolului
+         * Verifica daca solul are nevoie de nutrienti
+         */
+        void checkSoilHealth() const;
+
+        /**
+         * Este pentru verificarea starii calitatii aerului
+         * Verifica daca caracteristicile aerului sunt bune
+         */
+        void checkAirQuality() const;
+
+        /**
+         * Folosita pentru a simula actiunea care se intampla dupa ce floarea este udata
+         * Se ajusteaza parametrii: umiditatea solului etc..
+         */
+        void waterFlower(float waterQuantity);
+
         [[nodiscard]] nlohmann::json exportConfigurationToJson() const;
 
         //getter
         [[nodiscard]] bool isEnvironmentIsSet() const;
+
+
 };
 
 

@@ -25,6 +25,7 @@ class AppHttpHandler {
 
         void setFlowerEnvironment(const Rest::Request& request, Http::ResponseWriter response);
         void addVoiceRecord(const Rest::Request& request, Http::ResponseWriter response);
+        void waterFlower(const Rest::Request& request, Http::ResponseWriter response);
 };
 
 

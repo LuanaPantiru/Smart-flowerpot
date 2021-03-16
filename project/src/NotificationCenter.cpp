@@ -1,3 +1,5 @@
+#include <iomanip>
+#include <iostream>
 #include "include/NotificationCenter.h"
 
 NotificationCenter *NotificationCenter::instance = nullptr;
@@ -13,6 +15,13 @@ void NotificationCenter::addHealthMonitorNotification(const Notification& notifi
     healthMonitorNotifications.push_back(notification);
 }
 
-std::time_t NotificationCenter::getCurrentTime() {
-    return std::chrono::system_clock::to_time_t(chrono::system_clock::now());
+string NotificationCenter::getCurrentTime() {
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
+    auto str = oss.str();
+
+    return str;
 }

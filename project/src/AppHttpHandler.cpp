@@ -21,6 +21,8 @@ void AppHttpHandler::setupRoutes(){
                  Routes::bind(&AppHttpHandler::setFlowerEnvironment, this));
     Routes::Post(router, "/api/addVoiceRecord",
                  Routes::bind(&AppHttpHandler::addVoiceRecord, this));
+    Routes::Post(router, "/api/waterFlower",
+                 Routes::bind(&AppHttpHandler::waterFlower, this));
 }
 
 void AppHttpHandler::setFlowerEnvironment(const Rest::Request& request, Http::ResponseWriter response){
@@ -49,4 +51,13 @@ void AppHttpHandler::setFlowerEnvironment(const Rest::Request& request, Http::Re
 
 void AppHttpHandler::addVoiceRecord(const Rest::Request& request, Http::ResponseWriter response){
     response.send(Http::Code::Ok, "Record was added.\n");
+}
+
+void AppHttpHandler::waterFlower(const Rest::Request& request, Http::ResponseWriter response) {
+
+    auto jsonReceived = nlohmann::json::parse(request.body());
+    float waterQuantity = jsonReceived["quantity"];
+    FlowerEnvironment::getInstance()->waterFlower(waterQuantity);
+
+    response.send(Http::Code::Ok, "Flower was watered!");
 }

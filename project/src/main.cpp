@@ -1,6 +1,8 @@
+#include <iomanip>
 #include "include/app_config.h"
 #include "include/AppHttpHandler.h"
 #include "nlohmann/json.hpp"
+#include "include/NotificationCenter.h"
 
 // TODO: check input arguments like server address, port or thread number
 //  (first argument I think is always the program name)

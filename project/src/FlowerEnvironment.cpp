@@ -15,6 +15,10 @@ FlowerEnvironment *FlowerEnvironment::getInstance() {
     return instance;
 }
 
+bool FlowerEnvironment::isEnvironmentIsSet() const {
+    return environmentIsSet;
+}
+
 bool FlowerEnvironment::isGoodTemperature(float currentTemperature) const {
     //Daca nu e setat intervalul, nu monitorizam. Presupunem ca rezultatul este ok.
     if (!get<0>(temperature)) return true;
@@ -25,6 +29,63 @@ bool FlowerEnvironment::isGoodHumidity(float currentHumidity) const {
     //Daca nu e setat intervalul, nu monitorizam. Presupunem ca rezultatul este ok.
     if (!get<0>(airHumidity)) return true;
     return get<1>(airHumidity) <= currentHumidity && currentHumidity <= get<2>(airHumidity);
+}
+
+void FlowerEnvironment::checkGeneralHealth() const {
+//    float currentHumidity = AppHardwareHandler::getInstance()->getTemperatureSensor();
+//    if(FlowerEnvironment::getInstance()->isGoodTemperature(currentHumidity)) {
+//        string message = "Value for airHumidity [" + to_string(currentHumidity) + "] in not in interval [" +
+//                         to_string(FlowerEnvironment::getInstance()->getHumidity().first) + " , " +
+//                         to_string(FlowerEnvironment::getInstance()->getHumidity().second) + "]";
+//
+//        NotificationCenter::getInstance()->addHealthMonitorNotification(
+//                make_tuple("Not good airHumidity", message, NotificationCenter::getCurrentTime()));
+//    }
+    //TODO: De implementat
+}
+
+void FlowerEnvironment::checkSoilMoisture() const {
+    //TODO: De implementat
+}
+
+void FlowerEnvironment::checkSoilHealth() const {
+    //TODO: De implementat
+}
+
+void FlowerEnvironment::checkAirQuality() const {
+    //TODO: De implementat
+}
+
+void FlowerEnvironment::waterFlower(float waterQuantity) {
+    //TODO: De implementat!
+}
+
+
+void FlowerEnvironment::startMonitorThreadFunction() const
+{
+    ofstream file("output/monitor_logs.txt");
+    if(!file.is_open()) return;
+    file<<"A inceput procesul de monitorizare!"<<endl;
+
+    while (environmentIsSet){
+
+        //Generare valori pentru senzori
+        AppHardwareHandler::getInstance()->loadSensorInfo();
+
+        checkGeneralHealth();
+        checkAirQuality();
+        checkSoilHealth();
+        checkSoilMoisture();
+
+        file<<"Am verificat starea la ora "<<NotificationCenter::getCurrentTime()<<endl;
+
+        // sleep for 5 sec
+        std::this_thread::sleep_for(std::chrono::seconds(5));
+    }
+}
+
+void FlowerEnvironment::startMonitorLoop() {
+    monitorThread = std::thread([]{FlowerEnvironment::getInstance()->startMonitorThreadFunction();});
 }
 
 nlohmann::json FlowerEnvironment::exportConfigurationToJson() const {
@@ -77,45 +138,6 @@ nlohmann::json FlowerEnvironment::exportConfigurationToJson() const {
     return export_json;
 }
 
-
-
-void FlowerEnvironment::startMonitorLoop() {
-
-    //TODO: Curata cod-ul
-
-    auto f = []() {
-        ofstream file("output/monitor_logs.txt");
-        file<<"INCEPUT!";
-        file.flush();
-
-        while (FlowerEnvironment::getInstance()->environmentIsSet){
-
-            if(file.is_open())
-            {
-                file<<"thread!\n";
-                file.flush();
-            }
-//            FlowerEnvironment::getInstance()->checkHealth();
-            // sleep for 5 sec
-            std::this_thread::sleep_for (std::chrono::seconds(5));
-        }
-    };
-
-    monitorThread = std::thread(f);
-}
-
-void FlowerEnvironment::checkHealth() const {
-//    float currentHumidity = AppHardwareHandler::getInstance()->getTemperatureSensor();
-//    if(FlowerEnvironment::getInstance()->isGoodTemperature(currentHumidity)) {
-//        string message = "Value for airHumidity [" + to_string(currentHumidity) + "] in not in interval [" +
-//                         to_string(FlowerEnvironment::getInstance()->getHumidity().first) + " , " +
-//                         to_string(FlowerEnvironment::getInstance()->getHumidity().second) + "]";
-//
-//        NotificationCenter::getInstance()->addHealthMonitorNotification(
-//                make_tuple("Not good airHumidity", message, NotificationCenter::getCurrentTime()));
-//    }
-}
-
 void FlowerEnvironment::parseEnvironmentInputSet(nlohmann::json jsonReceived) {
 
     name = jsonReceived["flower_info"]["name"];
@@ -164,9 +186,8 @@ void FlowerEnvironment::parseEnvironmentInputSet(nlohmann::json jsonReceived) {
     environmentIsSet = true;
 }
 
-bool FlowerEnvironment::isEnvironmentIsSet() const {
-    return environmentIsSet;
-}
+
+
 
 
 
