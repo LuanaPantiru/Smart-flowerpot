@@ -11,15 +11,14 @@ using namespace std;
 /**
  * This class will be singleton.
  *
- * It will be initialized only once by the user and will contain information about the
- * environment in which the flower should be cared for.
+ * Is the class for smart pot application.
  * */
-class FlowerEnvironment {
+class SmartPot {
 
     private:
         // specific for singleton class
-        FlowerEnvironment() = default;
-        static FlowerEnvironment *instance;
+        SmartPot() = default;
+        static SmartPot *instance;
 
         //thread
         std::thread monitorThread;
@@ -27,12 +26,11 @@ class FlowerEnvironment {
         // this will be used to show a different display if no env is set
         bool environmentIsSet = false;
 
-        // De aici in jos se pun valorile din json pt input
-        string name;
-        string species;
-
-        // tuple for [isSet,min,max] interval
-        tuple <bool,float,float> temperature;
+        // flower environments values
+        // tuples are for [isSet,min,max] interval
+        string flowerName;
+        string flowerSpecies;
+        tuple <bool,float,float> airTemperature;
         tuple <bool,float,float> airHumidity;
         tuple <bool,float,float> lightIntensity;
         tuple <bool,float,float> soilMoisture;
@@ -43,20 +41,36 @@ class FlowerEnvironment {
         tuple <bool,float,float> soilMg;
         tuple <bool,float,float> soilFe;
 
-        //
-public:
-        static FlowerEnvironment *getInstance();
+        static float calculateAverage(const vector<float>& sensorValues);
 
-        void parseEnvironmentInputSet(nlohmann::json input);
-        [[nodiscard]] bool isGoodTemperature(float currentTemperature) const;
-        [[nodiscard]] bool isGoodHumidity(float currentHumidity) const;
-
-        /** This must be launched in a new thread
-        *
-        *  Here app will monitor flower health and is for the following feature:
-        *     "Monitoring certain living conditions of the plant and draw a conclusion (is withered / not withered)"
-        * */
+        /** This must be launched in a new thread and will monitor lifecycle of the flower. */
         void startMonitorThreadFunction() const;
+
+    public:
+        static SmartPot *getInstance();
+
+        void setFlowerEnvironment(nlohmann::json input);
+        [[nodiscard]] nlohmann::json exportConfigurationToJson();
+
+        [[nodiscard]] bool isGoodAirTemperature(float currentAirTemperature) const;
+        [[nodiscard]] bool isGoodAirHumidity(float currentAirHumidity) const;
+        [[nodiscard]] bool isGoodLightIntensity(float currentLightIntensity) const;
+
+        /**
+        * Use this in order to get check soil parameters for one specific parameter
+        *
+        * sensorCode must be one of this values:
+        *          SOIL_MOISTURE_SENSOR
+        *          SOIL_PH_SENSOR
+        *          SOIL_N_SENSOR
+        *          SOIL_K_SENSOR
+        *          SOIL_S_SENSOR
+        *          SOIL_Mg_SENSOR
+        *          SOIL_Fe_SENSOR
+        * */
+        [[nodiscard]] bool isGoodSoilValue(int sensorCode, vector<float>& currentSensorValues) const;
+
+        /** This will launch startMonitorThreadFunction in a new thread. */
         void startMonitorLoop();
 
         /**
@@ -89,11 +103,8 @@ public:
          */
         void waterFlower(float waterQuantity);
 
-        [[nodiscard]] nlohmann::json exportConfigurationToJson() const;
-
         //getter
         [[nodiscard]] bool isEnvironmentIsSet() const;
-
 
 };
 

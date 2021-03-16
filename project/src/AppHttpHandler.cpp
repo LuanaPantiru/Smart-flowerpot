@@ -1,6 +1,5 @@
 #include "include/AppHttpHandler.h"
-#include "include/FlowerEnvironment.h"
-#include <nlohmann/json.hpp>
+#include "include/SmartPot.h"
 
 AppHttpHandler::AppHttpHandler(Address address): httpEndpoint(std::make_shared<Http::Endpoint>(address)){}
 
@@ -30,7 +29,7 @@ void AppHttpHandler::setFlowerEnvironment(const Rest::Request& request, Http::Re
     using namespace nlohmann;
 
     //Evitam lansarea mai multor thread-uri de monitorizare
-    if(FlowerEnvironment::getInstance()->isEnvironmentIsSet())
+    if(SmartPot::getInstance()->isEnvironmentIsSet())
     {
         response.send(Http::Code::Ok, "Ghiveciul este deja configurat!");
         return;
@@ -39,13 +38,13 @@ void AppHttpHandler::setFlowerEnvironment(const Rest::Request& request, Http::Re
     auto jsonReceived = json::parse(request.body());
 
     //Citim inputul de configurare
-    FlowerEnvironment::getInstance()->parseEnvironmentInputSet(jsonReceived);
+    SmartPot::getInstance()->setFlowerEnvironment(jsonReceived);
 
     //Pornim monitorizarea plantei
-    FlowerEnvironment::getInstance()->startMonitorLoop();
+    SmartPot::getInstance()->startMonitorLoop();
 
     //Intoarcem configuratia citita ca raspuns
-    auto const json_response = FlowerEnvironment::getInstance()->exportConfigurationToJson();
+    auto const json_response = SmartPot::getInstance()->exportConfigurationToJson();
     response.send(Http::Code::Ok, to_string(json_response));
 }
 
@@ -57,7 +56,7 @@ void AppHttpHandler::waterFlower(const Rest::Request& request, Http::ResponseWri
 
     auto jsonReceived = nlohmann::json::parse(request.body());
     float waterQuantity = jsonReceived["quantity"];
-    FlowerEnvironment::getInstance()->waterFlower(waterQuantity);
+    SmartPot::getInstance()->waterFlower(waterQuantity);
 
     response.send(Http::Code::Ok, "Flower was watered!");
 }

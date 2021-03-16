@@ -1,5 +1,6 @@
 #include <iomanip>
 #include <iostream>
+#include <fstream>
 #include "include/NotificationCenter.h"
 #include "include/app_config.h"
 
@@ -12,8 +13,14 @@ NotificationCenter *NotificationCenter::getInstance() {
     return instance;
 }
 
-void NotificationCenter::addNotification(const Notification& notification) {
-    notifications.push_back(notification);
+void NotificationCenter::addLog(vector<Log> &logs, const string& logMessage) {
+    logs.emplace_back(make_pair(NotificationCenter::getCurrentTime(), logMessage));
+}
+
+void NotificationCenter::addNotification(const string &notificationType, const string &notificationMessage,
+                                         const vector<Log> &notificationLogs) {
+    notifications.emplace_back(make_tuple(NotificationCenter::getCurrentTime(), notificationType,
+                                          notificationMessage, notificationLogs));
 }
 
 string NotificationCenter::getCurrentTime() {
@@ -28,24 +35,68 @@ string NotificationCenter::getCurrentTime() {
 }
 
 void NotificationCenter::sendAlerts() {
-    //TODO: De gasit unde afisam? Eg: Display-ul ghiveciului
 
-    for(auto notification: notifications)
-    {
-        string code = get<0>(notification);
-        if(code == GENERAL_NOTIFICATION)
-        {
-            //TODO
+    // first print all notifications
+    printNotifications();
+
+    for(auto notification: notifications){
+
+        string notificationTime = get<0>(notification);
+        string notificationType = get<1>(notification);
+        string notificationMessage = get<2>(notification);
+
+        if(notificationType == GENERAL_HEALTH_NOTIFICATION){
+            // TODO: here should show a a smiley face on display (happy, neutral or sad)
+            //  notificationMessage will contain HAPPY, NEUTRAL or SAD
             continue;
         }
-        if(code == WATER_NOTIFICATION)
-        {
-            //TODO
+        if(notificationType == WATER_NOTIFICATION){
+            // TODO: here should show a water icon on display
             continue;
         }
-        //TODO: ifs...
+        if(notificationType == SOIL_HEALTH_NOTIFICATION){
+            // TODO: here should show a a smiley face for soil on display (happy, neutral or sad)
+            //  notificationMessage will contain HAPPY, NEUTRAL or SAD
+            continue;
+        }
+        if(notificationType == AIR_QUALITY_NOTIFICATION){
+            // TODO: here should show a a smiley face for air on display (happy, neutral or sad)
+            //  notificationMessage will contain HAPPY, NEUTRAL or SAD
+            continue;
+        }
+
     }
 
-    //Stergem bufferul de notificari
+    // after alerts are sent delete all because new alerts will be created if problems were not solved
     notifications.clear();
 }
+
+void NotificationCenter::printNotifications() {
+    ofstream logFile("output/notification_center_logs.txt");
+    if(!logFile.is_open()){
+        return;
+    }
+
+    for(const auto& notification : notifications){
+        logFile << "==================================================================\n";
+        logFile << "[" << get<0>(notification) << "] [" << get<1>(notification) << "] ["
+                << get<2>(notification) << "]\n" ;
+        logFile << "------------------------------------------------------------------\n";
+        for(const auto& log : get<3>(notification)){
+            logFile << "[" << log.first << "] " << log.second << "\n";
+        }
+        logFile << "==================================================================\n";
+    }
+
+    logFile.close();
+}
+
+
+
+
+
+
+
+
+
+

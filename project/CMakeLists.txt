@@ -8,7 +8,7 @@ add_executable(smart_pot
         src/include/app_config.h
         src/AppHttpHandler.cpp src/include/AppHttpHandler.h
         src/AppHardwareHandler.cpp src/include/AppHardwareHandler.h
-        src/FlowerEnvironment.cpp src/include/FlowerEnvironment.h
+        src/SmartPot.cpp src/include/SmartPot.h
         src/NotificationCenter.cpp src/include/NotificationCenter.h)
 
 # Se instaleaza libraria Pistache si se link-eaza.
