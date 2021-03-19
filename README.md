@@ -77,8 +77,37 @@ Totodata, am analizat preferintele user-ului tinta, acestia ordonandu-le in ordi
   * Sa ne dea informatii de tipul "Stiati ca?"
 
 ## 6.Prioritizarea cerințelor
+
 Toti membrii echipei au dat o nota de la 1 la 100 fiecarui feature, atat pentru efectul produs, cat si pentru usurinta de implementare.
-Datele au fost colectate intr-un tabel si, utilizand Analiza Pareto(80% efect, 20% efort), s-a dedus urmatoarea prioritizare a cerintelor:
+
+**Notarea a fost urmatoarea:**
+
+![image](https://github.com/LuanaPantiru/Smart-flowerpot/blob/main/images/clasificare_efect_cerinte.JPG)
+
+![image](https://github.com/LuanaPantiru/Smart-flowerpot/blob/main/images/clasificare_usurinta_la_implementare.JPG)
+
+**Ulterior am afisat grafic datele, rezultatul fiind acesta:**
+
+![image](https://github.com/LuanaPantiru/Smart-flowerpot/blob/main/images/grafic_analiza_pareto.JPG)
+
+Dupa acest pas, conform graficului precedent cerintele care ar avea un efect >= 50 au fost:
+
+1. Determinarea umiditatii din sol
+2. Indicarea cantitatii necesare de apa, daca umiditatea solului scade sub pragul critic
+3. Monitorizarea cantitatii de lumina primita si implementarea unor alerte in conformitate cu nevoile plantei
+4. Implementarea unei alerte daca temperatura ambientala nu este potrivita
+5. Determinarea Ph-ului solului si a valorilor corespunzatoare speciei
+6. Un sistem de analiza a nutrientior din sol
+7. Sistem audio care pune muzica pentru stimularea cresterii
+8. Ghiveciul sa aiba diferite nuante de fundal pentru a se putea asorta cu planta
+9. Adaugarea unei rubrici de tipul "Stiati ca?" pentru pasionatii de gradinarit
+
+
+**Urmatorul pas a fost sa cream un grafic care sa prezinte rezultatele Analizei Pareto (80% efect, 20% efort), acesta fiind:**
+
+![image](https://user-images.githubusercontent.com/24314568/111199840-c978f400-85c9-11eb-8174-71be01e82f23.png)
+
+Din cel de-al doilea grafic s-a dedus urmatoarea prioritizare a cerintelor:
 
 1. Determinarea umiditatii din sol
 2. Indicarea cantitatii necesare de apa, daca umiditatea solului scade sub pragul critic
@@ -87,8 +116,10 @@ Datele au fost colectate intr-un tabel si, utilizand Analiza Pareto(80% efect, 2
 5. Un sistem de analiza a nutrientior din sol
 6. Adaugarea unei rubrici de tipul "Stiati ca?" pentru pasionatii de gradinarit
 7. Determinarea Ph-ului solului si a valorilor corespunzatoare speciei
+8. Sistem audio care pune muzica pentru stimularea cresterii
+9. Ghiveciul sa aiba diferite nuante de fundal pentru a se putea asorta cu planta
 
-![image](https://user-images.githubusercontent.com/24314568/111199840-c978f400-85c9-11eb-8174-71be01e82f23.png)
+Avand in vedere rezultatele obtinute am decis sa implementam urmatoarele cerinte:
 
 ## 7.Specificații de analiză
    * Ca utilizator, as dori sa pot afla umiditatea solului
@@ -98,6 +129,8 @@ Datele au fost colectate intr-un tabel si, utilizand Analiza Pareto(80% efect, 2
    * Ca utilizator, as dori sa stiu daca solul este propice dezvoltarii florii mele
    * Ca utilizator, as dori sa aflu informatii interesante din lumea plantelor
    * Ca utilizator, as dori sa stiu daca Ph ul solului este potrivit
+   * Ca utilizator, as dori sa pot stimula suplimentar cresterea plantei
+   * Ca utilizator, as dori sa pot integra ghiveciul cu decorul casei
 
 ## 8.Contribuția echipei
 Contribuția fiecărui membru al echipei la realizarea analizei aplicației.
