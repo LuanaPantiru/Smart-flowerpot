@@ -37,5 +37,6 @@ using namespace std;
 #define FILE_PATH_FOR_NOTIFICATION_CENTER_LOGS "output/notification_center_logs.txt"
 #define FILE_PATH_FOR_MONITOR_LOGS "output/monitor_logs.txt"
 #define FILE_PATH_FOR_MUSIC_PLAY "output/music_play.txt"
+#define FILE_PATH_FOR_DID_YOU_KNOW_THAT "output/did_you_know_that.txt"
 
 #endif //SMART_POD_APP_CONFIG_H

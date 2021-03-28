@@ -3,6 +3,7 @@
 
 #include <tuple>
 #include <vector>
+#include <queue>
 #include <string>
 #include <utility>
 #include <nlohmann/json.hpp>
@@ -60,7 +61,7 @@ class AppHardwareHandler {
         vector<SongInfo> sdCardMusic;
 
         // presume that DidYouKnowThat features are taken from some server on the internet
-        vector<DidYouKnowThat> didYouKnowThatServerValues;
+        queue<DidYouKnowThat> didYouKnowThatServerValues;
 
     public:
         static AppHardwareHandler *getInstance();
@@ -93,7 +94,7 @@ class AppHardwareHandler {
         [[nodiscard]] const vector<SongInfo> &getSdCardMusic() const;
         [[nodiscard]] nlohmann::json exportSongsToJson();
 
-        [[nodiscard]] const vector<DidYouKnowThat> &getDidYouKnowThatServerValues() const;
+        [[nodiscard]] DidYouKnowThat getDidYouKnowThatServerValue();
 
 };
 

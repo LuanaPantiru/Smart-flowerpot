@@ -29,12 +29,6 @@ class SmartPot {
         std::thread musicThread;
         std::atomic<unsigned int> currentSong{};
 
-
-        // simulating the DidYouKnowThat feature
-        std::atomic<bool> runDidYouKnowThatThread = false;
-        std::thread didYouKnowThatThread;
-
-
         // flower environments values
         // tuples are for [isSet,min,max] interval
         string flowerName;
@@ -56,8 +50,6 @@ class SmartPot {
         void startMonitorThreadFunction() const;
         /** This must be launched in a new thread and will play the music. */
         void startMusicPlayFeature();
-        /** This must be launched in a new thread and will simulate startDidYouKnowThat Feature. */
-        void startDidYouKnowThatFeature();
 
     public:
         static SmartPot *getInstance();
@@ -90,11 +82,6 @@ class SmartPot {
         void playMusic(unsigned int songId);
         void stopMusicPlayFeature();
 
-        /** This will launch startMusicPlayFeature() in a new thread. */
-        void startDidYouKnowThat();
-        void stopDidYouKnowThat();
-
-
         /**
          * Este pentru feature-ul de monitorizare al sanatatii plantei.
          * Este ofilita/Nu este ofilita
@@ -124,6 +111,9 @@ class SmartPot {
          * Se ajusteaza parametrii: umiditatea solului etc..
          */
         void waterFlower(float waterQuantity);
+
+        /** For DidYouKnowThat feature. **/
+        static void sendDidYouKnowThat();
 
         // getters
         [[nodiscard]] bool isEnvironmentSet() const;

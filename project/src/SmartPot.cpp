@@ -243,8 +243,15 @@ void SmartPot::waterFlower(float waterQuantity) {
 
 void SmartPot::startMonitorThreadFunction() const {
     ofstream file(FILE_PATH_FOR_MONITOR_LOGS);
-    if(!file.is_open()) return;
-    file << "A inceput procesul de monitorizare!" << endl;
+    if(!file.is_open()) {
+        return;
+    }
+
+    file << "=========================================================================================\n";
+    file << "A inceput procesul de monitorizare la ora " << NotificationCenter::getCurrentTime() << "!\n";
+    file << "-----------------------------------------------------------------------------------------\n";
+
+    int didYouKnowThatInterval = 50;
 
     while (environmentIsSet.load()){
 
@@ -265,9 +272,21 @@ void SmartPot::startMonitorThreadFunction() const {
             file << "Am verificat starea la ora " << NotificationCenter::getCurrentTime() << endl;
         }
 
+        // check for did you know that
+        didYouKnowThatInterval -= 10;
+        if(didYouKnowThatInterval <= 0){
+            SmartPot::sendDidYouKnowThat();
+            didYouKnowThatInterval = 50;
+        }
+
         // sleep for 5 sec
         std::this_thread::sleep_for(std::chrono::seconds(5));
+
     }
+
+    file << "--------------------------------------------------------------------------------------------\n";
+    file << "S-a incheiat procesul de monitorizare la ora " << NotificationCenter::getCurrentTime() << "!\n";
+    file << "============================================================================================\n";
 }
 
 void SmartPot::startMonitorLoop() {
@@ -461,31 +480,26 @@ bool SmartPot::isEnvironmentSet() const {
     return environmentIsSet.load();
 }
 
-void SmartPot::startDidYouKnowThatFeature() {
-    // TODO: Must be implemented
-    //  - at some regular time (one hour let say, we must output a did you know message)
-    // runDidYouKnowThat will work if feature is on and if environment is set
-    while (runDidYouKnowThatThread.load() && environmentIsSet.load()){
-
-        // make some calculations
-
-
-        int threadSleepDuration = 5;
-        // sleep for threadSleepDuration sec
-        std::this_thread::sleep_for(std::chrono::seconds(threadSleepDuration));
-    }
-}
-
-void SmartPot::startDidYouKnowThat() {
-    // avoid to launch thread multiple times
-    if(runDidYouKnowThatThread.load()){
+void SmartPot::sendDidYouKnowThat() {
+    // this file must be opened in append mode
+    ofstream didYouKnowThatFile(FILE_PATH_FOR_DID_YOU_KNOW_THAT, std::ofstream::app);
+    if(!didYouKnowThatFile.is_open()){
         return;
     }
-    musicThread = std::thread([]{SmartPot::getInstance()->startDidYouKnowThatFeature();});
-}
 
-void SmartPot::stopDidYouKnowThat() {
-    runDidYouKnowThatThread.store(false);
+    didYouKnowThatFile << "=====================================================================================\n";
+    didYouKnowThatFile << "Did you know that feature started at " << NotificationCenter::getCurrentTime() << " !\n";
+    didYouKnowThatFile << "-------------------------------------------------------------------------------------\n";
+
+    DidYouKnowThat value = AppHardwareHandler::getInstance()->getDidYouKnowThatServerValue();
+
+    didYouKnowThatFile << "Stiati ca: " << value.first << " " << value.second << "\n";
+
+    didYouKnowThatFile << "--------------------------------------------------------------------------------------\n";
+    didYouKnowThatFile << "Did you know that feature finished at " << NotificationCenter::getCurrentTime() << " !\n";
+    didYouKnowThatFile << "======================================================================================\n";
+
+    didYouKnowThatFile.close();
 }
 
 
