@@ -11,13 +11,7 @@ AppHardwareHandler::AppHardwareHandler() {
         vector<SoilSensor> sensor(matrixDimension);
         soilSensorsMatrix.push_back(sensor);
     }
-
-    // populate light matrix
-    for(int i = 0; i < matrixDimension; i++){
-        vector<Pixel> pixel(matrixDimension);
-        lightMatrix.push_back(pixel);
-    }
-
+    
     // populate music sd card
     sdCardMusic.emplace_back(make_tuple("Song A","Artist song A",3.14,"la la la la la la la"));
     sdCardMusic.emplace_back(make_tuple("Song B","Artist song B",2.20,"la li lu la li la la"));
@@ -35,10 +29,6 @@ AppHardwareHandler *AppHardwareHandler::getInstance() {
 }
 
 void AppHardwareHandler::loadSensorInfo() {
-    // TODO: must be implemented
-}
-
-void AppHardwareHandler::changeLightMatrix() {
     // TODO: must be implemented
 }
 

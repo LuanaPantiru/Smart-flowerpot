@@ -54,9 +54,6 @@ class AppHardwareHandler {
         // will be a 5 x 5 matrix (populated in constructor)
         vector<vector<SoilSensor>> soilSensorsMatrix;
 
-        // will be a 5 x 5 matrix (populated in constructor)
-        vector<vector<Pixel>> lightMatrix;
-
         // sd card (presume that music is on sd card)
         vector<SongInfo> sdCardMusic;
 
@@ -68,9 +65,6 @@ class AppHardwareHandler {
 
         /** Here values for sensors must be shuffled in order to simulate new values. */
         void loadSensorInfo();
-
-        /** Simulate new colors for matrix lightIntensity */
-        void changeLightMatrix();
 
         /** getters */
         [[nodiscard]] float getAirTemperatureSensor() const;
