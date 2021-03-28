@@ -232,7 +232,7 @@ void SmartPot::checkAirQuality() const {
 
 
         // notification example
-        NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, HAPPY, logs);
+        NotificationCenter::getInstance()->addNotification(AIR_QUALITY_NOTIFICATION, HAPPY, logs);
     */
 
 }

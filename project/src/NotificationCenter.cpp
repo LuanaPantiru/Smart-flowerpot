@@ -48,24 +48,40 @@ void NotificationCenter::sendAlerts() {
         if(notificationType == GENERAL_HEALTH_NOTIFICATION){
             // TODO: here should show a a smiley face on display (happy, neutral or sad)
             //  notificationMessage will contain HAPPY, NEUTRAL or SAD
+            displayName += notificationMessage + "_";
+
             continue;
         }
         if(notificationType == WATER_NOTIFICATION){
-            // TODO: here should show a water icon on display
+            // TODO: here should set water quantity value and simulate a post request (or mqtt in future)
+            //  in order to notify an external device. Leave this at final.
+
+            // message should be a float value
+            waterQuantityNotification = std::stof(notificationMessage);
+
             continue;
         }
         if(notificationType == SOIL_HEALTH_NOTIFICATION){
             // TODO: here should show a a smiley face for soil on display (happy, neutral or sad)
             //  notificationMessage will contain HAPPY, NEUTRAL or SAD
+
+            displayName += notificationMessage + "_";
+
             continue;
         }
         if(notificationType == AIR_QUALITY_NOTIFICATION){
             // TODO: here should show a a smiley face for air on display (happy, neutral or sad)
             //  notificationMessage will contain HAPPY, NEUTRAL or SAD
+
+            displayName += notificationMessage;
             continue;
         }
 
     }
+
+    // TODO: load notification image in memory
+    displayName += ".jpg";
+
 
     // after alerts are sent delete all because new alerts will be created if problems were not solved
     notifications.clear();

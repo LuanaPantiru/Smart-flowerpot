@@ -30,6 +30,12 @@ class NotificationCenter {
 
         vector<Notification> notifications;
 
+        // used to open display image
+        string displayName;
+
+        // this will be used for output
+        float waterQuantityNotification = 0.0f;
+
         void printNotifications();
 
     public:
