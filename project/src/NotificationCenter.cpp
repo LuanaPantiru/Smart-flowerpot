@@ -79,8 +79,11 @@ void NotificationCenter::sendAlerts() {
 
     }
 
+    // TODO: finish display name and implement stateless functionality
+    //displayName += "_day.jpg";
+    //displayName += "_night.jpg";
+
     // TODO: load notification image in memory
-    displayName += ".jpg";
 
 
     // after alerts are sent delete all because new alerts will be created if problems were not solved

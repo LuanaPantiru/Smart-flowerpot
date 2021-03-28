@@ -11,7 +11,7 @@ AppHardwareHandler::AppHardwareHandler() {
         vector<SoilSensor> sensor(matrixDimension);
         soilSensorsMatrix.push_back(sensor);
     }
-    
+
     // populate music sd card
     sdCardMusic.emplace_back(make_tuple("Song A","Artist song A",3.14,"la la la la la la la"));
     sdCardMusic.emplace_back(make_tuple("Song B","Artist song B",2.20,"la li lu la li la la"));
@@ -29,7 +29,16 @@ AppHardwareHandler *AppHardwareHandler::getInstance() {
 }
 
 void AppHardwareHandler::loadSensorInfo() {
-    // TODO: must be implemented
+    // TODO: de implementat
+    //  In aceasta functie ar trebui sa generam valori float pentru urmatorii senzori:
+    //           float airTemperatureSensor;
+    //           float airHumiditySensor;
+    //           float lightIntensitySensor;
+    //           vector<vector<SoilSensor>> soilSensorsMatrix;
+    //  Cand se genereaza valorile ar trebui sa consideram niste limite. De exemplu pentru umiditate ar trebui valori
+    //  in interval [0,100] pentru ca umiditatea este exprimata in procente.
+    //  Nu este pericol de de accesare a aceeasi zone de memorie de mai multe theraduri pentru ca generarea asta o
+    //  facem doar in threadul de monitorizare, iar executia este secventiala.
 }
 
 float AppHardwareHandler::getAirTemperatureSensor() const {
