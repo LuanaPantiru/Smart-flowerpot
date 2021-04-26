@@ -1,6 +1,7 @@
 #include <iomanip>
 #include <iostream>
 #include <fstream>
+#include <nlohmann/json.hpp>
 #include "include/NotificationCenter.h"
 #include "include/app_config.h"
 #include "include/MqttClientHandler.h"
@@ -88,7 +89,16 @@ void NotificationCenter::sendAlerts() {
 
 
     int a = rand() % 100;
-    MqttClientHandler::publishMessage(DISPLAY_PUBLISHER,"message-" + std::to_string(a));
+    nlohmann::json displayInfo;
+    if(a % 2 == 0) {
+        displayInfo["day"] = true;
+    }
+    else {
+        displayInfo["day"] = false;
+    }
+
+    displayInfo["other_info"] = "message-" + to_string(a);
+    MqttClientHandler::publishMessage(DISPLAY_PUBLISHER, to_string(displayInfo));
 
     // after alerts are sent delete all because new alerts will be created if problems were not solved
     notifications.clear();

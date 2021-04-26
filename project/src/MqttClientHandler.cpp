@@ -84,30 +84,6 @@ void MqttClientHandler::MqttSubscriberCallback::message_arrived(mqtt::const_mess
             SmartPot::getInstance()->waterFlower(waterQuantity);
             return;
     }
-
-    /*
-    if(msg->to_string() == "quit-subscriber"){
-        if(clientId == CLIENT_ID_WATER_SUBSCRIBER){
-            MqttClientHandler::stopSubscriber(WATER_SUBSCRIBER);
-            return;
-        }
-        if(clientId == CLIENT_ID_ADDITIONAL_INFO_SUBSCRIBER){
-            MqttClientHandler::stopSubscriber(ADDITIONAL_INFO_SUBSCRIBER);
-            return;
-        }
-        return;
-    }
-
-    if(msg->to_string() == "quit-publisher-1") {
-        MqttClientHandler::stopPublisher(WATER_PUBLISHER);
-        return;
-    }
-
-    if(msg->to_string() == "quit-publisher-2") {
-        MqttClientHandler::stopPublisher(DISPLAY_PUBLISHER);
-        return;
-    }
-     */
 }
 
 void MqttClientHandler::MqttSubscriberCallback::delivery_complete(mqtt::delivery_token_ptr token) {
