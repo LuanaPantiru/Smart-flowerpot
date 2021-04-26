@@ -22,8 +22,8 @@ mqtt::async_client* MqttClientHandler::displayPublisherClient = nullptr;
 void MqttClientHandler::MqttSubscriberCallback::reconnect() {
     std::this_thread::sleep_for(std::chrono::milliseconds(2500));
     try {
-        std::cout << MQTT_SUBSCRIBER << "ClientId [" << clientId << "] try to reconnect at topic ["
-                  << subscribedTopic << "]" << std::endl;
+        std::cout << MQTT_SUBSCRIBER << "Subscriber with clientId [" << clientId << "] try to reconnect at topic ["
+                  << subscribedTopic << "]" << std::endl << std::endl;
         asyncClient.connect(connOpts, nullptr, *this);
     }
     catch (const mqtt::exception& exc) {
@@ -33,8 +33,9 @@ void MqttClientHandler::MqttSubscriberCallback::reconnect() {
 }
 
 void MqttClientHandler::MqttSubscriberCallback::on_failure(const mqtt::token &tok) {
-    std::cout << MQTT_SUBSCRIBER << "ClientId [" << clientId << "] connection attempt failed at topic ["
-              << subscribedTopic << "]";
+    std::cout << std::endl;
+    std::cout << MQTT_SUBSCRIBER << "[CONNECTION_FAILED] Subscriber with clientId [" << clientId
+              << "] connection attempt failed at topic [" << subscribedTopic << "]";
     if (tok.get_message_id() != 0) {
         std::cout << " for token: [" << tok.get_message_id() << "]" << std::endl;
     }
@@ -61,7 +62,9 @@ void MqttClientHandler::MqttSubscriberCallback::connected(const std::string &cau
 }
 
 void MqttClientHandler::MqttSubscriberCallback::connection_lost(const std::string &cause) {
-    std::cout << MQTT_SUBSCRIBER << "Connection lost for subscriber with clientId [" << clientId << "]" << std::endl;
+    std::cout << std::endl;
+    std::cout << MQTT_SUBSCRIBER << "[CONNECTION_LOST] Connection lost for subscriber with clientId ["
+              << clientId << "]" << std::endl;
     if (!cause.empty()) {
         std::cout << MQTT_SUBSCRIBER << "Subscriber with clientId [" << clientId << "] connection lost cause: " << cause << std::endl;
     }
@@ -189,10 +192,12 @@ void MqttClientHandler::stopSubscriber(int subscriberId) {
 /* ------------------------------------------------ CALLBACK ------------------------------------------------------- */
 
 void MqttClientHandler::MqttPublisherCallback::connection_lost(const std::string &cause) {
-    std::cout << MQTT_PUBLISHER << "ClientId [" << clientId << "] Connection lost" << std::endl;
+    std::cout << std::endl;
+    std::cout << MQTT_PUBLISHER << " [CONNECTION_FAILED] Publisher with clientId [" << clientId << "] Connection lost" << std::endl;
     if (!cause.empty()) {
-        std::cout << MQTT_PUBLISHER << "ClientId [" << clientId << "] Connection lost cause: " << cause << std::endl;
+        std::cout << MQTT_PUBLISHER << "Publisher with clientId [" << clientId << "] Connection lost cause: " << cause << std::endl;
     }
+    std::cout << std::endl;
 }
 
 void MqttClientHandler::MqttPublisherCallback::delivery_complete(mqtt::delivery_token_ptr tok) {

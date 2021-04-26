@@ -16,7 +16,7 @@ add_executable(smart_pot
 find_package(Threads REQUIRED)
 
 # version https://github.com/pistacheio/pistache/blob/master/version.txt
-find_package(Pistache 0.0.2 REQUIRED)
+#find_package(Pistache 0.0.2 REQUIRED)
 
 find_package(nlohmann_json 3.2.0 REQUIRED)
 
