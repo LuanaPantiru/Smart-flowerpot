@@ -4,6 +4,7 @@
 #include "include/AppHttpHandler.h"
 #include "include/MqttClientHandler.h"
 
+#define TIMEOUT 5
 
 void launchPistacheServer(int argc, char *argv[]){
     std::cout << "\n[PISTACHE-HTTP] Starting Pistache HTTP Server..." << std::endl;
@@ -31,19 +32,19 @@ void launchPistacheServer(int argc, char *argv[]){
 
 
 void launchMQTTClient() {
-    std::cout << "\n[MQTT] Starting MQTT Clients..." << std::endl;
+    std::cout << "\n[MQTT] Starting MQTT Clients..." << std::endl << std::endl;
+    std::thread waterSubscriber(MqttClientHandler::startSubscriber, WATER_SUBSCRIBER);
+    std::this_thread::sleep_for(std::chrono::seconds(TIMEOUT));
+    std::thread additionalInfoSubscriber(MqttClientHandler::startSubscriber, ADDITIONAL_INFO_SUBSCRIBER);
+    std::this_thread::sleep_for(std::chrono::seconds(TIMEOUT));
+    std::thread waterPublisher(MqttClientHandler::startPublisher, WATER_PUBLISHER);
+    std::this_thread::sleep_for(std::chrono::seconds(TIMEOUT));
+    std::thread displayPublisher(MqttClientHandler::startPublisher, DISPLAY_PUBLISHER);
 
-    std::thread subscriber(MqttClientHandler::startSubscriber);
-
-    // sleep thread in order to show logs in order on console
-    std::this_thread::sleep_for(std::chrono::seconds(5));
-
-    std::thread publisher(MqttClientHandler::startPublisher);
-
-    std::cout << "[MQTT] MQTT Clients started" << std::endl;
-
-    subscriber.join();
-    publisher.join();
+    waterSubscriber.join();
+    additionalInfoSubscriber.join();
+    waterPublisher.join();
+    displayPublisher.join();
 }
 
 // TODO: IMPORTANT .
@@ -55,14 +56,14 @@ void launchMQTTClient() {
 //  (first argument I think is always the program name)
 int main(int argc, char *argv[]) {
 
-    std::thread pistacheThread(launchPistacheServer,argc,argv);
+    //std::thread pistacheThread(launchPistacheServer,argc,argv);
 
     // sleep thread in order to show logs in order on console
-    std::this_thread::sleep_for(std::chrono::seconds(5));
+    //std::this_thread::sleep_for(std::chrono::seconds(TIMEOUT));
 
     std::thread mqttThread(launchMQTTClient);
 
-    pistacheThread.join();
+    //pistacheThread.join();
     mqttThread.join();
 
     // set signals for a gracefully shutdown of the server when no longer needed

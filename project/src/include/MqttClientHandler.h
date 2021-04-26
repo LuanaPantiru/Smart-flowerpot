@@ -1,7 +1,10 @@
 #ifndef SMART_POT_MQTT_CLIENT_HANDLER_H
 #define SMART_POT_MQTT_CLIENT_HANDLER_H
 
-/** Check starting code here https://github.com/eclipse/paho.mqtt.cpp/blob/master/src/samples/async_subscribe.cpp */
+/** Check starting code here:
+ *          - https://github.com/eclipse/paho.mqtt.cpp/blob/master/src/samples/async_subscribe.cpp
+ *          - https://github.com/eclipse/paho.mqtt.cpp/blob/master/src/samples/async_publish.cpp
+ * */
 
 #include <iostream>
 #include <cstdlib>
@@ -14,43 +17,48 @@
 #include <atomic>
 #include "mqtt/async_client.h"
 
+// for logs
 #define MQTT_SUBSCRIBER "[MQTT_SUBSCRIBER] "
 #define MQTT_PUBLISHER "[MQTT_PUBLISHER] "
-#define SERVER_ADDRESS "tcp://localhost:1883"
-#define CLIENT_ID_SUBSCRIBER "smart-pod-subscriber"
-#define CLIENT_ID_PUBLISHER "smart-pod-publisher"
-#define SUBSCRIBING_TOPIC "test-topic"
-#define PUBLISHING_TOPIC "test-topic-publishing"
-#define PERSIST_DIR "./output/persist"
-#define LWT_PAYLOAD "Last will and testament."
 
-const int QOS = 2;
-const int NR_RETRY_ATTEMPTS = 5;
+// general info`s about MQTT
+#define MQTT_BROKER_SERVER_ADDRESS "tcp://localhost:1883"
+#define MQTT_LWT_PAYLOAD "Last will and testament"
+#define QOS 2
+#define NR_RETRY_ATTEMPTS 5
+#define PUBLISHING_TIMEOUT 10
+
+// subscribers info`s
+#define WATER_SUBSCRIBER 1
+#define ADDITIONAL_INFO_SUBSCRIBER 2
+#define CLIENT_ID_WATER_SUBSCRIBER "smart-pod-water-subscriber"
+#define CLIENT_ID_ADDITIONAL_INFO_SUBSCRIBER "smart-pod-additional-info-subscriber"
+#define WATER_SUBSCRIBER_TOPIC "smart_pod/water"
+#define ADDITIONAL_INFO_SUBSCRIBER_TOPIC "smart_pod/info"
+
+// publishers info`s
+#define WATER_PUBLISHER 3
+#define DISPLAY_PUBLISHER 4
+#define CLIENT_ID_WATER_PUBLISHER "smart-pod-water-publisher"
+#define CLIENT_ID_DISPLAY_PUBLISHER "smart-pod-display-publisher"
+#define WATER_PUBLISHER_TOPIC "smart_pod/water"
+#define DISPLAY_PUBLISHER_TOPIC "smart_pod/display"
 
 class MqttClientHandler {
     public:
-        static void startPublisher();
-        static void stopPublisher();
-        static void publishMessage(const std::string& message);
-
-        static void startSubscriber();
-        static void stopSubscriber();
+        static void startPublisher(int publisherId);
+        static void stopPublisher(int publisherId);
+        static void publishMessage(int publisherId, const std::string& message);
+        static void startSubscriber(int subscriberId);
+        static void stopSubscriber(int subscriberId);
 
     private:
-        static std::atomic<bool> subscriberIsRunning;
-        static std::atomic<bool> publisherIsRunning;
-        static mqtt::async_client* publisherAsyncClient;
-
-        /** Callbacks for the success or failures of requested actions, which can be used to initiate further action. */
-        class MqttSubscriberActionListener : public virtual mqtt::iaction_listener {
-            private:
-                std::string listenerName;
-                void on_failure(const mqtt::token& tok) override;
-                void on_success(const mqtt::token& tok) override;
-
-            public:
-                explicit MqttSubscriberActionListener(std::string name) : listenerName(std::move(name)){};
-        };
+        static std::atomic<bool> waterSubscriberIsRunning;
+        static std::atomic<bool> additionalInfoSubscriberIsRunning;
+        static std::atomic<bool> waterPublisherIsRunning;
+        static std::atomic<bool> displayPublisherIsRunning;
+        static mqtt::async_client* waterPublisherClient;
+        static mqtt::async_client* displayPublisherClient;
 
         /**
         * Local callback & listener class for use with the client connection.
@@ -63,7 +71,8 @@ class MqttClientHandler {
                 int nrRetry;                                        // Counter for the number of connection retries
                 mqtt::async_client& asyncClient;                    // The MQTT client
                 mqtt::connect_options& connOpts;                    // Options to use if we need to reconnect
-                MqttSubscriberActionListener mqttActionListener;    // An action listener to display the result of actions.
+                std::string subscribedTopic;
+                std::string clientId;
 
                 // This demonstrates manually reconnecting to the broker by calling
                 // connect() again. This is a possibility for an application that keeps
@@ -93,31 +102,21 @@ class MqttClientHandler {
                 void delivery_complete(mqtt::delivery_token_ptr token) override;
 
             public:
-                explicit MqttSubscriberCallback(mqtt::async_client& asyncClient, mqtt::connect_options& connOpts)
-                        : nrRetry(0), asyncClient(asyncClient), connOpts(connOpts), mqttActionListener("Subscription") {};
+                explicit MqttSubscriberCallback(mqtt::async_client& asyncClient, mqtt::connect_options& connOpts,
+                                                std::string topic, std::string _clientId) : nrRetry(0),
+                                                asyncClient(asyncClient), connOpts(connOpts),
+                                                subscribedTopic(std::move(topic)), clientId(std::move(_clientId)) {};
             };
 
 
-
-
-
-
-
-        /** Callbacks for the success or failures of requested actions, which can be used to initiate further action. */
-        class MqttPublisherActionListener : public virtual mqtt::iaction_listener {
-            private:
-                std::string listenerName;
-                void on_failure(const mqtt::token& tok) override;
-                void on_success(const mqtt::token& tok) override;
-
-            public:
-                explicit MqttPublisherActionListener(std::string name) : listenerName(std::move(name)){};
-        };
-
+        /** Callback for publisher */
         class MqttPublisherCallback : public virtual mqtt::callback {
+            private:
+                std::string clientId;
             public:
                 void connection_lost(const std::string& cause) override;
                 void delivery_complete(mqtt::delivery_token_ptr tok) override;
+                explicit MqttPublisherCallback(std::string _clientId) : clientId(std::move(_clientId)) {};
         };
 };
 
