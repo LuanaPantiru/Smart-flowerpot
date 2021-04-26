@@ -1,18 +1,26 @@
 #include "include/AppHttpHandler.h"
 #include "include/SmartPot.h"
 #include "include/AppHardwareHandler.h"
+#include "include/MqttClientHandler.h"
 
-AppHttpHandler::AppHttpHandler(Address address): httpEndpoint(std::make_shared<Http::Endpoint>(address)){}
+AppHttpHandler::AppHttpHandler(Address address): httpServer(std::make_shared<Http::Endpoint>(address)){}
 
 void AppHttpHandler::init(size_t threadsNumber) {
     auto opts = Http::Endpoint::options().threads(static_cast<int>(threadsNumber));
-    httpEndpoint->init(opts);
+    httpServer->init(opts);
     setupRoutes();
 }
 
 void AppHttpHandler::start() {
-    httpEndpoint->setHandler(router.handler());
-    httpEndpoint->serve();
+    httpServer->setHandler(router.handler());
+    httpServer->serve();
+}
+
+void AppHttpHandler::shutdown() {
+    std::cout << std::endl;
+    std::cout << "[PISTACHE-HTTP] Shutting down HTTP server" << std::endl;
+    httpServer->shutdown();
+    std::cout << "[PISTACHE-HTTP] HTTP server is stopped" << std::endl;
 }
 
 void AppHttpHandler::setupRoutes(){
@@ -23,10 +31,6 @@ void AppHttpHandler::setupRoutes(){
                  Routes::bind(&AppHttpHandler::setFlowerEnvironment, this));
 
     // second input buffer
-    // water flower feature
-    Routes::Post(router, "/api/waterFlower",
-                 Routes::bind(&AppHttpHandler::waterFlower, this));
-
     // music feature
     Routes::Get(router, "/api/songs",
                  Routes::bind(&AppHttpHandler::getSongs, this));
@@ -34,6 +38,12 @@ void AppHttpHandler::setupRoutes(){
                  Routes::bind(&AppHttpHandler::playMusic, this));
     Routes::Post(router, "/api/stopMusic",
                  Routes::bind(&AppHttpHandler::stopMusic, this));
+
+    // other routes
+    Routes::Get(router, "/api/status",
+                 Routes::bind(&AppHttpHandler::SmartPotStatus, this));
+    Routes::Post(router, "/api/close",
+                 Routes::bind(&AppHttpHandler::closeSmartPot, this));
 }
 
 void AppHttpHandler::setFlowerEnvironment(const Rest::Request& request, Http::ResponseWriter response){
@@ -70,7 +80,6 @@ void AppHttpHandler::getSongs(const Rest::Request &request, Http::ResponseWriter
 }
 
 void AppHttpHandler::playMusic(const Rest::Request& request, Http::ResponseWriter response){
-
     // if environment is not set no feature will be available
     if(!SmartPot::getInstance()->isEnvironmentSet()){
         response.send(Http::Code::Ok, "Pot is not configured!");
@@ -83,9 +92,8 @@ void AppHttpHandler::playMusic(const Rest::Request& request, Http::ResponseWrite
 }
 
 void AppHttpHandler::stopMusic(const Rest::Request &request, Http::ResponseWriter response) {
-
     // if environment is not set no feature will be available
-    if(!SmartPot::getInstance()->isEnvironmentSet()){
+    if (!SmartPot::getInstance()->isEnvironmentSet()) {
         response.send(Http::Code::Ok, "Pot is not configured!");
         return;
     }
@@ -94,17 +102,38 @@ void AppHttpHandler::stopMusic(const Rest::Request &request, Http::ResponseWrite
     response.send(Http::Code::Ok, "Music stopped");
 }
 
-void AppHttpHandler::waterFlower(const Rest::Request& request, Http::ResponseWriter response) {
-
-    // if environment is not set no feature will be available
-    if(!SmartPot::getInstance()->isEnvironmentSet()){
-        response.send(Http::Code::Ok, "Pot is not configured!");
-        return;
-    }
-
-    auto jsonReceived = nlohmann::json::parse(request.body());
-    float waterQuantity = jsonReceived["quantity"];
-    SmartPot::getInstance()->waterFlower(waterQuantity);
-
-    response.send(Http::Code::Ok, "Flower was watered!");
+void AppHttpHandler::SmartPotStatus(const Rest::Request &request, Http::ResponseWriter response) {
+    nlohmann::json jsonResponse;
+    jsonResponse["features"]["monitor_loop_is_running"] = SmartPot::getInstance()->isEnvironmentSet();
+    jsonResponse["features"]["music_feature_is_running"] = SmartPot::getInstance()->isMusicPlay();
+    jsonResponse["subscribers"]["water_subscriber_is_running"] = MqttClientHandler::isSubscriberRunning(WATER_SUBSCRIBER);
+    jsonResponse["subscribers"]["additional_info_subscriber_is_running"] = MqttClientHandler::isSubscriberRunning(ADDITIONAL_INFO_SUBSCRIBER);
+    jsonResponse["publishers"]["water_publisher_is_running"] = MqttClientHandler::isPublisherRunning(WATER_PUBLISHER);
+    jsonResponse["publishers"]["display_publisher_is_running"] = MqttClientHandler::isPublisherRunning(DISPLAY_PUBLISHER);
+    response.send(Http::Code::Ok, to_string(jsonResponse));
 }
+
+void AppHttpHandler::closeSmartPot(const Rest::Request &request, Http::ResponseWriter response) {
+    nlohmann::json jsonResponse;
+    jsonResponse["_info"] = "SmartPot closed";
+
+    // close all features
+    SmartPot::getInstance()->stopMonitorLoop();
+    SmartPot::getInstance()->stopMusicPlayFeature();
+
+    // close MQTT clients
+    unsigned int timeout = 2;
+    MqttClientHandler::stopSubscriber(WATER_SUBSCRIBER);
+    std::this_thread::sleep_for(std::chrono::seconds(timeout));
+    MqttClientHandler::stopSubscriber(ADDITIONAL_INFO_SUBSCRIBER);
+    std::this_thread::sleep_for(std::chrono::seconds(timeout));
+    MqttClientHandler::stopPublisher(WATER_PUBLISHER);
+    std::this_thread::sleep_for(std::chrono::seconds(timeout));
+    MqttClientHandler::stopPublisher(DISPLAY_PUBLISHER);
+
+    // shut down HTTP httpServer also
+    std::this_thread::sleep_for(std::chrono::seconds(timeout));
+    shutdown();
+}
+
+

@@ -77,6 +77,7 @@ class SmartPot {
 
         /** This will launch startMonitorThreadFunction() in a new thread. */
         void startMonitorLoop();
+        void stopMonitorLoop();
 
         /** This will launch startMusicPlayFeature() in a new thread. */
         void playMusic(unsigned int songId);
@@ -117,6 +118,8 @@ class SmartPot {
 
         // getters
         [[nodiscard]] bool isEnvironmentSet() const;
+        [[nodiscard]] bool isMusicPlay() const;
+
 
         // setter
         void setCurrentSong(unsigned int song);

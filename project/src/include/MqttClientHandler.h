@@ -52,6 +52,9 @@ class MqttClientHandler {
         static void startSubscriber(int subscriberId);
         static void stopSubscriber(int subscriberId);
 
+        [[nodiscard]] static bool isPublisherRunning(int publisherId) ;
+        [[nodiscard]] static bool isSubscriberRunning(int subscriberId) ;
+
     private:
         static std::atomic<bool> waterSubscriberIsRunning;
         static std::atomic<bool> additionalInfoSubscriberIsRunning;

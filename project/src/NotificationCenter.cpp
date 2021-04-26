@@ -3,6 +3,7 @@
 #include <fstream>
 #include "include/NotificationCenter.h"
 #include "include/app_config.h"
+#include "include/MqttClientHandler.h"
 
 NotificationCenter * NotificationCenter::instance = nullptr;
 
@@ -85,6 +86,9 @@ void NotificationCenter::sendAlerts() {
 
     // TODO: load notification image in memory
 
+
+    int a = rand() % 100;
+    MqttClientHandler::publishMessage(DISPLAY_PUBLISHER,"message-" + std::to_string(a));
 
     // after alerts are sent delete all because new alerts will be created if problems were not solved
     notifications.clear();

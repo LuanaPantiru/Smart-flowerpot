@@ -1,4 +1,5 @@
 #include "include/MqttClientHandler.h"
+#include "include/SmartPot.h"
 
 
 /** =================================================================================================================
@@ -76,6 +77,15 @@ void MqttClientHandler::MqttSubscriberCallback::message_arrived(mqtt::const_mess
     std::cout << MQTT_SUBSCRIBER << "  --> payload: [" << msg->to_string() << "]" << std::endl;
     std::cout << std::endl;
 
+    //if(clientId == CLIENT_ID_WATER_SUBSCRIBER){
+    if(msg->to_string() == "water-flower"){
+            //float waterQuantity = std::stof(msg->to_string());
+            float waterQuantity = rand() % 100;
+            SmartPot::getInstance()->waterFlower(waterQuantity);
+            return;
+    }
+
+    /*
     if(msg->to_string() == "quit-subscriber"){
         if(clientId == CLIENT_ID_WATER_SUBSCRIBER){
             MqttClientHandler::stopSubscriber(WATER_SUBSCRIBER);
@@ -97,6 +107,7 @@ void MqttClientHandler::MqttSubscriberCallback::message_arrived(mqtt::const_mess
         MqttClientHandler::stopPublisher(DISPLAY_PUBLISHER);
         return;
     }
+     */
 }
 
 void MqttClientHandler::MqttSubscriberCallback::delivery_complete(mqtt::delivery_token_ptr token) {
@@ -134,7 +145,7 @@ void MqttClientHandler::startSubscriber(int subscriberId) {
             return;
     }
 
-    // A subscriber often wants the server to remember its messages when its
+    // A subscriber often wants the httpServer to remember its messages when its
     // disconnected. In that case, it needs a unique ClientID and a
     // non-clean session.
     mqtt::async_client client(MQTT_BROKER_SERVER_ADDRESS, clientId);
@@ -154,7 +165,7 @@ void MqttClientHandler::startSubscriber(int subscriberId) {
     }
     catch (const mqtt::exception& exc) {
         std::cerr << MQTT_SUBSCRIBER << "Subscriber with clientId [" << clientId
-                  << "] ERROR: Unable to connect to MQTT server: [" << MQTT_BROKER_SERVER_ADDRESS << "]" << exc << std::endl;
+                  << "] ERROR: Unable to connect to MQTT httpServer: [" << MQTT_BROKER_SERVER_ADDRESS << "]" << exc << std::endl;
         return;
     }
     std::cout << MQTT_SUBSCRIBER << "Subscriber with clientId [" << clientId << "] started" << std::endl;
@@ -172,6 +183,7 @@ void MqttClientHandler::startSubscriber(int subscriberId) {
 
     // Disconnect
     try {
+        std::cout << std::endl;
         std::cout << MQTT_SUBSCRIBER << "Disconnecting subscriber with clientId [" << clientId << "] ..." << std::endl;
         client.disconnect()->wait();
         std::cout << MQTT_SUBSCRIBER << "Subscriber with clientId [" << clientId << "] disconnected" << std::endl;
@@ -287,6 +299,7 @@ void MqttClientHandler::startPublisher(int publisherId) {
 
     try {
         // Disconnect
+        std::cout << std::endl;
         std::cout << MQTT_PUBLISHER << "Disconnecting publisher with clientId [" << clientId << "] from broker..." << std::endl;
         client->disconnect()->wait();
         std::cout << MQTT_PUBLISHER << "Publisher disconnected with clientId [" << clientId << "] from broker" << std::endl;
@@ -367,6 +380,26 @@ void MqttClientHandler::publishMessage(int publisherId, const std::string& messa
     catch (const mqtt::exception& exc) {
         std::cerr << MQTT_PUBLISHER << exc.what() << std::endl;
     }
+}
+
+bool MqttClientHandler::isPublisherRunning(int publisherId) {
+    if(publisherId == WATER_PUBLISHER){
+        return waterPublisherIsRunning.load();
+    }
+    if(publisherId == DISPLAY_PUBLISHER){
+        return displayPublisherIsRunning.load();
+    }
+    return false;
+}
+
+bool MqttClientHandler::isSubscriberRunning(int subscriberId) {
+    if(subscriberId == WATER_SUBSCRIBER){
+        return waterSubscriberIsRunning.load();
+    }
+    if(subscriberId == ADDITIONAL_INFO_SUBSCRIBER){
+        return additionalInfoSubscriberIsRunning.load();
+    }
+    return false;
 }
 
 

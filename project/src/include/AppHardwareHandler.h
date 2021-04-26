@@ -57,7 +57,7 @@ class AppHardwareHandler {
         // sd card (presume that music is on sd card)
         vector<SongInfo> sdCardMusic;
 
-        // presume that DidYouKnowThat features are taken from some server on the internet
+        // presume that DidYouKnowThat features are taken from some httpServer on the internet
         queue<DidYouKnowThat> didYouKnowThatServerValues;
 
     public:
