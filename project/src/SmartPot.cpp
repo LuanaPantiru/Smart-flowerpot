@@ -239,6 +239,7 @@ void SmartPot::checkAirQuality() const {
 
 void SmartPot::waterFlower(float waterQuantity) {
     //TODO: Must be implemented
+    std::cout << "\nFlower was watered with " << waterQuantity << " ml" << std::endl;
 }
 
 void SmartPot::startMonitorThreadFunction() const {
@@ -500,6 +501,14 @@ void SmartPot::sendDidYouKnowThat() {
     didYouKnowThatFile << "======================================================================================\n";
 
     didYouKnowThatFile.close();
+}
+
+void SmartPot::stopMonitorLoop() {
+    environmentIsSet.store(false);
+}
+
+bool SmartPot::isMusicPlay() const {
+    return musicPlay.load();
 }
 
 

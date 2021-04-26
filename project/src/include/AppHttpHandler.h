@@ -11,23 +11,29 @@ using namespace Pistache;
  * Here all endpoints will be defined. */
 class AppHttpHandler {
     private:
-        std::shared_ptr<Http::Endpoint> httpEndpoint;
+        std::shared_ptr<Http::Endpoint> httpServer;
         Rest::Router router;
 
     public:
         explicit AppHttpHandler(Address address);
         void init(size_t threadsNumber = 2);
         void start();
+        void shutdown();
 
     private:
         /** Here all routes must be set up. */
         void setupRoutes();
 
         void setFlowerEnvironment(const Rest::Request& request, Http::ResponseWriter response);
-        void waterFlower(const Rest::Request& request, Http::ResponseWriter response);
         void getSongs(const Rest::Request& request, Http::ResponseWriter response);
         void playMusic(const Rest::Request& request, Http::ResponseWriter response);
         void stopMusic(const Rest::Request& request, Http::ResponseWriter response);
+
+        /** Some general status about running features and mqtt clients */
+        void SmartPotStatus(const Rest::Request& request, Http::ResponseWriter response);
+
+        /** For a controlled app close */
+        void closeSmartPot(const Rest::Request& request, Http::ResponseWriter response);
 };
 
 
