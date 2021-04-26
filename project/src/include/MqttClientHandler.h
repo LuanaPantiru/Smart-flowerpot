@@ -31,18 +31,18 @@
 // subscribers info`s
 #define WATER_SUBSCRIBER 1
 #define ADDITIONAL_INFO_SUBSCRIBER 2
-#define CLIENT_ID_WATER_SUBSCRIBER "smart-pod-water-subscriber"
-#define CLIENT_ID_ADDITIONAL_INFO_SUBSCRIBER "smart-pod-additional-info-subscriber"
-#define WATER_SUBSCRIBER_TOPIC "smart_pod/water"
-#define ADDITIONAL_INFO_SUBSCRIBER_TOPIC "smart_pod/info"
+#define CLIENT_ID_WATER_SUBSCRIBER "water-subscriber"
+#define CLIENT_ID_ADDITIONAL_INFO_SUBSCRIBER "additional-info-subscriber"
+#define WATER_SUBSCRIBER_TOPIC "smart_pot/water"
+#define ADDITIONAL_INFO_SUBSCRIBER_TOPIC "smart_pot/info"
 
 // publishers info`s
 #define WATER_PUBLISHER 3
 #define DISPLAY_PUBLISHER 4
-#define CLIENT_ID_WATER_PUBLISHER "smart-pod-water-publisher"
-#define CLIENT_ID_DISPLAY_PUBLISHER "smart-pod-display-publisher"
-#define WATER_PUBLISHER_TOPIC "smart_pod/water"
-#define DISPLAY_PUBLISHER_TOPIC "smart_pod/display"
+#define CLIENT_ID_WATER_PUBLISHER "water-publisher"
+#define CLIENT_ID_DISPLAY_PUBLISHER "display-publisher"
+#define WATER_PUBLISHER_TOPIC "smart_pot/water"
+#define DISPLAY_PUBLISHER_TOPIC "smart_pot/display"
 
 class MqttClientHandler {
     public:
