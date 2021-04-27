@@ -4,6 +4,7 @@
 #include <nlohmann/json.hpp>
 #include "include/NotificationCenter.h"
 #include "include/app_config.h"
+#include "include/SmartPot.h"
 #include "include/MqttClientHandler.h"
 
 NotificationCenter * NotificationCenter::instance = nullptr;
@@ -38,6 +39,8 @@ string NotificationCenter::getCurrentTime() {
 
 void NotificationCenter::sendAlerts() {
 
+    nlohmann::json displayInfo;
+
     // first print all notifications
     printNotifications();
 
@@ -48,56 +51,44 @@ void NotificationCenter::sendAlerts() {
         string notificationMessage = get<2>(notification);
 
         if(notificationType == GENERAL_HEALTH_NOTIFICATION){
-            // TODO: here should show a a smiley face on display (happy, neutral or sad)
-            //  notificationMessage will contain HAPPY, NEUTRAL or SAD
-            displayName += notificationMessage + "_";
 
+            displayInfo["general_health"] = notificationMessage;
             continue;
         }
         if(notificationType == WATER_NOTIFICATION){
-            // TODO: here should set water quantity value and simulate a post request (or mqtt in future)
-            //  in order to notify an external device. Leave this at final.
 
             // message should be a float value
             waterQuantityNotification = std::stof(notificationMessage);
 
+            if(waterQuantityNotification > 0){
+                nlohmann::json waterNeeded;
+                waterNeeded["water_needed"] = waterQuantityNotification;
+
+                displayInfo["need_water"] = true;
+                displayInfo["water_quantity_needed"] = waterQuantityNotification;
+
+                MqttClientHandler::publishMessage(WATER_PUBLISHER, to_string(waterNeeded));
+            }
             continue;
         }
         if(notificationType == SOIL_HEALTH_NOTIFICATION){
-            // TODO: here should show a a smiley face for soil on display (happy, neutral or sad)
-            //  notificationMessage will contain HAPPY, NEUTRAL or SAD
 
-            displayName += notificationMessage + "_";
-
+            displayInfo["soil_health"] = notificationMessage;
             continue;
         }
         if(notificationType == AIR_QUALITY_NOTIFICATION){
-            // TODO: here should show a a smiley face for air on display (happy, neutral or sad)
-            //  notificationMessage will contain HAPPY, NEUTRAL or SAD
 
-            displayName += notificationMessage;
+            displayInfo["air_quality"] = notificationMessage;
             continue;
         }
 
     }
+    // current time
+    displayInfo["notification_time"] = NotificationCenter::getCurrentTime();
 
-    // TODO: finish display name and implement stateless functionality
-    //displayName += "_day.jpg";
-    //displayName += "_night.jpg";
+    // display color. Stateful functionality
+    displayInfo["display_color"] = SmartPot::getInstance()->getDisplayColor();
 
-    // TODO: load notification image in memory
-
-
-    int a = rand() % 100;
-    nlohmann::json displayInfo;
-    if(a % 2 == 0) {
-        displayInfo["day"] = true;
-    }
-    else {
-        displayInfo["day"] = false;
-    }
-
-    displayInfo["other_info"] = "message-" + to_string(a);
     MqttClientHandler::publishMessage(DISPLAY_PUBLISHER, to_string(displayInfo));
 
     // after alerts are sent delete all because new alerts will be created if problems were not solved

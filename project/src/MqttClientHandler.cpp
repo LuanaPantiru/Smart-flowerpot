@@ -54,7 +54,7 @@ void MqttClientHandler::MqttSubscriberCallback::on_success(const mqtt::token &to
 }
 
 void MqttClientHandler::MqttSubscriberCallback::connected(const std::string &cause) {
-    std::cout << MQTT_SUBSCRIBER << "Subscriber with clientId [" << clientId << "] connected successfully" << std::endl;;
+    std::cout << MQTT_SUBSCRIBER << "Subscriber with clientId [" << clientId << "] connected successfully" << std::endl;
     std::cout << MQTT_SUBSCRIBER << "Subscribing to topic [" << subscribedTopic << "] for clientId ["
               << clientId << "] using QoS [" << QOS << "]" << std::endl;
 
@@ -80,13 +80,14 @@ void MqttClientHandler::MqttSubscriberCallback::message_arrived(mqtt::const_mess
     std::cout << MQTT_SUBSCRIBER << "  --> payload: [" << msg->to_string() << "]" << std::endl;
     std::cout << std::endl;
 
-    //if(clientId == CLIENT_ID_WATER_SUBSCRIBER){
-    if(msg->to_string() == "water-flower"){
-            //float waterQuantity = std::stof(msg->to_string());
-            float waterQuantity = rand() % 100;
-            SmartPot::getInstance()->waterFlower(waterQuantity);
-            return;
+    if(clientId == CLIENT_ID_WATER_SUBSCRIBER){
+        auto jsonReceived = nlohmann::json::parse(msg->to_string());
+        if(jsonReceived.contains("water_quantity")){
+            SmartPot::getInstance()->waterFlower(jsonReceived["water_quantity"]);
+        }
+        return;
     }
+
 }
 
 void MqttClientHandler::MqttSubscriberCallback::delivery_complete(mqtt::delivery_token_ptr token) {

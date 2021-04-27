@@ -33,7 +33,7 @@
 #define ADDITIONAL_INFO_SUBSCRIBER 2
 #define CLIENT_ID_WATER_SUBSCRIBER "water-subscriber"
 #define CLIENT_ID_ADDITIONAL_INFO_SUBSCRIBER "additional-info-subscriber"
-#define WATER_SUBSCRIBER_TOPIC "smart_pot/water"
+#define WATER_SUBSCRIBER_TOPIC "smart_pot/water-subscriber"
 #define ADDITIONAL_INFO_SUBSCRIBER_TOPIC "smart_pot/info"
 
 // publishers info`s
@@ -41,7 +41,7 @@
 #define DISPLAY_PUBLISHER 4
 #define CLIENT_ID_WATER_PUBLISHER "water-publisher"
 #define CLIENT_ID_DISPLAY_PUBLISHER "display-publisher"
-#define WATER_PUBLISHER_TOPIC "smart_pot/water"
+#define WATER_PUBLISHER_TOPIC "smart_pot/water-publish"
 #define DISPLAY_PUBLISHER_TOPIC "smart_pot/display"
 
 class MqttClientHandler {
