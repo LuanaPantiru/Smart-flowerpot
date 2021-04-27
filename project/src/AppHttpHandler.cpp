@@ -30,6 +30,10 @@ void AppHttpHandler::setupRoutes(){
     Routes::Post(router, "/api/setFlowerEnvironment",
                  Routes::bind(&AppHttpHandler::setFlowerEnvironment, this));
 
+    // this is a stateful functionality
+    Routes::Post(router, "/api/resetFlowerEnvironment",
+                 Routes::bind(&AppHttpHandler::resetFlowerEnvironment,this));
+
     // second input buffer
     // music feature
     Routes::Get(router, "/api/songs",
@@ -63,12 +67,23 @@ void AppHttpHandler::setFlowerEnvironment(const Rest::Request& request, Http::Re
     auto jsonReceived = json::parse(request.body());
 
     //Citim inputul de configurare
-    SmartPot::getInstance()->setFlowerEnvironment(jsonReceived);
+    SmartPot::getInstance()->setFlowerEnvironment(jsonReceived,false);
 
     //Pornim monitorizarea plantei
     SmartPot::getInstance()->startMonitorLoop();
 
     //Intoarcem configuratia citita ca raspuns
+    auto const json_response = SmartPot::getInstance()->exportConfigurationToJson();
+    response.send(Http::Code::Ok, to_string(json_response));
+}
+
+void AppHttpHandler::resetFlowerEnvironment(const Rest::Request &request, Http::ResponseWriter response) {
+    if(!SmartPot::getInstance()->isEnvironmentSet()){
+        response.send(Http::Code::Ok, "Smart-pot is not configured. Nothing to reset!!");
+        return;
+    }
+    auto jsonReceived = nlohmann::json::parse(request.body());
+    SmartPot::getInstance()->setFlowerEnvironment(jsonReceived,true);
     auto const json_response = SmartPot::getInstance()->exportConfigurationToJson();
     response.send(Http::Code::Ok, to_string(json_response));
 }

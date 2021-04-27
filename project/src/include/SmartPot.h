@@ -22,12 +22,16 @@ class SmartPot {
         SmartPot() = default;
         static SmartPot *instance;
 
-        // threads
-        std::atomic<bool> environmentIsSet = false;
+        // control monitor health thread
         std::thread monitorThread;
+        std::atomic<bool> environmentIsSet = false;          // used to run health monitor loop
+        std::atomic<bool> environmentIsResetting = false;    // used to block health monitor loop until env change is finished
+        std::atomic<bool> environmentCanBeModified = false;  // used to block env change until calculations from
+                                                             // health monitor loop are completed
 
-        std::atomic<bool> musicPlay = false;
+        // control music feature thread
         std::thread musicThread;
+        std::atomic<bool> musicPlay = false;
         std::atomic<unsigned int> currentSong{};
 
         // flower environments values
@@ -51,14 +55,14 @@ class SmartPot {
         static float calculateAverage(const vector<float>& sensorValues);
 
         /** This must be launched in a new thread and will monitor lifecycle of the flower. */
-        void startMonitorThreadFunction() const;
+        void startMonitorThreadFunction();
         /** This must be launched in a new thread and will play the music. */
         void startMusicPlayFeature();
 
     public:
         static SmartPot *getInstance();
 
-        void setFlowerEnvironment(nlohmann::json input);
+        void setFlowerEnvironment(nlohmann::json input, bool resetEnvironment);
         [[nodiscard]] nlohmann::json exportConfigurationToJson();
 
         [[nodiscard]] bool isGoodAirTemperature(float currentAirTemperature) const;

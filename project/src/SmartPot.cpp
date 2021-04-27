@@ -244,7 +244,7 @@ void SmartPot::waterFlower(float waterQuantity) {
     std::cout << "\nFlower was watered with " << waterQuantity << " ml" << std::endl;
 }
 
-void SmartPot::startMonitorThreadFunction() const {
+void SmartPot::startMonitorThreadFunction() {
     ofstream file(FILE_PATH_FOR_MONITOR_LOGS);
     if(!file.is_open()) {
         return;
@@ -255,8 +255,18 @@ void SmartPot::startMonitorThreadFunction() const {
     file << "-----------------------------------------------------------------------------------------\n";
 
     int didYouKnowThatInterval = 50;
+    unsigned int timeout = 5;
 
     while (environmentIsSet.load()){
+
+        // if environment is resetting ignore monitor
+        if(environmentIsResetting.load()){
+            std::this_thread::sleep_for(std::chrono::seconds(timeout));
+            continue;
+        }
+
+        // after this point until calculations are not finished env can not be changed
+        environmentCanBeModified.store(false);
 
         //Generare valori pentru senzori
         AppHardwareHandler::getInstance()->loadSensorInfo();
@@ -282,8 +292,11 @@ void SmartPot::startMonitorThreadFunction() const {
             didYouKnowThatInterval = 50;
         }
 
+        // now env can not be changed
+        environmentCanBeModified.store(true);
+
         // sleep for 5 sec
-        std::this_thread::sleep_for(std::chrono::seconds(5));
+        std::this_thread::sleep_for(std::chrono::seconds(timeout));
 
     }
 
@@ -346,7 +359,13 @@ nlohmann::json SmartPot::exportConfigurationToJson() {
     return export_json;
 }
 
-void SmartPot::setFlowerEnvironment(nlohmann::json input) {
+void SmartPot::setFlowerEnvironment(nlohmann::json input, bool resetEnvironment) {
+
+    if(resetEnvironment){
+        environmentIsResetting.store(true);
+        // until env can be changed, wait
+        while (!environmentCanBeModified.load());
+    }
 
     flowerName = input["flower_info"]["name"];
     flowerSpecies = input["flower_info"]["species"];
@@ -391,6 +410,12 @@ void SmartPot::setFlowerEnvironment(nlohmann::json input) {
     get<1>(soilFe) = input["flower_health"]["soil"]["Fe"]["min"];
     get<2>(soilFe) = input["flower_health"]["soil"]["Fe"]["max"];
 
+    if(resetEnvironment){
+        environmentIsResetting.store(false);
+        return;
+    }
+
+    // this is called only when environment is set for the first time, not changed
     environmentIsSet.store(true);
 }
 
