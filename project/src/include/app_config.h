@@ -32,6 +32,11 @@ using namespace std;
 #define SOIL_Mg_SENSOR 6
 #define SOIL_Fe_SENSOR 7
 
+// display background color codes
+#define DISPLAY_DEFAULT 122
+#define DISPLAY_RED 123
+#define DISPLAY_WHITE 124
+#define DISPLAY_BLACK 125
 
 // file paths
 #define FILE_PATH_FOR_NOTIFICATION_CENTER_LOGS "output/notification_center_logs.txt"

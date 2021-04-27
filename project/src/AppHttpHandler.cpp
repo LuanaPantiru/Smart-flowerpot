@@ -39,6 +39,10 @@ void AppHttpHandler::setupRoutes(){
     Routes::Post(router, "/api/stopMusic",
                  Routes::bind(&AppHttpHandler::stopMusic, this));
 
+    //stateful functionality
+    Routes::Post(router, "/api/setDisplayColor/:colorCode",
+                 Routes::bind(&AppHttpHandler::setDisplayColor, this));
+
     // other routes
     Routes::Get(router, "/api/status",
                  Routes::bind(&AppHttpHandler::SmartPotStatus, this));
@@ -100,6 +104,19 @@ void AppHttpHandler::stopMusic(const Rest::Request &request, Http::ResponseWrite
 
     SmartPot::getInstance()->stopMusicPlayFeature();
     response.send(Http::Code::Ok, "Music stopped");
+}
+
+void AppHttpHandler::setDisplayColor(const Rest::Request& request, Http::ResponseWriter response){
+    // if environment is not set no feature will be available
+    if(!SmartPot::getInstance()->isEnvironmentSet()){
+        response.send(Http::Code::Ok, "Pot is not configured!");
+        return;
+    }
+
+    auto displayColorCode = request.param(":colorCode").as<int>();
+    SmartPot::getInstance()->setDisplayColorCode(displayColorCode);
+    response.send(Http::Code::Ok, "Display color is set to [" +
+        SmartPot::getInstance()->getDisplayColor() + "] with code [" + to_string(displayColorCode) + "]");
 }
 
 void AppHttpHandler::SmartPotStatus(const Rest::Request &request, Http::ResponseWriter response) {

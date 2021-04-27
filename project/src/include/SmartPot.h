@@ -6,6 +6,7 @@
 #include <nlohmann/json.hpp>
 #include <thread>
 #include <atomic>
+#include "app_config.h"
 
 using namespace std;
 
@@ -43,6 +44,9 @@ class SmartPot {
         tuple <bool,float,float> soilS;
         tuple <bool,float,float> soilMg;
         tuple <bool,float,float> soilFe;
+
+        // display color. stateful functionality
+        std::atomic<unsigned int> displayColorCode = DISPLAY_DEFAULT;
 
         static float calculateAverage(const vector<float>& sensorValues);
 
@@ -119,10 +123,12 @@ class SmartPot {
         // getters
         [[nodiscard]] bool isEnvironmentSet() const;
         [[nodiscard]] bool isMusicPlay() const;
+        [[nodiscard]] string getDisplayColor() const;
 
 
         // setter
         void setCurrentSong(unsigned int song);
+        void setDisplayColorCode(unsigned int colorCode);
 
 };
 

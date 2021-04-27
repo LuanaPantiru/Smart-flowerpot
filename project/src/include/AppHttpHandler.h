@@ -34,6 +34,9 @@ class AppHttpHandler {
 
         /** For a controlled app close */
         void closeSmartPot(const Rest::Request& request, Http::ResponseWriter response);
+
+        /** For stateful functionality */
+        void setDisplayColor(const Rest::Request& request, Http::ResponseWriter response);
 };
 
 

@@ -160,8 +160,10 @@ void SmartPot::checkSoilMoisture() const {
             float water = 3.14; // this value will result from previous calculations
             NotificationCenter::getInstance()->addNotification(WATER_NOTIFICATION, std::to_string(water), logs);
     */
+    vector<Log> logs;
 
-
+    float water = 3.14; // this value will result from previous calculations
+    NotificationCenter::getInstance()->addNotification(WATER_NOTIFICATION, std::to_string(water), logs);
 }
 
 void SmartPot::checkSoilHealth() const {
@@ -509,6 +511,27 @@ void SmartPot::stopMonitorLoop() {
 
 bool SmartPot::isMusicPlay() const {
     return musicPlay.load();
+}
+
+string SmartPot::getDisplayColor() const {
+
+    switch (displayColorCode.load()) {
+        case DISPLAY_BLACK:
+            return "black";
+
+        case DISPLAY_RED:
+            return "red";
+
+        case DISPLAY_WHITE:
+            return "white";
+
+        default:
+            return "default_color";
+    }
+}
+
+void SmartPot::setDisplayColorCode(unsigned int colorCode) {
+    displayColorCode.store(colorCode);
 }
 
 
