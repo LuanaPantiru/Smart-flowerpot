@@ -27,12 +27,16 @@ SMART FLOWERPOT este o aplicatie care transforma un ghiveci normal, care poate s
 De ce am ales un ghiveci care sa ne ajute sa ingrijim o planta? Ghiveciul este singurul obiect fizic care poate fi folosit pentru a crea un canal de comunicare dintre om si planta. Este drept ca planta reactioneaza intr-un anumit mod atunci cand nu este ingrijita cum trebuie, de exemplu se poate ofili, doar ca oameni care nu au cunostinte in domeniul botanicii nu pot sa isi dea seama cum sa vindece planta. 
 
 ## 2.Aria de acoperire a aplicației
-SMART FLOWERPOT este o aplicatie care trimite notificari legate de starea in care se afla o planta din ghiveciul nostru, nu este o aplicatie care sa ingrijeasca singura planta. De exemplu, functionalitatea de a se porni un sistem de irigare in interiorul ghiveciului nu se va regasi.
+SMART FLOWERPOT este o aplicatie care trimite notificari legate de starea in care se afla planta din ghiveciul nostru. De asemenea poate fi prevazuta cu un sistem de irigare care sa ofere cantitatea necasara de apa atunci cand este nevoie.
 
 Aceasta aplicatie imbunatateste un ghiveci astfel incat sa ni se ofere diferite informatii legate de calitatile solului si ale ambientului. Fiecare planta are anumite conditii de mediu, iar in momentul in care una din caracteristici nu este indeplinita ghiveciul va trimite o notificare specifica.
 
 ## 3.Grupurile de interese
-Aceasta aplicatie este destinata pentru orice iubitor de plante care vrea sa aiba mai multa grija de propriile plante, chiar daca are sau nu cunostintele si timpul necesar.
+Aceasta aplicatie este destinata pentru doua grupuri de interes:
+
+* persoanele care vor sa aiba plante, dar nu au cunostintele necesare de ingrijire si nici timp
+* persoanele care vor sa aiba plante, dar au cunostintele necesare de ingrijire si timp
+
 
 ## 4.Colectarea cerințelor
 
@@ -78,7 +82,7 @@ Totodata, am analizat preferintele user-ului tinta, acestia ordonandu-le in ordi
 
 ## 6.Prioritizarea cerințelor
 
-Toti membrii echipei au dat o nota de la 1 la 100 fiecarui feature, atat pentru efectul produs, cat si pentru usurinta de implementare.
+Toti membrii echipei au dat o nota de la 1 la 100 fiecarui feature, atat pentru efectul produs, cat si pentru efortul de implementare.
 
 **Notarea a fost urmatoarea:**
 
