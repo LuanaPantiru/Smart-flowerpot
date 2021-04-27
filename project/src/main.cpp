@@ -62,9 +62,6 @@ int main(int argc, char *argv[]) {
     std::this_thread::sleep_for(std::chrono::seconds(TIMEOUT)); // sleep thread in order to show logs in order on console
     std::thread mqttThread(launchMQTTClient);
 
-    pistacheThread.join();
-    mqttThread.join();
-
     // set signals for a gracefully shutdown of the httpServer when no longer needed
     sigset_t signals;
     if (sigemptyset(&signals) != 0 || sigaddset(&signals, SIGTERM) != 0 || sigaddset(&signals, SIGINT) != 0 ||
@@ -72,6 +69,9 @@ int main(int argc, char *argv[]) {
         perror("install signal handler failed");
         return 1;
     }
+
+    pistacheThread.join();
+    mqttThread.join();
 
     return 0;
 }
