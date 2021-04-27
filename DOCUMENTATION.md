@@ -15,7 +15,9 @@ https://www.jetbrains.com/help/clion/how-to-use-wsl-development-environment-in-p
 Also on machine should run **mosquitto broker** (https://mosquitto.org/download/).
 On WSL mosquitto broker is not supported so consider a windows version if you use WSL.
 
+Mosquitto broker can be started with `mosquitto` command ran from the installer root folder.
 
+You can test the mosquitto connection and emulate requests with Mqtt-Client-Explorer (http://mqtt-explorer.com/)
 
 **Step by step dependencies instalation**
 
@@ -30,8 +32,7 @@ On WSL mosquitto broker is not supported so consider a windows version if you us
     $ sudo apt-get install g++
     ```
 
-3. Install Pistache library (check this for updated instructions http://pistache.io/docs/ or follow the next instructions)
-
+3. Install Pistache library (check this for updated instructions http://pistache.io/docs/ or follow the next instructions).You will need to install the Pistache library. On Ubuntu, you can install a pre-built binary as described here.
     ```
     $ sudo add-apt-repository ppa:pistache+team/unstable
     $ sudo apt update
@@ -80,8 +81,6 @@ On WSL mosquitto broker is not supported so consider a windows version if you us
     $ sudo cmake --build build/ --target install
     $ sudo ldconfig
     ```
-
-You will need to install the Pistache library. On Ubuntu, you can install a pre-built binary as described here.
 
 ### **Building**
 TODO
