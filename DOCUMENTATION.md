@@ -20,12 +20,24 @@ https://www.jetbrains.com/help/clion/how-to-use-wsl-development-environment-in-p
 
 #### **1.2. Install mosquitto broker**
 
+1.2.1 On windows
+
 Also on machine should run **mosquitto broker** (https://mosquitto.org/download/).
 On WSL mosquitto broker is not supported so consider a windows version if you use WSL.
 
 Mosquitto broker can be started with `mosquitto` command ran from the installer root folder.
 
 You can test the mosquitto connection and emulate requests with Mqtt-Client-Explorer (http://mqtt-explorer.com/)
+
+
+1.2.2 On ubuntu
+
+```
+$ sudo apt-add-repository ppa:mosquitto-dev/mosquitto-ppa
+$ sudo apt-get update
+$ sudo apt install mosquitto
+$ sudo service mosquitto start
+```
 
 ### **2. Setup host machine (dependencies instalation)**
 
