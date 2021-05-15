@@ -174,32 +174,54 @@ void SmartPot::checkSoilHealth() const {
     //      - Will be created a vector for logs where will be logged everything which is not in parameters
 
 
-    /*
+
         // Example:
-
+        string logMessage;
         vector<Log> logs;
-
+        int count=0;
         // get current sensor value different soil sensors
-        vector<float> allSoilMoistureSensorValues =
-            AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_MOISTURE_SENSOR);
 
-        // get other values
+            
 
-        // make some calculations
+        if(isGoodSoilValue(SOIL_MOISTURE_SENSOR,allSoilMoistureSensorValues)){
+            count++;
+        }
+
+        if(isGoodSoilValue(SOIL_PH_SENSOR,allSoilMoistureSensorValues)){
+            count++;
+        }
+        if(isGoodSoilValue(SOIL_N_SENSOR,allSoilMoistureSensorValues)){
+            count++;
+        }
+        if(isGoodSoilValue(SOIL_K_SENSOR,allSoilMoistureSensorValues)){
+            count++;
+        }
+        if(isGoodSoilValue(SOIL_Fe_SENSOR,allSoilMoistureSensorValues)){
+            count++;
+        }
+        if(isGoodSoilValue(SOIL_S_SENSOR,allSoilMoistureSensorValues)){
+            count++;
+        }
+        if(isGoodSoilValue(SOIL_Mg_SENSOR,allSoilMoistureSensorValues)){
+            count++;
+        }
+        cout<<"count este "<<count<<'\n';
+        if(count>=6){
+            NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, HAPPY, logs);
+        }
+        else{
+            if(count>3){
+                NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, NEUTRAL, logs);
+                logMessage="not really okay";
+                NotificationCenter::addLog(logs,logMessage);
+            }
+            else{
+                NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, SAD, logs);
+                logMessage="DANGER ZONE!";
+            }
+        }
 
 
-        // if something is wrong log that
-        // log example
-        string logMessage = "here will be a log message";
-
-        NotificationCenter::addLog(logs,logMessage);
-
-        // make some calculations
-
-
-        // notification example
-        NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, HAPPY, logs);
-    */
 
 }
 

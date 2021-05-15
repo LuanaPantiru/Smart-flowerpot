@@ -39,6 +39,18 @@ void AppHardwareHandler::loadSensorInfo() {
     //  in interval [0,100] pentru ca umiditatea este exprimata in procente.
     //  Nu este pericol de de accesare a aceeasi zone de memorie de mai multe theraduri pentru ca generarea asta o
     //  facem doar in threadul de monitorizare, iar executia este secventiala.
+
+    for (int i=0;i< soilSensorsMatrix.size();i++){
+        for (int j=0; j<= soilSensorsMatrix[i].size();j++){
+            soilSensorsMatrix[i][j].soilMoisture = 61;
+            soilSensorsMatrix[i][j].soilPh = 6;
+            soilSensorsMatrix[i][j].soilS = 0.5;
+            soilSensorsMatrix[i][j].soilK = 1.5;
+            soilSensorsMatrix[i][j].soilMg = 0.3;
+            soilSensorsMatrix[i][j].soilFe = 0.008;
+            soilSensorsMatrix[i][j].soilN = 2;
+        }
+    }
 }
 
 float AppHardwareHandler::getAirTemperatureSensor() const {

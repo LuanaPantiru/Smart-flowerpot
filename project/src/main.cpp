@@ -59,8 +59,8 @@ void launchMQTTClient() {
 int main(int argc, char *argv[]) {
 
     std::thread pistacheThread(launchPistacheServer,argc,argv);
-    std::this_thread::sleep_for(std::chrono::seconds(TIMEOUT)); // sleep thread in order to show logs in order on console
-    std::thread mqttThread(launchMQTTClient);
+    // std::this_thread::sleep_for(std::chrono::seconds(TIMEOUT)); // sleep thread in order to show logs in order on console
+    // std::thread mqttThread(launchMQTTClient);
 
     // set signals for a gracefully shutdown of the httpServer when no longer needed
     sigset_t signals;
@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
     }
 
     pistacheThread.join();
-    mqttThread.join();
+    // mqttThread.join();
 
     return 0;
 }

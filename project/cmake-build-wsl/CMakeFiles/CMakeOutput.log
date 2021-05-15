@@ -1,0 +1,83 @@
+The system is: Linux - 4.4.0-18362-Microsoft - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/cc 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/3.16.3/CompilerIdC/a.out"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /usr/bin/c++ 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/3.16.3/CompilerIdCXX/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_1f1db/fast && /usr/bin/make -f CMakeFiles/cmTC_1f1db.dir/build.make CMakeFiles/cmTC_1f1db.dir/build
+make[1]: Entering directory '/mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_1f1db.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_1f1db.dir/testCCompiler.c.o   -c /mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_1f1db
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1f1db.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_1f1db.dir/testCCompiler.c.o  -o cmTC_1f1db 
+make[1]: Leaving directory '/mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: /mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_723c9/fast && /usr/bin/make -f CMakeFiles/cmTC_723c9.dir/build.make CMakeFiles/cmTC_723c9.dir/build
+make[1]: Entering directory '/mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_723c9.dir/testCXXCompiler.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTC_723c9.dir/testCXXCompiler.cxx.o -c /mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_723c9
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_723c9.dir/link.txt --verbose=1
+/usr/bin/c++       CMakeFiles/cmTC_723c9.dir/testCXXCompiler.cxx.o  -o cmTC_723c9 
+make[1]: Leaving directory '/mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: /mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_0b863/fast && /usr/bin/make -f CMakeFiles/cmTC_0b863.dir/build.make CMakeFiles/cmTC_0b863.dir/build
+make[1]: Entering directory '/mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_0b863.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_0b863.dir/CheckIncludeFile.c.o   -c /mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_0b863
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0b863.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_0b863.dir/CheckIncludeFile.c.o  -o cmTC_0b863 
+make[1]: Leaving directory '/mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_a185a/fast && /usr/bin/make -f CMakeFiles/cmTC_a185a.dir/build.make CMakeFiles/cmTC_a185a.dir/build
+make[1]: Entering directory '/mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a185a.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_a185a.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+Linking C executable cmTC_a185a
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a185a.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_a185a.dir/CheckFunctionExists.c.o  -o cmTC_a185a  -lpthread 
+make[1]: Leaving directory '/mnt/e/FlowerPot/project/cmake-build-wsl/CMakeFiles/CMakeTmp'
+
+
+
