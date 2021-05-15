@@ -142,6 +142,11 @@ void AppHttpHandler::SmartPotStatus(const Rest::Request &request, Http::Response
     jsonResponse["subscribers"]["additional_info_subscriber_is_running"] = MqttClientHandler::isSubscriberRunning(ADDITIONAL_INFO_SUBSCRIBER);
     jsonResponse["publishers"]["water_publisher_is_running"] = MqttClientHandler::isPublisherRunning(WATER_PUBLISHER);
     jsonResponse["publishers"]["display_publisher_is_running"] = MqttClientHandler::isPublisherRunning(DISPLAY_PUBLISHER);
+
+    if(jsonResponse["features"]["monitor_loop_is_running"] == true){
+        jsonResponse["features"]["flower_environment"] = SmartPot::getInstance()->exportConfigurationToJson();
+    }
+
     response.send(Http::Code::Ok, to_string(jsonResponse));
 }
 
