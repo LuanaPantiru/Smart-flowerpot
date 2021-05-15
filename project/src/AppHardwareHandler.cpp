@@ -1,6 +1,6 @@
 #include "include/AppHardwareHandler.h"
 #include "include/app_config.h"
-
+#include <stdlib.h>
 AppHardwareHandler *AppHardwareHandler::instance = nullptr;
 
 AppHardwareHandler::AppHardwareHandler() {
@@ -42,8 +42,8 @@ void AppHardwareHandler::loadSensorInfo() {
 
     for (int i = 0; i < soilSensorsMatrix.size(); i++) {
         for (int j = 0; j < soilSensorsMatrix[i].size(); j++) {
-            soilSensorsMatrix[i][j].soilMoisture = 61;
-            soilSensorsMatrix[i][j].soilPh = 6;
+            soilSensorsMatrix[i][j].soilMoisture = rand()%70 + 30;
+            soilSensorsMatrix[i][j].soilPh = rand()%7 + 3;
             soilSensorsMatrix[i][j].soilS = 0.5;
             soilSensorsMatrix[i][j].soilK = 1.5;
             soilSensorsMatrix[i][j].soilMg = 0.3;

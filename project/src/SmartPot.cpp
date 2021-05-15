@@ -168,13 +168,6 @@ void SmartPot::checkSoilMoisture() const {
 }
 
 void SmartPot::checkSoilHealth() const {
-    //TODO: Must be implemented
-    //      - Here must be checked the soil general health and after this check is made you must add
-    //        ONE SINGLE notification using the SOIL_HEALTH_NOTIFICATION tag.
-    //      - Value from 'notification message' must be HAPPY, NEUTRAL or SAD
-    //      - Will be created a vector for logs where will be logged everything which is not in parameters
-
-
 
         // Example:
         string logMessage;
@@ -224,7 +217,7 @@ void SmartPot::checkSoilHealth() const {
             NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, HAPPY, logs);
         }
         else{
-            if(count>3){
+            if(count>=3){
                 NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, NEUTRAL, logs);
                 logMessage="not really okay";
                 NotificationCenter::addLog(logs,logMessage);
