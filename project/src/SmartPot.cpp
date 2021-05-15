@@ -44,6 +44,7 @@ float SmartPot::calculateAverage(const vector<float>& sensorValues) {
 
 bool SmartPot::isGoodSoilValue(int sensorCode, vector<float> &currentSensorValues) const {
     float averageValue = SmartPot::calculateAverage(currentSensorValues);
+    
     switch (sensorCode){
         case SOIL_MOISTURE_SENSOR:
             if (!get<0>(soilMoisture)){
@@ -180,32 +181,45 @@ void SmartPot::checkSoilHealth() const {
         vector<Log> logs;
         int count=0;
         // get current sensor value different soil sensors
-
+        vector<float> allSoilMoistureSensorValues =
+                AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_MOISTURE_SENSOR);
+        vector<float> allSoilPHSensorValues =
+                AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_PH_SENSOR);
+        vector<float> allSoilNSensorValues =
+                AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_N_SENSOR);
+        vector<float> allSoilKSensorValues =
+                AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_K_SENSOR);
+        vector<float> allSoilFeSensorValues =
+                AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_Fe_SENSOR);
+        vector<float> allSoilSSensorValues =
+                AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_S_SENSOR);
+        vector<float> allSoilMgSensorValues =
+                AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_Mg_SENSOR);
             
 
         if(isGoodSoilValue(SOIL_MOISTURE_SENSOR,allSoilMoistureSensorValues)){
             count++;
         }
 
-        if(isGoodSoilValue(SOIL_PH_SENSOR,allSoilMoistureSensorValues)){
+        if(isGoodSoilValue(SOIL_PH_SENSOR,allSoilPHSensorValues)){
             count++;
         }
-        if(isGoodSoilValue(SOIL_N_SENSOR,allSoilMoistureSensorValues)){
+        if(isGoodSoilValue(SOIL_N_SENSOR,allSoilNSensorValues)){
             count++;
         }
-        if(isGoodSoilValue(SOIL_K_SENSOR,allSoilMoistureSensorValues)){
+        if(isGoodSoilValue(SOIL_K_SENSOR,allSoilKSensorValues)){
             count++;
         }
-        if(isGoodSoilValue(SOIL_Fe_SENSOR,allSoilMoistureSensorValues)){
+        if(isGoodSoilValue(SOIL_Fe_SENSOR,allSoilFeSensorValues)){
             count++;
         }
-        if(isGoodSoilValue(SOIL_S_SENSOR,allSoilMoistureSensorValues)){
+        if(isGoodSoilValue(SOIL_S_SENSOR,allSoilSSensorValues)){
             count++;
         }
-        if(isGoodSoilValue(SOIL_Mg_SENSOR,allSoilMoistureSensorValues)){
+        if(isGoodSoilValue(SOIL_Mg_SENSOR,allSoilMgSensorValues)){
             count++;
         }
-        cout<<"count este "<<count<<'\n';
+        
         if(count>=6){
             NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, HAPPY, logs);
         }

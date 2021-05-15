@@ -7,14 +7,14 @@ AppHardwareHandler::AppHardwareHandler() {
     int matrixDimension = 5;
 
     // populate soil sensors matrix
-    for(int i = 0; i < matrixDimension; i++){
+    for (int i = 0; i < matrixDimension; i++) {
         vector<SoilSensor> sensor(matrixDimension);
         soilSensorsMatrix.push_back(sensor);
     }
 
     // populate music sd card
-    sdCardMusic.emplace_back(make_tuple("Song A","Artist song A",3.14,"la la la la la la la"));
-    sdCardMusic.emplace_back(make_tuple("Song B","Artist song B",2.20,"la li lu la li la la"));
+    sdCardMusic.emplace_back(make_tuple("Song A", "Artist song A", 3.14, "la la la la la la la"));
+    sdCardMusic.emplace_back(make_tuple("Song B", "Artist song B", 2.20, "la li lu la li la la"));
 
     // populate DidYouKnowThat
     didYouKnowThatServerValues.push(make_pair("Interesant", "Stiati ca floarea are frunze?"));
@@ -40,8 +40,8 @@ void AppHardwareHandler::loadSensorInfo() {
     //  Nu este pericol de de accesare a aceeasi zone de memorie de mai multe theraduri pentru ca generarea asta o
     //  facem doar in threadul de monitorizare, iar executia este secventiala.
 
-    for (int i=0;i< soilSensorsMatrix.size();i++){
-        for (int j=0; j<= soilSensorsMatrix[i].size();j++){
+    for (int i = 0; i < soilSensorsMatrix.size(); i++) {
+        for (int j = 0; j < soilSensorsMatrix[i].size(); j++) {
             soilSensorsMatrix[i][j].soilMoisture = 61;
             soilSensorsMatrix[i][j].soilPh = 6;
             soilSensorsMatrix[i][j].soilS = 0.5;
@@ -67,9 +67,9 @@ float AppHardwareHandler::getLightSensor() const {
 
 vector<float> AppHardwareHandler::getSoilSpecificSensorValues(int sensorCode) const {
     vector<float> soilMoistureSensorsValues;
-    for(const auto& sensors : soilSensorsMatrix){
-        for(auto sensor : sensors){
-            switch (sensorCode){
+    for (const auto &sensors : soilSensorsMatrix) {
+        for (auto sensor : sensors) {
+            switch (sensorCode) {
                 case SOIL_MOISTURE_SENSOR:
                     soilMoistureSensorsValues.push_back(sensor.soilMoisture);
                     break;
@@ -105,7 +105,7 @@ const vector<SongInfo> &AppHardwareHandler::getSdCardMusic() const {
 
 nlohmann::json AppHardwareHandler::exportSongsToJson() {
     nlohmann::json exportJson;
-    for(int i = 0; i < sdCardMusic.size(); i++){
+    for (int i = 0; i < sdCardMusic.size(); i++) {
         exportJson[to_string(i)] = sdCardMusic[i];
     }
     return exportJson;
