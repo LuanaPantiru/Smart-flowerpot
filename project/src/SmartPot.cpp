@@ -225,6 +225,7 @@ void SmartPot::checkSoilHealth() const {
             else{
                 NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, SAD, logs);
                 logMessage="DANGER ZONE!";
+                NotificationCenter::addLog(logs,logMessage);
             }
         }
 
@@ -239,7 +240,29 @@ void SmartPot::checkAirQuality() const {
     //      - Value from 'notification message' must be HAPPY, NEUTRAL or SAD
     //      - Will be created a vector for logs where will be logged everything which is not in parameters
 
-
+    string logMessage;
+    vector<Log> logs;
+    float currentAirTemperature = AppHardwareHandler::getInstance()->getAirTemperatureSensor();
+    float currentAirHumidity = AppHardwareHandler::getInstance()->getAirHumiditySensor();
+    float currentLight = AppHardwareHandler::getInstance()->getLightSensor();
+    bool isGoodTemp = false;
+    bool isGoodHumidity = = false;
+    bool isGoodLight = false;
+    int count = 0
+    if (isGoodAirHumidity(currentAirHumidity)){
+        isGoodTemp = true;
+        count++;
+    }
+    if (count == 1)
+    {
+        NotificationCenter::getInstance()->addNotification(AIR_QUALITY_NOTIFICATION, HAPPY, logs);
+    }
+    else
+    {
+        logMessage="DANGER ZONE!";
+        NotificationCenter::addLog(logs,logMessage);
+        NotificationCenter::getInstance()->addNotification(AIR_QUALITY_NOTIFICATION, SAD, logs);
+    }
     /*
         // Example:
 
