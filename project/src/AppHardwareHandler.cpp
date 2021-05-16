@@ -40,17 +40,28 @@ void AppHardwareHandler::loadSensorInfo() {
     //  Nu este pericol de de accesare a aceeasi zone de memorie de mai multe theraduri pentru ca generarea asta o
     //  facem doar in threadul de monitorizare, iar executia este secventiala.
 
+    //generate random values for soil nutrients
     for (int i = 0; i < soilSensorsMatrix.size(); i++) {
         for (int j = 0; j < soilSensorsMatrix[i].size(); j++) {
-            soilSensorsMatrix[i][j].soilMoisture = rand() % 71 + 30;              //int between 30 and 100   --optimal is between 60 and 80
-            soilSensorsMatrix[i][j].soilPh = float( rand() ) / float( ( RAND_MAX / 4 ) ) + 4;   //float between 4 and 8  --optimal is between 5.5 and 7.0
-            soilSensorsMatrix[i][j].soilS = float( rand() ) / float( RAND_MAX );    //float between 0 and 1
-            soilSensorsMatrix[i][j].soilK = float( rand() ) / float( RAND_MAX ) + 1; //float between 1 and 2
-            soilSensorsMatrix[i][j].soilMg = float( rand() ) / float( RAND_MAX );    //float between 0 and 1
-            soilSensorsMatrix[i][j].soilFe = float( rand() ) / float( RAND_MAX );    //float between 0 and 1
-            soilSensorsMatrix[i][j].soilN = float( rand() ) / float( RAND_MAX ) + 1; //float between 1 and 2
+            soilSensorsMatrix[i][j].soilMoisture = rand() % 71 + 30;                //between 30 and 100, optimal is between 60 and 80
+            soilSensorsMatrix[i][j].soilPh = float( rand() ) / float( ( RAND_MAX / 4 ) ) + 4;   //float between 4 and 8, optimal is between 5 and 6.5
+            soilSensorsMatrix[i][j].soilS = float( rand() ) / float( RAND_MAX );     //float between 0 and 1, optimal is between 0.01 and 0.08
+            soilSensorsMatrix[i][j].soilK = float( rand() ) / float( RAND_MAX ) + 1; //float between 1 and 2, optimal is 1.5
+            soilSensorsMatrix[i][j].soilMg = float( rand() ) / float( RAND_MAX );    //float between 0 and 1, optimal is between 0.1 and 0.5
+            soilSensorsMatrix[i][j].soilFe = float( rand() ) / float( RAND_MAX );    //float between 0 and 1, optimal is between 0.005 and 0.2
+            soilSensorsMatrix[i][j].soilN = float( rand() ) / float( RAND_MAX ) + 1; //float between 1 and 2, optimal is 1.5
         }
     }
+
+    //generate a random value for air temperature
+    airTemperatureSensor = float( rand() ) / float( ( RAND_MAX / 15 ) );   //float between 0 and 15, optimal is between 5 and 12
+
+    //generate a random value for air humidity
+    airHumiditySensor = float( rand() ) / float( ( RAND_MAX / 40 ) ) + 30; //float between 30 and 70, optimal is between 40 and 60
+
+    //generate a random value for light intensity
+    lightIntensitySensor = rand() % 3000 + 1000;                           //between 1000 and 4000 (lux-SI unit of illuminance), optimal is between 1500 and 3000 lux
+
 }
 
 float AppHardwareHandler::getAirTemperatureSensor() const {
