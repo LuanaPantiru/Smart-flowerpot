@@ -1,8 +1,21 @@
 =========================================================================================
-A inceput procesul de monitorizare la ora 16-05-2021 15-35-38!
+A inceput procesul de monitorizare la ora 16-05-2021 15-43-43!
 -----------------------------------------------------------------------------------------
-Am verificat starea la ora 16-05-2021 15-35-38
-Am verificat starea la ora 16-05-2021 15-35-43
-Am verificat starea la ora 16-05-2021 15-35-48
-Am verificat starea la ora 16-05-2021 15-35-53
-Am verificat starea la ora 16-05-2021 15-35-58
+Am verificat starea la ora 16-05-2021 15-43-43
+Am verificat starea la ora 16-05-2021 15-43-48
+Am verificat starea la ora 16-05-2021 15-43-53
+Am verificat starea la ora 16-05-2021 15-43-58
+Am verificat starea la ora 16-05-2021 15-44-03
+Am verificat starea la ora 16-05-2021 15-44-08
+Am verificat starea la ora 16-05-2021 15-44-13
+Am verificat starea la ora 16-05-2021 15-44-18
+Am verificat starea la ora 16-05-2021 15-44-23
+Am verificat starea la ora 16-05-2021 15-44-28
+Am verificat starea la ora 16-05-2021 15-44-33
+Am verificat starea la ora 16-05-2021 15-44-38
+Am verificat starea la ora 16-05-2021 15-44-43
+Am verificat starea la ora 16-05-2021 15-44-48
+Am verificat starea la ora 16-05-2021 15-44-53
+Am verificat starea la ora 16-05-2021 15-44-58
+Am verificat starea la ora 16-05-2021 15-45-03
+Am verificat starea la ora 16-05-2021 15-45-08

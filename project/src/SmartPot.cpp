@@ -234,11 +234,6 @@ void SmartPot::checkSoilHealth() const {
 }
 
 void SmartPot::checkAirQuality() const {
-    //TODO: Must be implemented
-    //      - Here must be checked the air general quality and after this check is made you must add
-    //        ONE SINGLE notification using the AIR_QUALITY_NOTIFICATION tag.
-    //      - Value from 'notification message' must be HAPPY, NEUTRAL or SAD
-    //      - Will be created a vector for logs where will be logged everything which is not in parameters
 
     string logMessage;
     vector<Log> logs;
@@ -246,6 +241,8 @@ void SmartPot::checkAirQuality() const {
     float currentAirHumidity = AppHardwareHandler::getInstance()->getAirHumiditySensor();
     float currentLight = AppHardwareHandler::getInstance()->getLightSensor();
     int count = 0;
+
+
     if (isGoodAirHumidity(currentAirHumidity)){
         count++;
     }
@@ -260,39 +257,29 @@ void SmartPot::checkAirQuality() const {
         logMessage = "Air temperature is not good!";
         NotificationCenter::addLog(logs,logMessage);
     }
-    if (count == 2)
+    if (isGoodLightIntensity(currentLight))
+    {
+        count++;
+    }
+    else{
+        logMessage = "Light intensity is not good!";
+        NotificationCenter::addLog(logs,logMessage);
+    }
+
+
+    if (count == 3)
     {
         NotificationCenter::getInstance()->addNotification(AIR_QUALITY_NOTIFICATION, HAPPY, logs);
     }
     else
     {
-        NotificationCenter::getInstance()->addNotification(AIR_QUALITY_NOTIFICATION, SAD, logs);
+        if (count == 2){
+            NotificationCenter::getInstance()->addNotification(AIR_QUALITY_NOTIFICATION, NEUTRAL, logs);
+        }
+        else{
+            NotificationCenter::getInstance()->addNotification(AIR_QUALITY_NOTIFICATION, SAD, logs);
+        }
     }
-    /*
-        // Example:
-
-        vector<Log> logs;
-
-        // get current sensor value
-        float currentAirTemperature = AppHardwareHandler::getInstance()->getAirHumiditySensor();
-
-        // get other values
-
-        // make some calculations
-
-
-        // if something is wrong log that
-        // log example
-        string logMessage = "here will be a log message";
-
-        NotificationCenter::addLog(logs,logMessage);
-
-        // make some calculations
-
-
-        // notification example
-        NotificationCenter::getInstance()->addNotification(AIR_QUALITY_NOTIFICATION, HAPPY, logs);
-    */
 
 }
 
