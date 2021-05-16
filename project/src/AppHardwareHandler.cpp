@@ -42,13 +42,13 @@ void AppHardwareHandler::loadSensorInfo() {
 
     for (int i = 0; i < soilSensorsMatrix.size(); i++) {
         for (int j = 0; j < soilSensorsMatrix[i].size(); j++) {
-            soilSensorsMatrix[i][j].soilMoisture = rand()%70 + 30;
-            soilSensorsMatrix[i][j].soilPh = rand()%7 + 3;
-            soilSensorsMatrix[i][j].soilS = 0.5;
-            soilSensorsMatrix[i][j].soilK = 1.5;
-            soilSensorsMatrix[i][j].soilMg = 0.3;
-            soilSensorsMatrix[i][j].soilFe = 0.008;
-            soilSensorsMatrix[i][j].soilN = 2;
+            soilSensorsMatrix[i][j].soilMoisture = rand() % 71 + 30;              //int between 30 and 100   --optimal is between 60 and 80
+            soilSensorsMatrix[i][j].soilPh = float( rand() ) / float( ( RAND_MAX / 4 ) ) + 4;   //float between 4 and 8  --optimal is between 5.5 and 7.0
+            soilSensorsMatrix[i][j].soilS = float( rand() ) / float( RAND_MAX );    //float between 0 and 1
+            soilSensorsMatrix[i][j].soilK = float( rand() ) / float( RAND_MAX ) + 1; //float between 1 and 2
+            soilSensorsMatrix[i][j].soilMg = float( rand() ) / float( RAND_MAX );    //float between 0 and 1
+            soilSensorsMatrix[i][j].soilFe = float( rand() ) / float( RAND_MAX );    //float between 0 and 1
+            soilSensorsMatrix[i][j].soilN = float( rand() ) / float( RAND_MAX ) + 1; //float between 1 and 2
         }
     }
 }
