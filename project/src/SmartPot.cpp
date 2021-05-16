@@ -245,22 +245,27 @@ void SmartPot::checkAirQuality() const {
     float currentAirTemperature = AppHardwareHandler::getInstance()->getAirTemperatureSensor();
     float currentAirHumidity = AppHardwareHandler::getInstance()->getAirHumiditySensor();
     float currentLight = AppHardwareHandler::getInstance()->getLightSensor();
-    bool isGoodTemp = false;
-    bool isGoodHumidity = = false;
-    bool isGoodLight = false;
-    int count = 0
+    int count = 0;
     if (isGoodAirHumidity(currentAirHumidity)){
-        isGoodTemp = true;
         count++;
     }
-    if (count == 1)
+    else{
+        logMessage = "Air humidity is not good!";
+        NotificationCenter::addLog(logs,logMessage);
+    }
+    if (isGoodAirTemperature(currentAirTemperature)){
+        count++;
+    }
+    else{
+        logMessage = "Air temperature is not good!";
+        NotificationCenter::addLog(logs,logMessage);
+    }
+    if (count == 2)
     {
         NotificationCenter::getInstance()->addNotification(AIR_QUALITY_NOTIFICATION, HAPPY, logs);
     }
     else
     {
-        logMessage="DANGER ZONE!";
-        NotificationCenter::addLog(logs,logMessage);
         NotificationCenter::getInstance()->addNotification(AIR_QUALITY_NOTIFICATION, SAD, logs);
     }
     /*
