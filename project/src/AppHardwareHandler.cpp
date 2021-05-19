@@ -57,13 +57,17 @@ void AppHardwareHandler::loadSensorInfo() {
     }
 
     //generate a random value for air temperature
-    airTemperatureSensor = float( rand() ) / float( ( RAND_MAX / 15 ) );   //float between 0 and 15, optimal is between 5 and 12
+    std::uniform_real_distribution<float> airTemperatureDistribution(0, 15);        // float between 0 and 15, optimal is between 5 and 12
+    airTemperatureSensor = airTemperatureDistribution(mt);
 
     //generate a random value for air humidity
-    airHumiditySensor = float( rand() ) / float( ( RAND_MAX / 40 ) ) + 30; //float between 30 and 70, optimal is between 40 and 60
+    std::uniform_real_distribution<float> airHumidityDistribution(30, 70);          // float between 30 and 70, optimal is between 40 and 60
+    airHumiditySensor = airHumidityDistribution(mt);
 
     //generate a random value for light intensity
-    lightIntensitySensor = rand() % 3000 + 1000;                           //between 1000 and 4000 (lux-SI unit of illuminance), optimal is between 1500 and 3000 lux
+    std::uniform_real_distribution<float> lightIntensityDistribution(1000, 4000);   // between 1000 and 4000 (lux-SI unit of illuminance),
+                                                                                    // optimal is between 1500 and 3000 lux
+    lightIntensitySensor = lightIntensityDistribution(mt);
 
 }
 
