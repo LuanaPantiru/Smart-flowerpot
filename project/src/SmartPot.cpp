@@ -178,6 +178,10 @@ void SmartPot::checkSoilMoisture() const {
             NotificationCenter::addLog(logs,logMessage);
         }
     }
+    else{
+        logMessage="The soil moisture is perfect! ";
+        NotificationCenter::addLog(logs,logMessage);
+    }
 
     NotificationCenter::getInstance()->addNotification(WATER_NOTIFICATION, std::to_string(water), logs);
 }
