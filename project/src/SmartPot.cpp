@@ -275,8 +275,10 @@ void SmartPot::checkAirQuality() const {
         count++;
     }
     else{
-        logMessage = "Air temperature is not good!";
-        NotificationCenter::addLog(logs,logMessage);
+        NotificationCenter::addLog(logs,"Value for currentAirTemperature [" + to_string(currentAirTemperature) +
+                                        "] is not in interval [" +
+                                        to_string(get<1>(airTemperature)) + " , " +
+                                        to_string(get<2>(airTemperature)) + "]");
     }
     if (isGoodLightIntensity(currentLight))
     {
