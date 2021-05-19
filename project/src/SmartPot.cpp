@@ -36,10 +36,10 @@ bool SmartPot::isGoodLightIntensity(float currentLightIntensity) const {
 
 float SmartPot::calculateAverage(const vector<float>& sensorValues) {
     
-     if(sensorValues.size() == 0){
-	return 0;
-     }
-	
+    if (sensorValues.empty()){
+        return 0;
+    }     
+
     float averageValue = 0.0f;
     for(auto value : sensorValues){
         averageValue += value;
