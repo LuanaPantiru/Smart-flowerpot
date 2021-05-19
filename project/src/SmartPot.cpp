@@ -100,6 +100,8 @@ void SmartPot::checkGeneralHealth() const {
     vector<Log> logs;
     float currentAirHumidity = AppHardwareHandler::getInstance()->getAirHumiditySensor();
     float currentAirTemperature = AppHardwareHandler::getInstance()->getAirTemperatureSensor();
+    float currentLight = AppHardwareHandler::getInstance()->getLightSensor();
+
     int countAir = 0;
 
     if (isGoodAirHumidity(currentAirHumidity)){
@@ -120,6 +122,17 @@ void SmartPot::checkGeneralHealth() const {
                                         "] is not in interval [" +
                                         to_string(get<1>(airTemperature)) + " , " +
                                         to_string(get<2>(airTemperature)) + "]");
+    }
+
+    if (isGoodLightIntensity(currentLight))
+    {
+        countAir++;
+    }
+    else{
+        NotificationCenter::addLog(logs,"Value for currentLightIntensity [" + to_string(currentLight) +
+                                        "] is not in interval [" +
+                                        to_string(get<1>(lightIntensity)) + " , " +
+                                        to_string(get<2>(lightIntensity)) + "]");
     }
 
 }
