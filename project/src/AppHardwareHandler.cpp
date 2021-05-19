@@ -1,6 +1,6 @@
 #include "include/AppHardwareHandler.h"
 #include "include/app_config.h"
-#include <stdlib.h>
+#include <random>
 AppHardwareHandler *AppHardwareHandler::instance = nullptr;
 
 AppHardwareHandler::AppHardwareHandler() {
@@ -29,27 +29,30 @@ AppHardwareHandler *AppHardwareHandler::getInstance() {
 }
 
 void AppHardwareHandler::loadSensorInfo() {
-    // TODO: de implementat
-    //  In aceasta functie ar trebui sa generam valori float pentru urmatorii senzori:
-    //           float airTemperatureSensor;
-    //           float airHumiditySensor;
-    //           float lightIntensitySensor;
-    //           vector<vector<SoilSensor>> soilSensorsMatrix;
-    //  Cand se genereaza valorile ar trebui sa consideram niste limite. De exemplu pentru umiditate ar trebui valori
-    //  in interval [0,100] pentru ca umiditatea este exprimata in procente.
-    //  Nu este pericol de de accesare a aceeasi zone de memorie de mai multe theraduri pentru ca generarea asta o
-    //  facem doar in threadul de monitorizare, iar executia este secventiala.
 
-    //generate random values for soil nutrients
+    // https://en.cppreference.com/w/cpp/numeric/random
+    // https://stackoverflow.com/questions/19665818/generate-random-numbers-using-c11-random-library/19666713#19666713
+
+    std::random_device randomDevice;
+    std::mt19937 mt(randomDevice());
+    std::uniform_real_distribution<float> soilMoistureDistribution(30, 100); // between 30 and 100, optimal is between 60 and 80
+    std::uniform_real_distribution<float> soilPhDistribution(4, 8);          // float between 4 and 8, optimal is between 5 and 6.5
+    std::uniform_real_distribution<float> soilSDistribution(0, 1);           // float between 0 and 1, optimal is between 0.01 and 0.08
+    std::uniform_real_distribution<float> soilKDistribution(1, 2);           // float between 1 and 2, optimal is 1.5
+    std::uniform_real_distribution<float> soilMgDistribution(0, 1);          // float between 0 and 1, optimal is between 0.1 and 0.5
+    std::uniform_real_distribution<float> soilFeDistribution(0, 1);          // float between 0 and 1, optimal is between 0.005 and 0.2
+    std::uniform_real_distribution<float> soilNDistribution(1, 2);           // float between 1 and 2, optimal is 1.5
+
+    // generate random values for soil nutrients
     for (int i = 0; i < soilSensorsMatrix.size(); i++) {
         for (int j = 0; j < soilSensorsMatrix[i].size(); j++) {
-            soilSensorsMatrix[i][j].soilMoisture = rand() % 71 + 30;                //between 30 and 100, optimal is between 60 and 80
-            soilSensorsMatrix[i][j].soilPh = float( rand() ) / float( ( RAND_MAX / 4 ) ) + 4;   //float between 4 and 8, optimal is between 5 and 6.5
-            soilSensorsMatrix[i][j].soilS = float( rand() ) / float( RAND_MAX );     //float between 0 and 1, optimal is between 0.01 and 0.08
-            soilSensorsMatrix[i][j].soilK = float( rand() ) / float( RAND_MAX ) + 1; //float between 1 and 2, optimal is 1.5
-            soilSensorsMatrix[i][j].soilMg = float( rand() ) / float( RAND_MAX );    //float between 0 and 1, optimal is between 0.1 and 0.5
-            soilSensorsMatrix[i][j].soilFe = float( rand() ) / float( RAND_MAX );    //float between 0 and 1, optimal is between 0.005 and 0.2
-            soilSensorsMatrix[i][j].soilN = float( rand() ) / float( RAND_MAX ) + 1; //float between 1 and 2, optimal is 1.5
+            soilSensorsMatrix[i][j].soilMoisture = soilMoistureDistribution(mt);
+            soilSensorsMatrix[i][j].soilPh = soilPhDistribution(mt);
+            soilSensorsMatrix[i][j].soilS = soilSDistribution(mt);
+            soilSensorsMatrix[i][j].soilK = soilKDistribution(mt);
+            soilSensorsMatrix[i][j].soilMg = soilMgDistribution(mt);
+            soilSensorsMatrix[i][j].soilFe = soilFeDistribution(mt);
+            soilSensorsMatrix[i][j].soilN = soilNDistribution(mt);
         }
     }
 
