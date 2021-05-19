@@ -1,12 +1,12 @@
 {
   "device-name": "Smart FlowerPot",
   "device-type": "Flower pot",
-  "buffers-count": 5,
+  "buffers-count": 6,
   "input-buffers":{
     "1":{
       "token-delimitators": "/",
       "protocol": "HTTP",
-      "prefix": "curl -XPOST 'http://localhost:9080/api'",
+      "prefix": "curl -X POST 'http://localhost:9080/api' --data {'flower_info': { 'name':'[a-zA-Z]*', 'species':'[a-zA-Z]*'},'flower_health': { 'air': { 'temperature': { 'isSet': false, 'min': ^(0|[1-9][0-9]*)$, 'max': ^(0|[1-9][0-9]*)$ },'humidity': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    },   'light_intensity': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    }  },'soil': {   'moisture': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    },   'ph': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    },'N': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    },   'K': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    },'S': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    },   'Mg': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    },'Fe': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$}}}}",
       "buffer-tokens":  [
         {
           "name":"App environment setter",
@@ -15,21 +15,13 @@
           "byte-size":256,
           "regex-rule": "[a-zA-Z]*", // Correct inputs will be: [setFlowerEnvironment]
           "optional": false
-        },
-        {
-          "name":"Environment variables",
-          "description": "Parameters for environment",
-          "token-type":"json", // received from body
-          "byte-size":256,
-          "regex-rule": "json-rule",
-          "optional": false
         }
       ]
     },
     "2":{
       "token-delimitators": "/",
       "protocol": "HTTP",
-      "prefix": "curl -XPOST 'http://localhost:9080/api'",
+      "prefix": "curl -X POST 'http://localhost:9080/api'",
       "buffer-tokens":  [
         {
           "name":"App command",
@@ -76,13 +68,9 @@
   },
   "output-buffers":{
     "1":{
-      //Un output scrie la fiecare X secunde versuri dintr-o melodie intr-un fisier.
-      //Un alt output scrie la alte X secunde ca s-a verificat starea florii etc... si scrie ce a observat
-      //Un alt output scrie la alte X ore un "stiati ca" (legat de feature-ul 'did you know that')
-      //Trebuie trecute aceste outputuri aici?
-      "token-delimitators": "/", //???
-      "protocol": "FILE", //???
-      "prefix": "localdisk", //???
+      "token-delimitators": "/",
+      "protocol": "FILE",
+      "prefix": "localdisk",
       "buffer-tokens":  [
         {
           "name":"App file name",
