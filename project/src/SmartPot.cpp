@@ -99,10 +99,11 @@ void SmartPot::checkGeneralHealth() const {
     string logMessage;
     vector<Log> logs;
     float currentAirHumidity = AppHardwareHandler::getInstance()->getAirHumiditySensor();
-    int count = 0;
+    float currentAirTemperature = AppHardwareHandler::getInstance()->getAirTemperatureSensor();
+    int countAir = 0;
 
     if (isGoodAirHumidity(currentAirHumidity)){
-        count++;
+        countAir++;
     }
     else{
         NotificationCenter::addLog(logs,"Value for currentAirHumidity [" + to_string(currentAirHumidity) +
@@ -110,7 +111,17 @@ void SmartPot::checkGeneralHealth() const {
                                         to_string(get<1>(airHumidity)) + " , " +
                                         to_string(get<2>(airHumidity)) + "]");
     }
-    
+
+    if (isGoodAirTemperature(currentAirTemperature)){
+        countAir++;
+    }
+    else{
+        NotificationCenter::addLog(logs,"Value for currentAirTemperature [" + to_string(currentAirTemperature) +
+                                        "] is not in interval [" +
+                                        to_string(get<1>(airTemperature)) + " , " +
+                                        to_string(get<2>(airTemperature)) + "]");
+    }
+
 }
 
 void SmartPot::checkSoilMoisture() const {
