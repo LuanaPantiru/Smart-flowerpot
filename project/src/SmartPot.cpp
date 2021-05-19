@@ -266,8 +266,10 @@ void SmartPot::checkAirQuality() const {
         count++;
     }
     else{
-        logMessage = "Air humidity is not good!";
-        NotificationCenter::addLog(logs,logMessage);
+        NotificationCenter::addLog(logs,"Value for currentAirHumidity [" + to_string(currentAirHumidity) +
+                                        "] is not in interval [" +
+                                        to_string(get<1>(airHumidity)) + " , " +
+                                        to_string(get<2>(airHumidity)) + "]");
     }
     if (isGoodAirTemperature(currentAirTemperature)){
         count++;

@@ -1,10 +1,7 @@
 =========================================================================================
-A inceput procesul de monitorizare la ora 19-05-2021 16-01-09!
+A inceput procesul de monitorizare la ora 19-05-2021 16-14-42!
 -----------------------------------------------------------------------------------------
-Am verificat starea la ora 19-05-2021 16-01-09
-Am verificat starea la ora 19-05-2021 16-01-14
-Am verificat starea la ora 19-05-2021 16-01-19
-Am verificat starea la ora 19-05-2021 16-01-24
-Am verificat starea la ora 19-05-2021 16-01-29
-Am verificat starea la ora 19-05-2021 16-01-34
-Am verificat starea la ora 19-05-2021 16-01-39
+Am verificat starea la ora 19-05-2021 16-14-42
+Am verificat starea la ora 19-05-2021 16-14-47
+Am verificat starea la ora 19-05-2021 16-14-52
+Am verificat starea la ora 19-05-2021 16-14-57
