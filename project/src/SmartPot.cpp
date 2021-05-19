@@ -132,35 +132,7 @@ void SmartPot::checkGeneralHealth() const {
 }
 
 void SmartPot::checkSoilMoisture() const {
-    //TODO: Must be implemented
-    //      - Here must be checked the soil moisture and after this check is made you must add
-    //        ONE SINGLE notification using the WATER_NOTIFICATION tag.
-    //      - Value from 'notification message' must be a float value >= 0. This value will represent
-    //        the water quantity which flower need at that time
-    //      - Will be created a vector for logs where will be logged everything which is not in parameters
 
-
-    /*
-        // Example:
-            vector<Log> logs;
-
-            vector<float> allSoilMoistureSensorValues =
-                    AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_MOISTURE_SENSOR);
-
-            // make some calculations
-
-            // if something is wrong log it
-            // log example
-            string logMessage = "here will be a log message";
-            NotificationCenter::addLog(logs,logMessage);
-
-
-            // make some calculations
-
-            // notification example
-            float water = 3.14; // this value will result from previous calculations
-            NotificationCenter::getInstance()->addNotification(WATER_NOTIFICATION, std::to_string(water), logs);
-    */
     vector<Log> logs;
     string logMessage;
     float water = 0;
@@ -285,8 +257,10 @@ void SmartPot::checkAirQuality() const {
         count++;
     }
     else{
-        logMessage = "Light intensity is not good!";
-        NotificationCenter::addLog(logs,logMessage);
+        NotificationCenter::addLog(logs,"Value for currentLightIntensity [" + to_string(currentLight) +
+                                        "] is not in interval [" +
+                                        to_string(get<1>(lightIntensity)) + " , " +
+                                        to_string(get<2>(lightIntensity)) + "]");
     }
 
 
