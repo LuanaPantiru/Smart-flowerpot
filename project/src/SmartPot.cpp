@@ -173,6 +173,10 @@ void SmartPot::checkSoilMoisture() const {
             logMessage = "Must add "+to_string(water)+" ml of water";
             NotificationCenter::addLog(logs,logMessage);
         }
+        else{
+            logMessage="Don't add water! DANGER OF DROWING!";
+            NotificationCenter::addLog(logs,logMessage);
+        }
     }
 
     NotificationCenter::getInstance()->addNotification(WATER_NOTIFICATION, std::to_string(water), logs);
