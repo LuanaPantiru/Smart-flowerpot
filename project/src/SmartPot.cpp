@@ -102,7 +102,23 @@ void SmartPot::checkGeneralHealth() const {
     float currentAirTemperature = AppHardwareHandler::getInstance()->getAirTemperatureSensor();
     float currentLight = AppHardwareHandler::getInstance()->getLightSensor();
 
+    vector<float> allSoilMoistureSensorValues =
+                AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_MOISTURE_SENSOR);
+    vector<float> allSoilPHSensorValues =
+                AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_PH_SENSOR);
+    vector<float> allSoilNSensorValues =
+                AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_N_SENSOR);
+    vector<float> allSoilKSensorValues =
+                AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_K_SENSOR);
+    vector<float> allSoilFeSensorValues =
+                AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_Fe_SENSOR);
+    vector<float> allSoilSSensorValues =
+                AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_S_SENSOR);
+    vector<float> allSoilMgSensorValues =
+                AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_Mg_SENSOR);
+
     int countAir = 0;
+    int countSoil = 0;
 
     if (isGoodAirHumidity(currentAirHumidity)){
         countAir++;
