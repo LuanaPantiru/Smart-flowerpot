@@ -162,8 +162,19 @@ void SmartPot::checkSoilMoisture() const {
             NotificationCenter::getInstance()->addNotification(WATER_NOTIFICATION, std::to_string(water), logs);
     */
     vector<Log> logs;
+    string logMessage;
+    float water = 0;
+    vector<float> allSoilMoistureSensorValues =
+            AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_MOISTURE_SENSOR);
+    if(!isGoodSoilValue(SOIL_MOISTURE_SENSOR,allSoilMoistureSensorValues)){
+        float avg = SmartPot::calculateAverage(allSoilMoistureSensorValues);
+        if(avg < get<1>(soilMoisture)){
+            water = round(((get<1>(soilMoisture) + get<2>(soilMoisture))/2 - avg)*10);
+            logMessage = "Must add "+to_string(water)+" ml of water";
+            NotificationCenter::addLog(logs,logMessage);
+        }
+    }
 
-    float water = 3.14; // this value will result from previous calculations
     NotificationCenter::getInstance()->addNotification(WATER_NOTIFICATION, std::to_string(water), logs);
 }
 
