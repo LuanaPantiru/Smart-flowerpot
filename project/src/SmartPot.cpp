@@ -38,7 +38,7 @@ float SmartPot::calculateAverage(const vector<float>& sensorValues) {
     
     if (sensorValues.empty()){
         return 0;
-    }     
+    }  
 
     float averageValue = 0.0f;
     for(auto value : sensorValues){
@@ -155,6 +155,52 @@ void SmartPot::checkGeneralHealth() const {
                                         to_string(get<1>(lightIntensity)) + " , " +
                                         to_string(get<2>(lightIntensity)) + "]");
     }
+
+    if(isGoodSoilValue(SOIL_MOISTURE_SENSOR,allSoilMoistureSensorValues)){
+        countSoil++;
+    }
+    else{
+        NotificationCenter::addLog(logs,"Soil moisture is not in normal range");
+    }
+
+    if(isGoodSoilValue(SOIL_PH_SENSOR,allSoilPHSensorValues)){
+        countSoil++;
+    }
+    else{
+         NotificationCenter::addLog(logs,"Ph value is not in normal range");
+    }
+    
+    if(isGoodSoilValue(SOIL_N_SENSOR,allSoilNSensorValues)){
+        countSoil++;
+    }
+    else{
+         NotificationCenter::addLog(logs,"N value is not in normal range");
+    }
+    if(isGoodSoilValue(SOIL_K_SENSOR,allSoilKSensorValues)){
+        countSoil++;
+    }
+    else{
+         NotificationCenter::addLog(logs,"K value is not in normal range");
+    }
+    if(isGoodSoilValue(SOIL_Fe_SENSOR,allSoilFeSensorValues)){
+        countSoil++;
+    }
+    else{
+         NotificationCenter::addLog(logs,"Fe value is not in normal range");
+    }
+    if(isGoodSoilValue(SOIL_S_SENSOR,allSoilSSensorValues)){
+        countSoil++;
+    }
+    else{
+         NotificationCenter::addLog(logs,"S value is not in normal range");
+    }
+    if(isGoodSoilValue(SOIL_Mg_SENSOR,allSoilMgSensorValues)){
+        countSoil++;
+    }
+    else{
+         NotificationCenter::addLog(logs,"Mg value is not in normal range");
+    }
+    
 
 }
 
