@@ -253,29 +253,50 @@ void SmartPot::checkSoilHealth() const {
         vector<float> allSoilMgSensorValues =
                 AppHardwareHandler::getInstance()->getSoilSpecificSensorValues(SOIL_Mg_SENSOR);
             
+    if(isGoodSoilValue(SOIL_MOISTURE_SENSOR,allSoilMoistureSensorValues)){
+        countSoil++;
+    }
+    else{
+        NotificationCenter::addLog(logs,"Soil moisture is not in normal range");
+    }
 
-        if(isGoodSoilValue(SOIL_MOISTURE_SENSOR,allSoilMoistureSensorValues)){
-            count++;
-        }
-
-        if(isGoodSoilValue(SOIL_PH_SENSOR,allSoilPHSensorValues)){
-            count++;
-        }
-        if(isGoodSoilValue(SOIL_N_SENSOR,allSoilNSensorValues)){
-            count++;
-        }
-        if(isGoodSoilValue(SOIL_K_SENSOR,allSoilKSensorValues)){
-            count++;
-        }
-        if(isGoodSoilValue(SOIL_Fe_SENSOR,allSoilFeSensorValues)){
-            count++;
-        }
-        if(isGoodSoilValue(SOIL_S_SENSOR,allSoilSSensorValues)){
-            count++;
-        }
-        if(isGoodSoilValue(SOIL_Mg_SENSOR,allSoilMgSensorValues)){
-            count++;
-        }
+    if(isGoodSoilValue(SOIL_PH_SENSOR,allSoilPHSensorValues)){
+        countSoil++;
+    }
+    else{
+         NotificationCenter::addLog(logs,"Ph value is not in normal range");
+    }
+    
+    if(isGoodSoilValue(SOIL_N_SENSOR,allSoilNSensorValues)){
+        countSoil++;
+    }
+    else{
+         NotificationCenter::addLog(logs,"N value is not in normal range");
+    }
+    if(isGoodSoilValue(SOIL_K_SENSOR,allSoilKSensorValues)){
+        countSoil++;
+    }
+    else{
+         NotificationCenter::addLog(logs,"K value is not in normal range");
+    }
+    if(isGoodSoilValue(SOIL_Fe_SENSOR,allSoilFeSensorValues)){
+        countSoil++;
+    }
+    else{
+         NotificationCenter::addLog(logs,"Fe value is not in normal range");
+    }
+    if(isGoodSoilValue(SOIL_S_SENSOR,allSoilSSensorValues)){
+        countSoil++;
+    }
+    else{
+         NotificationCenter::addLog(logs,"S value is not in normal range");
+    }
+    if(isGoodSoilValue(SOIL_Mg_SENSOR,allSoilMgSensorValues)){
+        countSoil++;
+    }
+    else{
+         NotificationCenter::addLog(logs,"Mg value is not in normal range");
+    }
         
         if(count>=6){
             NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, HAPPY, logs);
