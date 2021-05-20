@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="smart_pot"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\lib\;CMake Files\..\..\..\..\usr\lib\cmake\;CMake Files\..\..\..\..\usr\lib\cmake\nlohmann_json\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\lib\;CMake Files\..\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\..\usr\local\lib\cmake\PahoMqttCpp\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/mnt/e/FlowerPot/project/cmake-build-wsl"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/mnt/e/FlowerPot/project/cmake-build-wsl"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/mnt/e/FlowerPot/project/cmake-build-wsl"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="smart_pot">
+				<Option output="/mnt/e/FlowerPot/project/cmake-build-wsl/smart_pot" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/e/FlowerPot/project/cmake-build-wsl"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 smart_pot"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="smart_pot/fast">
+				<Option output="/mnt/e/FlowerPot/project/cmake-build-wsl/smart_pot" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/e/FlowerPot/project/cmake-build-wsl"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 smart_pot/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/mnt/e/FlowerPot/project/cmake-build-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/mnt/e/FlowerPot/project/src/AppHardwareHandler.cpp">
+			<Option target="smart_pot"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/src/AppHttpHandler.cpp">
+			<Option target="smart_pot"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/src/MqttClientHandler.cpp">
+			<Option target="smart_pot"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/src/NotificationCenter.cpp">
+			<Option target="smart_pot"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/src/SmartPot.cpp">
+			<Option target="smart_pot"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/src/include/AppHardwareHandler.h">
+			<Option target="smart_pot"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/src/include/AppHttpHandler.h">
+			<Option target="smart_pot"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/src/include/MqttClientHandler.h">
+			<Option target="smart_pot"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/src/include/NotificationCenter.h">
+			<Option target="smart_pot"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/src/include/SmartPot.h">
+			<Option target="smart_pot"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/src/include/app_config.h">
+			<Option target="smart_pot"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/src/main.cpp">
+			<Option target="smart_pot"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/../../../../usr/lib/cmake/nlohmann_json/nlohmann_jsonConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\lib\cmake\nlohmann_json\"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/../../../../usr/lib/cmake/nlohmann_json/nlohmann_jsonConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\lib\cmake\nlohmann_json\"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/../../../../usr/lib/cmake/nlohmann_json/nlohmann_jsonTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\lib\cmake\nlohmann_json\"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/../../../../usr/local/lib/cmake/PahoMqttCpp/FindPahoMqttC.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\PahoMqttCpp\"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/../../../../usr/local/lib/cmake/PahoMqttCpp/PahoMqttCppConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\PahoMqttCpp\"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/../../../../usr/local/lib/cmake/PahoMqttCpp/PahoMqttCppConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\PahoMqttCpp\"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/../../../../usr/local/lib/cmake/PahoMqttCpp/PahoMqttCppTargets-noconfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\PahoMqttCpp\"/>
+		</Unit>
+		<Unit filename="/mnt/e/FlowerPot/project/../../../../usr/local/lib/cmake/PahoMqttCpp/PahoMqttCppTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\PahoMqttCpp\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

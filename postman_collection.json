@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "a2497a1b-a6db-4fe8-b1e1-23e1442fabac",
+		"name": "Smart flower pot - Inginerea Programarii",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:9080//api/setFlowerEnvironment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"flower_info\": {\r\n    \"name\": \"cactus\",\r\n    \"species\": \"\"\r\n  },\r\n  \"flower_health\": {\r\n    \"air\": {\r\n      \"temperature\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      },\r\n      \"humidity\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      },\r\n      \"light_intensity\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      }\r\n    },\r\n    \"soil\": {\r\n      \"moisture\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      },\r\n      \"ph\": {\r\n        \"isSet\": false,\r\n        \"min\": -50,\r\n        \"max\": 0\r\n      },\r\n      \"N\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      },\r\n      \"K\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      },\r\n      \"S\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      },\r\n      \"Mg\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      },\r\n      \"Fe\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      }\r\n    }\r\n  }\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9080/api/setFlowerEnvironment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"setFlowerEnvironment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9080/api/songs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9080/api/songs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"songs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9080/api/playSong/0",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9080/api/playSong/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"playSong",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9080/api/stopMusic",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9080/api/stopMusic",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"stopMusic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9080/api/status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9080/api/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9080/api/close",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9080/api/close",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"close"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9080/api/setDisplayColor/124",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9080/api/setDisplayColor/124",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"setDisplayColor",
+						"124"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9080/api/resetFlowerEnvironment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"flower_info\": {\r\n    \"name\": \"cactus-schimbat\",\r\n    \"species\": \"\"\r\n  },\r\n  \"flower_health\": {\r\n    \"air\": {\r\n      \"temperature\": {\r\n        \"isSet\": true,\r\n        \"min\": 5,\r\n        \"max\": 6\r\n      },\r\n      \"humidity\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      },\r\n      \"light_intensity\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      }\r\n    },\r\n    \"soil\": {\r\n      \"moisture\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      },\r\n      \"ph\": {\r\n        \"isSet\": false,\r\n        \"min\": -50,\r\n        \"max\": 0\r\n      },\r\n      \"N\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      },\r\n      \"K\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      },\r\n      \"S\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      },\r\n      \"Mg\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      },\r\n      \"Fe\": {\r\n        \"isSet\": false,\r\n        \"min\": 0,\r\n        \"max\": 0\r\n      }\r\n    }\r\n  }\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9080/api/resetFlowerEnvironment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"resetFlowerEnvironment"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

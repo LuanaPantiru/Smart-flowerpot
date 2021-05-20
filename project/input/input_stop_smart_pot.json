@@ -1,0 +1,15 @@
+{
+  "features": {
+    "stop_monitor_loop": false,
+    "stop_music_feature": false
+  },
+  "subscribers": {
+    "stop_water_subscriber": false,
+    "stop_additional_info_subscriber": false
+  },
+  "publishers": {
+    "stop_water_publisher": false,
+    "stop_display_publisher": false
+  }
+}
+

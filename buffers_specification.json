@@ -1,0 +1,134 @@
+{
+  "device-name": "Smart FlowerPot",
+  "device-type": "Flower pot",
+  "buffers-count": 6,
+  "input-buffers":{
+    "1":{
+      "token-delimitators": "/",
+      "protocol": "HTTP",
+      "prefix": "curl -X POST 'http://localhost:9080/api' --data {'flower_info': { 'name':'[a-zA-Z]*', 'species':'[a-zA-Z]*'},'flower_health': { 'air': { 'temperature': { 'isSet': false, 'min': ^(0|[1-9][0-9]*)$, 'max': ^(0|[1-9][0-9]*)$ },'humidity': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    },   'light_intensity': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    }  },'soil': {   'moisture': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    },   'ph': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    },'N': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    },   'K': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    },'S': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    },   'Mg': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$    },'Fe': { isSet': false, min': ^(0|[1-9][0-9]*)$, max': ^(0|[1-9][0-9]*)$}}}}",
+      "buffer-tokens":  [
+        {
+          "name":"App environment setter",
+          "description":"Input that sets app environment",
+          "token-type":"string",
+          "byte-size":256,
+          "regex-rule": "[a-zA-Z]*", // Correct inputs will be: [setFlowerEnvironment]
+          "optional": false
+        }
+      ]
+    },
+    "2":{
+      "token-delimitators": "/",
+      "protocol": "HTTP",
+      "prefix": "curl -X POST 'http://localhost:9080/api'",
+      "buffer-tokens":  [
+        {
+          "name":"App command",
+          "description":"Input that selects command",
+          "token-type":"string",
+          "byte-size":256,
+          "regex-rule": "[a-zA-Z]*", // Correct inputs will be: [playSong, stopMusic,
+                                     // close, setDisplayColor, resetFlowerEnironment]
+          "optional": false
+        },
+        {
+          "name":"Command parameter key",
+          "description": "Parameter key for the command chosen",
+          "token-type":"string",
+          "byte-size":6,
+          "regex-rule": "^(0|[1-9][0-9]*)$", // Correct input will be an integer number >= 0
+          "optional": false
+        }
+      ]
+    },
+    "3":{
+      "token-delimitators": "/",
+      "protocol": "MQTT",
+      "prefix": "tcp://localhost:1883/smart_pot",
+      "buffer-tokens":  [
+        {
+          "name":"Topic subscriber",
+          "description":"input that specifies the topic used to retrieve information",
+          "token-type":"string",
+          "byte-size":32,
+          "regex-rule": "[a-zA-Z]*", // Correct input will be: [water-subscriber, info]
+          "optional": false
+        },
+        {
+          "name":"Subscriber message",
+          "description": "Message received from the subscriber",
+          "token-type":"string",
+          "byte-size":6,
+          "regex-rule": "^({water-quantity: ([0-9]*[.])?[0-9]+})|[a-zA-Z]*$", // Correct input will be a specific json with a float number >= 0 or a generic string
+          "optional": false
+        }
+      ]
+    }
+  },
+  "output-buffers":{
+    "1":{
+      "token-delimitators": "/",
+      "protocol": "FILE",
+      "prefix": "localdisk",
+      "buffer-tokens":  [
+        {
+          "name":"App file name",
+          "description":"Name for the output file",
+          "token-type":"string",
+          "byte-size":32,
+          "regex-rule": "[a-zA-Z]*",
+          "optional": false
+        },
+        {
+          "name":"File content",
+          "description":"",
+          "token-type":"bytes",
+          "byte-size":"",
+          "regex-rule": "",
+          "optional": false
+        }
+      ]
+    },
+    "2":{
+      "token-delimitators": "/",
+      "protocol": "MQTT",
+      "prefix": "tcp://localhost:1883/smart_pot",
+      "buffer-tokens":  [
+        {
+          "name":"Topic publisher",
+          "description":"input that specifies the topic used to push information",
+          "token-type":"string",
+          "byte-size":32,
+          "regex-rule": "[a-zA-Z]*", // Correct input will be: [water-publish, display]
+          "optional": false
+        },
+        {
+          "name":"Publisher message",
+          "description": "Message which is pushed by the publisher",
+          "token-type":"json",
+          "byte-size":6,
+          "regex-rule": "json-rule", // Application output for display and water needed
+          "optional": false
+        }
+      ]
+    },
+    "3":{
+      "token-delimitators": "/",
+      "protocol": "HTTP",
+      "prefix": "curl -XPOST 'http://localhost:9080/api'",
+      "buffer-tokens":  [
+        {
+          "name":"App information getter",
+          "description":"Parameter for the information type",
+          "token-type":"string",
+          "byte-size":256,
+          "regex-rule": "[a-zA-Z]*", // Correct inputs will be: [status, songs]
+          "optional": false
+        }
+      ]
+    }
+  }
+}
+
+

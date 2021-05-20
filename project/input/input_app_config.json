@@ -1,0 +1,62 @@
+{
+  "flower_info": {
+    "name": "cactus",
+    "species": ""
+  },
+  "flower_health": {
+    "air": {
+      "temperature": {
+        "isSet": false,
+        "min": 0,
+        "max": 0
+      },
+      "humidity": {
+        "isSet": false,
+        "min": 0,
+        "max": 0
+      },
+      "light_intensity": {
+        "isSet": false,
+        "min": 0,
+        "max": 0
+      }
+    },
+    "soil": {
+      "moisture": {
+        "isSet": false,
+        "min": 0,
+        "max": 0
+      },
+      "ph": {
+        "isSet": false,
+        "min": 0,
+        "max": 0
+      },
+      "N": {
+        "isSet": false,
+        "min": 0,
+        "max": 0
+      },
+      "K": {
+        "isSet": false,
+        "min": 0,
+        "max": 0
+      },
+      "S": {
+        "isSet": false,
+        "min": 0,
+        "max": 0
+      },
+      "Mg": {
+        "isSet": false,
+        "min": 0,
+        "max": 0
+      },
+      "Fe": {
+        "isSet": false,
+        "min": 0,
+        "max": 0
+      }
+    }
+  }
+}

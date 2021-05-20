@@ -1,0 +1,62 @@
+======================
+Music feature started!
+======================
+=======================================
+Song [Song A] by [Artist song A] will play for [180] seconds!
+---------------------------------------
+la la la la la la la
+=======================================
+Song [Song A] by [Artist song A] will play for [175] seconds!
+---------------------------------------
+la la la la la la la
+=======================================
+Song [Song A] by [Artist song A] will play for [170] seconds!
+---------------------------------------
+la la la la la la la
+=======================================
+Song [Song A] by [Artist song A] will play for [165] seconds!
+---------------------------------------
+la la la la la la la
+=======================================
+Song [Song A] by [Artist song A] will play for [160] seconds!
+---------------------------------------
+la la la la la la la
+=======================================
+Song [Song A] by [Artist song A] will play for [155] seconds!
+---------------------------------------
+la la la la la la la
+=======================================
+Song [Song A] by [Artist song A] will play for [150] seconds!
+---------------------------------------
+la la la la la la la
+=======================================
+Song [Song A] by [Artist song A] will play for [145] seconds!
+---------------------------------------
+la la la la la la la
+=======================================
+Song [Song A] by [Artist song A] will play for [140] seconds!
+---------------------------------------
+la la la la la la la
+=======================================
+Song [Song A] by [Artist song A] will play for [135] seconds!
+---------------------------------------
+la la la la la la la
+=======================================
+Song [Song A] by [Artist song A] will play for [130] seconds!
+---------------------------------------
+la la la la la la la
+=======================================
+Song [Song A] by [Artist song A] will play for [125] seconds!
+---------------------------------------
+la la la la la la la
+=======================================
+Song [Song A] by [Artist song A] will play for [120] seconds!
+---------------------------------------
+la la la la la la la
+=======================================
+Song [Song A] by [Artist song A] will play for [115] seconds!
+---------------------------------------
+la la la la la la la
+======================
+Music feature stopped!
+======================
