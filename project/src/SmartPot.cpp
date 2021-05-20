@@ -157,49 +157,93 @@ void SmartPot::checkGeneralHealth() const {
     }
 
     if(isGoodSoilValue(SOIL_MOISTURE_SENSOR,allSoilMoistureSensorValues)){
-        countSoil++;
-    }
-    else{
-        NotificationCenter::addLog(logs,"Soil moisture is not in normal range");
-    }
+            countSoil++;
+        }
+        else{
+            NotificationCenter::addLog(logs,"Value for SOIL_MOISTURE_SENSOR [" +
+                                            to_string(calculateAverage(allSoilMoistureSensorValues)) +
+                                            "] is not in interval [" +
+                                            to_string(get<1>(soilMoisture)) + " , " +
+                                            to_string(get<2>(soilMoisture)) + "]");
+        }
 
-    if(isGoodSoilValue(SOIL_PH_SENSOR,allSoilPHSensorValues)){
-        countSoil++;
-    }
-    else{
-         NotificationCenter::addLog(logs,"Ph value is not in normal range");
-    }
-    
-    if(isGoodSoilValue(SOIL_N_SENSOR,allSoilNSensorValues)){
-        countSoil++;
-    }
-    else{
-         NotificationCenter::addLog(logs,"N value is not in normal range");
-    }
-    if(isGoodSoilValue(SOIL_K_SENSOR,allSoilKSensorValues)){
-        countSoil++;
-    }
-    else{
-         NotificationCenter::addLog(logs,"K value is not in normal range");
-    }
-    if(isGoodSoilValue(SOIL_Fe_SENSOR,allSoilFeSensorValues)){
-        countSoil++;
-    }
-    else{
-         NotificationCenter::addLog(logs,"Fe value is not in normal range");
-    }
-    if(isGoodSoilValue(SOIL_S_SENSOR,allSoilSSensorValues)){
-        countSoil++;
-    }
-    else{
-         NotificationCenter::addLog(logs,"S value is not in normal range");
-    }
-    if(isGoodSoilValue(SOIL_Mg_SENSOR,allSoilMgSensorValues)){
-        countSoil++;
-    }
-    else{
-         NotificationCenter::addLog(logs,"Mg value is not in normal range");
-    }
+        if(isGoodSoilValue(SOIL_PH_SENSOR,allSoilPHSensorValues)){
+            countSoil++;
+        }
+        else{
+            NotificationCenter::addLog(logs,"Value for SOIL_PH_SENSOR [" +
+                                            to_string(calculateAverage(allSoilPHSensorValues)) +
+                                            "] is not in interval [" +
+                                            to_string(get<1>(soilPh)) + " , " +
+                                            to_string(get<2>(soilPh)) + "]");
+        }
+
+        if(isGoodSoilValue(SOIL_N_SENSOR,allSoilNSensorValues)){
+            countSoil++;
+        }
+        else{
+            NotificationCenter::addLog(logs,"Value for SOIL_N_SENSOR [" +
+                                            to_string(calculateAverage(allSoilNSensorValues)) +
+                                            "] is not in interval [" +
+                                            to_string(get<1>(soilN)) + " , " +
+                                            to_string(get<2>(soilN)) + "]");
+        }
+
+        if(isGoodSoilValue(SOIL_K_SENSOR,allSoilKSensorValues)){
+            countSoil++;
+        }
+        else{
+            NotificationCenter::addLog(logs,"Value for SOIL_K_SENSOR [" +
+                                            to_string(calculateAverage(allSoilKSensorValues)) +
+                                            "] is not in interval [" +
+                                            to_string(get<1>(soilK)) + " , " +
+                                            to_string(get<2>(soilK)) + "]");
+        }
+
+        if(isGoodSoilValue(SOIL_Fe_SENSOR,allSoilFeSensorValues)){
+            countSoil++;
+        }
+        else{
+            NotificationCenter::addLog(logs,"Value for SOIL_Fe_SENSOR [" +
+                                            to_string(calculateAverage(allSoilFeSensorValues)) +
+                                            "] is not in interval [" +
+                                            to_string(get<1>(soilFe)) + " , " +
+                                            to_string(get<2>(soilFe)) + "]");
+        }
+
+        if(isGoodSoilValue(SOIL_S_SENSOR,allSoilSSensorValues)){
+            countSoil++;
+        }
+        else{
+            NotificationCenter::addLog(logs,"Value for SOIL_S_SENSOR [" +
+                                            to_string(calculateAverage(allSoilSSensorValues)) +
+                                            "] is not in interval [" +
+                                            to_string(get<1>(soilS)) + " , " +
+                                            to_string(get<2>(soilS)) + "]");
+        }
+
+        if(isGoodSoilValue(SOIL_Mg_SENSOR,allSoilMgSensorValues)){
+            countSoil++;
+        }
+        else{
+            NotificationCenter::addLog(logs,"Value for SOIL_Mg_SENSOR [" +
+                                            to_string(calculateAverage(allSoilMgSensorValues)) +
+                                            "] is not in interval [" +
+                                            to_string(get<1>(soilMg)) + " , " +
+                                            to_string(get<2>(soilMg)) + "]");
+        }
+
+        if(countSoil+countAir >= 9){
+            NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, HAPPY, logs);
+            return;
+        }
+
+        if(countSoil+countAir >= 6){
+            NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, NEUTRAL, logs);
+            return;
+        }
+
+        NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, SAD, logs);
     
 
 }
