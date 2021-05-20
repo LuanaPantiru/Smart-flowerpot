@@ -94,13 +94,6 @@ bool SmartPot::isGoodSoilValue(int sensorCode, vector<float> &currentSensorValue
 
 void SmartPot::checkGeneralHealth() const {
 
-    //TODO: Must be implemented
-    //      - Here must be checked the general flower health and after this check is made you must add
-    //        ONE SINGLE notification using the GENERAL_HEALTH_NOTIFICATION tag.
-    //      - Value from 'notification message' must be HAPPY, NEUTRAL or SAD
-    //      - Will be created a vector for logs where will be logged everything which is not in parameters
-
-
     string logMessage;
     vector<Log> logs;
     float currentAirHumidity = AppHardwareHandler::getInstance()->getAirHumiditySensor();
@@ -444,7 +437,6 @@ void SmartPot::checkAirQuality() const {
 }
 
 void SmartPot::waterFlower(float waterQuantity) {
-    //TODO: Must be implemented
     std::cout << "\nFlower was watered with " << waterQuantity << " ml" << std::endl;
 }
 
