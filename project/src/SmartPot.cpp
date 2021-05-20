@@ -227,16 +227,16 @@ void SmartPot::checkGeneralHealth() const {
         }
 
         if(countSoil+countAir >= 9){
-            NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, HAPPY, logs);
+            NotificationCenter::getInstance()->addNotification(GENERAL_HEALTH_NOTIFICATION, HAPPY, logs);
             return;
         }
 
         if(countSoil+countAir >= 6){
-            NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, NEUTRAL, logs);
+            NotificationCenter::getInstance()->addNotification(GENERAL_HEALTH_NOTIFICATION, NEUTRAL, logs);
             return;
         }
 
-        NotificationCenter::getInstance()->addNotification(SOIL_HEALTH_NOTIFICATION, SAD, logs);
+        NotificationCenter::getInstance()->addNotification(GENERAL_HEALTH_NOTIFICATION, SAD, logs);
     
 
 }
