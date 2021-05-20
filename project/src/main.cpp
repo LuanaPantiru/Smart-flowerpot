@@ -6,19 +6,13 @@
 
 #define TIMEOUT 2
 
-void launchPistacheServer(int argc, char *argv[]){
+void launchPistacheServer(){
     std::cout << "\n[PISTACHE-HTTP] Starting Pistache HTTP Server..." << std::endl;
 
     // prepare HTTP Server
     // set default values
     Port port(SERVER_PORT);
     int threadsNumber = 2;
-    if (argc >= 2) {
-        port = static_cast<uint16_t>(std::stol(argv[1]));
-        if (argc == 3) {
-            threadsNumber = std::stoi(argv[2]);
-        }
-    }
 
     // launch HTTP httpServer
     Address address(Ipv4::any(), port);
@@ -49,18 +43,11 @@ void launchMQTTClient() {
     displayPublisher.join();
 }
 
-// TODO: IMPORTANT .
-//    At final, when binary will be released check if program will output infos correctly in the output files,
-//     because in CLion a current directory must be set.
-
-
-// TODO: check input arguments like httpServer address, port or thread number
-//  (first argument I think is always the program name)
 int main(int argc, char *argv[]) {
 
-    std::thread pistacheThread(launchPistacheServer,argc,argv);
-    // std::this_thread::sleep_for(std::chrono::seconds(TIMEOUT)); // sleep thread in order to show logs in order on console
-    // std::thread mqttThread(launchMQTTClient);
+    std::thread pistacheThread(launchPistacheServer);
+    std::this_thread::sleep_for(std::chrono::seconds(TIMEOUT)); // sleep thread in order to show logs in order on console
+    std::thread mqttThread(launchMQTTClient);
 
     // set signals for a gracefully shutdown of the httpServer when no longer needed
     sigset_t signals;
@@ -71,7 +58,7 @@ int main(int argc, char *argv[]) {
     }
 
     pistacheThread.join();
-    // mqttThread.join();
+    mqttThread.join();
 
     return 0;
 }
