@@ -110,11 +110,27 @@ $ cd ..
 ```
 
 ### **3. Building**
-TODO
+3.1. 
+
+In order to build this project, you must clone the repository into your machine.
+**If you already have the project cloned, skip to 3.2.**
+
+- Chose a location where you want to clone the project.
+- Type `git clone https://github.com/LuanaPantiru/Smart-flowerpot.git` into the console.
+- A directory named `Smart-flowerpot` should appear.
+  
+3.2.
+- Navigate two levels into the project directory, using `cd Smart-flowerpot/project`
+
+[comment]: <> (- Switch to the develop branch of this project &#40;this our current &#41;)
+- Build the project by using the `make` command. A building process should start. If everything is alright, you will see this message: 
+>Compile finished.
+- An executable file `smartpot.out` should be generated in your current directory. You can check this with the `ls` command.
 
 
 ### **4. Running**
-TODO
+- Make sure you are in the right directory `Smart-flowerpot/project`
+- Run the project by typing `./smartpot.out`
+- You're all set!
 
-
-Push test
+To stop the program, use the standard killing commands like `CTRL+C`
