@@ -10,8 +10,6 @@
 
 using namespace std;
 
-typedef tuple <unsigned short, unsigned short, unsigned short> Pixel;
-
 // tuple(song name, song artist, song duration, song lyrics)
 typedef tuple<string, string, float, string> SongInfo;
 

@@ -451,7 +451,7 @@ void SmartPot::startMonitorThreadFunction() {
     file << "-----------------------------------------------------------------------------------------\n";
 
     int didYouKnowThatInterval = 50;
-    unsigned int timeout = 5;
+    unsigned int timeout = 10;
 
     while (environmentIsSet.load()){
 

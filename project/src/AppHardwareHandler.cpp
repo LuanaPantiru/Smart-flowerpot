@@ -18,7 +18,7 @@ AppHardwareHandler::AppHardwareHandler() {
 
     // populate DidYouKnowThat
     didYouKnowThatServerValues.push(make_pair("Interesant", "Stiati ca floarea are frunze?"));
-    didYouKnowThatServerValues.push(make_pair("Si mai Interesant", "Stiati ca merele cresc in copaci?"));
+    didYouKnowThatServerValues.push(make_pair("Si mai interesant", "Stiati ca merele cresc in copaci?"));
 }
 
 AppHardwareHandler *AppHardwareHandler::getInstance() {
