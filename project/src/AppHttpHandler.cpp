@@ -47,7 +47,6 @@ void AppHttpHandler::setupRoutes(){
     Routes::Post(router, "/api/setDisplayColor/:colorCode",
                  Routes::bind(&AppHttpHandler::setDisplayColor, this));
 
-    //third input buffer
     // other routes
     Routes::Get(router, "/api/status",
                  Routes::bind(&AppHttpHandler::SmartPotStatus, this));

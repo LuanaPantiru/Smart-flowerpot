@@ -11,6 +11,7 @@
 using namespace std;
 
 #define SERVER_ROUTE_DID_YOU_KNOW_THAT "http://localhost:5000/get_did_you_know_that_value"
+//#define SERVER_ROUTE_DID_YOU_KNOW_THAT "http://ec2-54-144-51-15.compute-1.amazonaws.com:5000/get_did_you_know_that_value"
 
 // tuple(song name, song artist, song duration, song lyrics)
 typedef tuple<string, string, float, string> SongInfo;

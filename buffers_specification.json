@@ -1,7 +1,7 @@
 {
   "device-name": "Smart FlowerPot",
   "device-type": "Flower pot",
-  "buffers-count": 6,
+  "buffers-count": 8,
   "input-buffers":{
     "1":{
       "token-delimitators": "/",
@@ -64,13 +64,43 @@
           "optional": false
         }
       ]
+    },
+    "4":{
+      "token-delimitators": "/",
+      "protocol": "FILE",
+      "prefix": "removable_disk",
+      "buffer-tokens":  [
+        {
+          "name":"File content",
+          "description":"songs",
+          "token-type":"bytes",
+          "byte-size":"",
+          "regex-rule": "",
+          "optional": false
+        }
+      ]
+    },
+    "5":{
+      "token-delimitators": "/",
+      "protocol": "HTTP",
+      "prefix": "curl -X GET 'http://localhost:5000'",
+      "buffer-tokens":  [
+        {
+          "name":"Did-you-know-that request",
+          "description":"Request to external api server for the did-you-know-that values",
+          "token-type":"string",
+          "byte-size":256,
+          "regex-rule": "did-you-know-that", // Correct input is : [did-you-know-that]
+          "optional": false
+        }
+      ]
     }
   },
   "output-buffers":{
     "1":{
       "token-delimitators": "/",
       "protocol": "FILE",
-      "prefix": "localdisk",
+      "prefix": "local_disk",
       "buffer-tokens":  [
         {
           "name":"App file name",
