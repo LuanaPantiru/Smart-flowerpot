@@ -2,61 +2,29 @@
 Music feature started!
 ======================
 =======================================
-Song [Song A] by [Artist song A] will play for [180] seconds!
+Song [Desert Rose] by [ Sting] will play for [240] seconds!
 ---------------------------------------
-la la la la la la la
+ I dream of rain I dream of gardens in the desert sand
 =======================================
-Song [Song A] by [Artist song A] will play for [175] seconds!
+Song [Desert Rose] by [ Sting] will play for [235] seconds!
 ---------------------------------------
-la la la la la la la
+ I dream of rain I dream of gardens in the desert sand
 =======================================
-Song [Song A] by [Artist song A] will play for [170] seconds!
+Song [Desert Rose] by [ Sting] will play for [230] seconds!
 ---------------------------------------
-la la la la la la la
+ I dream of rain I dream of gardens in the desert sand
 =======================================
-Song [Song A] by [Artist song A] will play for [165] seconds!
+Song [It`s My Life] by [ Bon Jovi] will play for [240] seconds!
 ---------------------------------------
-la la la la la la la
+ It's my life It's now or never But I ain't gonna live forever I just want to live while I'm alive
 =======================================
-Song [Song A] by [Artist song A] will play for [160] seconds!
+Song [It`s My Life] by [ Bon Jovi] will play for [235] seconds!
 ---------------------------------------
-la la la la la la la
+ It's my life It's now or never But I ain't gonna live forever I just want to live while I'm alive
 =======================================
-Song [Song A] by [Artist song A] will play for [155] seconds!
+Song [It`s My Life] by [ Bon Jovi] will play for [230] seconds!
 ---------------------------------------
-la la la la la la la
-=======================================
-Song [Song A] by [Artist song A] will play for [150] seconds!
----------------------------------------
-la la la la la la la
-=======================================
-Song [Song A] by [Artist song A] will play for [145] seconds!
----------------------------------------
-la la la la la la la
-=======================================
-Song [Song A] by [Artist song A] will play for [140] seconds!
----------------------------------------
-la la la la la la la
-=======================================
-Song [Song A] by [Artist song A] will play for [135] seconds!
----------------------------------------
-la la la la la la la
-=======================================
-Song [Song A] by [Artist song A] will play for [130] seconds!
----------------------------------------
-la la la la la la la
-=======================================
-Song [Song A] by [Artist song A] will play for [125] seconds!
----------------------------------------
-la la la la la la la
-=======================================
-Song [Song A] by [Artist song A] will play for [120] seconds!
----------------------------------------
-la la la la la la la
-=======================================
-Song [Song A] by [Artist song A] will play for [115] seconds!
----------------------------------------
-la la la la la la la
+ It's my life It's now or never But I ain't gonna live forever I just want to live while I'm alive
 ======================
 Music feature stopped!
 ======================

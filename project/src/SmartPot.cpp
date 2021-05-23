@@ -450,7 +450,8 @@ void SmartPot::startMonitorThreadFunction() {
     file << "A inceput procesul de monitorizare la ora " << NotificationCenter::getCurrentTime() << "!\n";
     file << "-----------------------------------------------------------------------------------------\n";
 
-    int didYouKnowThatInterval = 50;
+    int didYouKnowTimeout = 40;
+    int didYouKnowThatInterval = didYouKnowTimeout;
     unsigned int timeout = 10;
 
     while (environmentIsSet.load()){
@@ -485,7 +486,7 @@ void SmartPot::startMonitorThreadFunction() {
         didYouKnowThatInterval -= 10;
         if(didYouKnowThatInterval <= 0){
             SmartPot::sendDidYouKnowThat();
-            didYouKnowThatInterval = 50;
+            didYouKnowThatInterval = didYouKnowTimeout;
         }
 
         // now env can not be changed

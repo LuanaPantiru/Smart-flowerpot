@@ -10,7 +10,8 @@ add_executable(smart_pot
         src/AppHardwareHandler.cpp src/include/AppHardwareHandler.h
         src/SmartPot.cpp src/include/SmartPot.h
         src/NotificationCenter.cpp src/include/NotificationCenter.h
-        src/MqttClientHandler.cpp src/include/MqttClientHandler.h)
+        src/MqttClientHandler.cpp src/include/MqttClientHandler.h
+        src/include/external/HTTPRequest.h)
 
 # Libraries must exists
 find_package(Threads REQUIRED)

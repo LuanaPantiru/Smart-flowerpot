@@ -133,4 +133,9 @@ In order to build this project, you must clone the repository into your machine.
 - Run the project by typing `./smartpot.out`
 - You're all set!
 
-To stop the program, use the standard killing commands like `CTRL+C`
+
+
+### **5. Stop the program**
+To stop the program use **http://localhost:9080/api/close** endpoint or use the standard killing commands like `CTRL+C`.
+
+Obs:  **http://localhost:9080/** is default setting. If you change this, change route in **api/close** endpoint also.

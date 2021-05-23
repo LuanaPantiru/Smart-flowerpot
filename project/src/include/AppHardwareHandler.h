@@ -10,6 +10,8 @@
 
 using namespace std;
 
+#define SERVER_ROUTE_DID_YOU_KNOW_THAT "http://localhost:5000/get_did_you_know_that_value"
+
 // tuple(song name, song artist, song duration, song lyrics)
 typedef tuple<string, string, float, string> SongInfo;
 
@@ -55,9 +57,6 @@ class AppHardwareHandler {
         // sd card (presume that music is on sd card)
         vector<SongInfo> sdCardMusic;
 
-        // presume that DidYouKnowThat features are taken from some httpServer on the internet
-        queue<DidYouKnowThat> didYouKnowThatServerValues;
-
     public:
         static AppHardwareHandler *getInstance();
 
@@ -87,6 +86,8 @@ class AppHardwareHandler {
         [[nodiscard]] nlohmann::json exportSongsToJson();
 
         [[nodiscard]] DidYouKnowThat getDidYouKnowThatServerValue();
+
+        static std::vector<std::string> split (const std::string& s, const std::string& delimiter);
 
 };
 

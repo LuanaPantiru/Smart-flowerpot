@@ -1,6 +1,12 @@
 #include "include/AppHardwareHandler.h"
 #include "include/app_config.h"
 #include <random>
+#include <fstream>
+#include <iostream>
+
+// https://github.com/elnormous/HTTPRequest
+#include "include/external/HTTPRequest.h"
+
 AppHardwareHandler *AppHardwareHandler::instance = nullptr;
 
 AppHardwareHandler::AppHardwareHandler() {
@@ -12,13 +18,23 @@ AppHardwareHandler::AppHardwareHandler() {
         soilSensorsMatrix.push_back(sensor);
     }
 
-    // populate music sd card
-    sdCardMusic.emplace_back(make_tuple("Song A", "Artist song A", 3.14, "la la la la la la la"));
-    sdCardMusic.emplace_back(make_tuple("Song B", "Artist song B", 2.20, "la li lu la li la la"));
+    // simulate sdCard insertion
+    ifstream sdCard(FILE_PATH_FOR_SD_CARD);
+    if(sdCard.is_open()){
+        while(!sdCard.eof()) {
+            string music;
+            std::getline(sdCard, music);
+            vector<string> values = split (music, ",");
+            string songName = values[0];
+            string songArtist = values[1];
+            float songLength = stof(values[2]);
+            string songLyrics = values[3];
 
-    // populate DidYouKnowThat
-    didYouKnowThatServerValues.push(make_pair("Interesant", "Stiati ca floarea are frunze?"));
-    didYouKnowThatServerValues.push(make_pair("Si mai interesant", "Stiati ca merele cresc in copaci?"));
+            sdCardMusic.emplace_back(make_tuple(songName, songArtist, songLength, songLyrics));
+        }
+
+        sdCard.close();
+    }
 }
 
 AppHardwareHandler *AppHardwareHandler::getInstance() {
@@ -130,10 +146,48 @@ nlohmann::json AppHardwareHandler::exportSongsToJson() {
 }
 
 DidYouKnowThat AppHardwareHandler::getDidYouKnowThatServerValue() {
-    DidYouKnowThat tmp = didYouKnowThatServerValues.front();
-    didYouKnowThatServerValues.pop();
-    didYouKnowThatServerValues.push(tmp);
-    return tmp;
+    // presume that DidYouKnowThat features are taken from some httpServer on the internet
+
+    // https://github.com/elnormous/HTTPRequest
+    try{
+        http::Request request{SERVER_ROUTE_DID_YOU_KNOW_THAT};
+
+        // send a get request
+        const auto response = request.send("GET");
+
+        // extract the result
+        string name;
+        string value;
+        string receivedInfo = std::string{response.body.begin(), response.body.end()};
+        auto jsonReceived = nlohmann::json::parse(receivedInfo);
+        if(jsonReceived.contains("tag") && jsonReceived.contains("value")){
+            name = jsonReceived["tag"];
+            value = jsonReceived["value"];
+            std::cout << "[SUCCESS] received value for did you know that: " << jsonReceived << "\n";
+            return make_pair(name, value);
+        }
+        std::cerr << "[ERROR] No value for Did you know that [" << jsonReceived << "]\n";
+        return make_pair("ERROR", "No value for Did you know that");
+    }
+    catch (const std::exception& e){
+        std::cerr << "Request failed, error: " << e.what() << '\n';
+        return make_pair("ERROR", "No value for Did you know that");
+    }
+}
+
+std::vector<std::string> AppHardwareHandler::split(const string &s, const string &delimiter) {
+    size_t posStart = 0, posEnd, delimiterLen = delimiter.length();
+    string token;
+    vector<string> res;
+
+    while ((posEnd = s.find (delimiter, posStart)) != string::npos) {
+        token = s.substr (posStart, posEnd - posStart);
+        posStart = posEnd + delimiterLen;
+        res.push_back (token);
+    }
+
+    res.push_back (s.substr (posStart));
+    return res;
 }
 
 
