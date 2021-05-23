@@ -134,7 +134,12 @@ Avand in vedere rezultatele obtinute am decis sa implementam urmatoarele cerinte
    * Ca utilizator, as dori sa aflu informatii interesante din lumea plantelor
    * Ca utilizator, as dori sa stiu daca Ph ul solului este potrivit
    * Ca utilizator, as dori sa pot stimula suplimentar cresterea plantei
-   * Ca utilizator, as dori sa pot integra ghiveciul cu decorul casei
+   * Ca utilizator, as dori ca ghiveciul sa aiba sistem audio care pune muzica pentru stimularea cresterii
 
 ## 8.Contribuția echipei
-Contribuția fiecărui membru al echipei la realizarea analizei aplicației.
+
+- **Avadanei Antonia:** Cerinta 3 + Cerinta 4 + Cerinta 6
+- **Cinca Adrian:** Cerinta 4 + Cerinta 5 + Cerinta 6
+- **Cioboata Mihai-Catalin:** Cerinta 5 + Cerinta 6 + Cerinta 7
+- **Dariescu Marius-Teodor:** Cerinta 5 + Cerinta 6 + Cerinta 7
+- **Pantiru Luana -Catalina:** Cerinta 1 + Cerinta 2 + Cerinta 4 + Cerinta 6
