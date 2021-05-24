@@ -621,13 +621,17 @@ void SmartPot::startMusicPlayFeature() {
 
     ofstream musicFile(FILE_PATH_FOR_MUSIC_PLAY);
     if(!musicFile.is_open()){
-        // sd card problems
+        // audio problems
         return;
     }
 
     musicFile << "======================\n";
-    musicFile << "Music feature started!\n";
+    musicFile << "Music feature started at [" << NotificationCenter::getCurrentTime() << "]!\n";
     musicFile << "======================\n";
+    musicFile << "Load music from sd Card\n";
+    AppHardwareHandler::getInstance()->readMusicFromSDCard();
+    musicFile << "Music loaded\n";
+    musicFile << "----------------------\n";
 
     unsigned int previousSong = -1;
     string song;

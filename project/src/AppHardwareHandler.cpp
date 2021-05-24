@@ -18,23 +18,7 @@ AppHardwareHandler::AppHardwareHandler() {
         soilSensorsMatrix.push_back(sensor);
     }
 
-    // simulate sdCard insertion
-    ifstream sdCard(FILE_PATH_FOR_SD_CARD);
-    if(sdCard.is_open()){
-        while(!sdCard.eof()) {
-            string music;
-            std::getline(sdCard, music);
-            vector<string> values = split (music, ",");
-            string songName = values[0];
-            string songArtist = values[1];
-            float songLength = stof(values[2]);
-            string songLyrics = values[3];
-
-            sdCardMusic.emplace_back(make_tuple(songName, songArtist, songLength, songLyrics));
-        }
-
-        sdCard.close();
-    }
+    readMusicFromSDCard();
 }
 
 AppHardwareHandler *AppHardwareHandler::getInstance() {
@@ -138,6 +122,7 @@ const vector<SongInfo> &AppHardwareHandler::getSdCardMusic() const {
 }
 
 nlohmann::json AppHardwareHandler::exportSongsToJson() {
+    readMusicFromSDCard();
     nlohmann::json exportJson;
     for (int i = 0; i < sdCardMusic.size(); i++) {
         exportJson[to_string(i)] = sdCardMusic[i];
@@ -188,6 +173,27 @@ std::vector<std::string> AppHardwareHandler::split(const string &s, const string
 
     res.push_back (s.substr (posStart));
     return res;
+}
+
+void AppHardwareHandler::readMusicFromSDCard() {
+    // simulate sdCard insertion
+    sdCardMusic.clear();
+    ifstream sdCard(FILE_PATH_FOR_SD_CARD);
+    if(sdCard.is_open()){
+        while(!sdCard.eof()) {
+            string music;
+            std::getline(sdCard, music);
+            vector<string> values = split (music, ",");
+            string songName = values[0];
+            string songArtist = values[1];
+            float songLength = stof(values[2]);
+            string songLyrics = values[3];
+
+            sdCardMusic.emplace_back(make_tuple(songName, songArtist, songLength, songLyrics));
+        }
+
+        sdCard.close();
+    }
 }
 
 

@@ -88,6 +88,8 @@ class AppHardwareHandler {
 
         [[nodiscard]] DidYouKnowThat getDidYouKnowThatServerValue();
 
+        void readMusicFromSDCard();
+
         static std::vector<std::string> split (const std::string& s, const std::string& delimiter);
 
 };
